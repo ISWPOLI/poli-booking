@@ -1,4 +1,4 @@
-package co.edu.poligran;
+package co.edu.poligran.serviciosalestudianteco.edu.poligran;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
