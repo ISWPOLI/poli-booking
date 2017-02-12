@@ -1,18 +1,6 @@
-package co.edu.poligran.serviciosalestudiante.entities;
+package co.edu.poligran.serviciosalestudiante.service.dto;
 
-import java.io.Serializable;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-
-@MappedSuperclass
-public class BaseEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+public class BaseDTO {
 	private Long id;
 
 	public Long getId() {
@@ -39,7 +27,7 @@ public class BaseEntity implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BaseEntity other = (BaseEntity) obj;
+		BaseDTO other = (BaseDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -50,6 +38,6 @@ public class BaseEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "BaseEntity [id=" + id + "]";
+		return "BaseDTO [id=" + id + "]";
 	}
 }

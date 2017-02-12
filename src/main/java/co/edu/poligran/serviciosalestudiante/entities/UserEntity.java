@@ -1,5 +1,6 @@
 package co.edu.poligran.serviciosalestudiante.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -22,15 +23,21 @@ public class UserEntity extends BaseEntity {
 
 	@Column(unique = true)
 	private String username;
+
 	@JsonIgnore
 	private String password;
+
 	private String fullName;
+
 	private String email;
+
+	private boolean active;
+
 	@NotEmpty
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "user_role_id") })
-	private Set<RoleEntity> roles;
+	private Set<RoleEntity> roles = new HashSet<RoleEntity>();
 
 	public String getUsername() {
 		return username;
@@ -70,6 +77,14 @@ public class UserEntity extends BaseEntity {
 
 	public void setRoles(Set<RoleEntity> roles) {
 		this.roles = roles;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 }

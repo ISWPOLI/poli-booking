@@ -56,6 +56,18 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
+
+		<!-- Framework para hacer mappeos fácilmente -->
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+			<version>5.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer-spring</artifactId>
+			<version>5.5.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>

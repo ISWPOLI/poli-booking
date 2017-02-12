@@ -4,8 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "ROLES")
 public class RoleEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
