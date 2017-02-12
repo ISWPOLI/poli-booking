@@ -2,6 +2,7 @@ package co.edu.poligran.serviciosalestudiante.entities;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -11,13 +12,17 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "USERS")
 public class UserEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(unique = true)
 	private String username;
+	@JsonIgnore
 	private String password;
 	private String fullName;
 	private String email;
