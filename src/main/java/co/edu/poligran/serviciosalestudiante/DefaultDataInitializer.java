@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import co.edu.poligran.serviciosalestudiante.entities.RoleEntity;
@@ -31,6 +32,9 @@ public class DefaultDataInitializer implements ApplicationListener<ContextRefres
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Value("${app.default.admin.email}")
 	private String defaultAdminEmail;
@@ -88,7 +92,7 @@ public class DefaultDataInitializer implements ApplicationListener<ContextRefres
 	private void createDefaultAdmin() throws UsernameIsNotUniqueException {
 		UserDTO admin = new UserDTO();
 		admin.setUsername(defaultAdminUsername);
-		admin.setPassword(defaultAdminPassword);
+		admin.setPassword(passwordEncoder.encode(defaultAdminPassword));
 		admin.setActive(true);
 		admin.setEmail(defaultAdminEmail);
 		admin.setFullName(defaultAdminFullName);

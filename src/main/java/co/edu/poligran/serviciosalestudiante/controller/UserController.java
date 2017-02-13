@@ -34,7 +34,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/user/reset-password", method = RequestMethod.POST)
-	public PasswordResetTokenDTO resetPassword(HttpServletRequest request, @RequestParam("email") String email)
+	public String resetPassword(HttpServletRequest request, @RequestParam("email") String email)
 			throws UserNotFoundException {
 		UserDTO user = userService.findByEmail(email);
 
@@ -42,22 +42,23 @@ public class UserController extends BaseController {
 
 		mailSenderService.sendPasswordResetTokenEmail(token, getFullAppUrl(request));
 
-		return token;
+		return "El enlace para cambiar la contraseña se ha enviado correctamente al correo suministrado";
 	}
 
 	private String getFullAppUrl(HttpServletRequest request) {
 		return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 	}
 
-	@RequestMapping(value = "/user/changePassword", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/change-password", method = RequestMethod.GET)
 	public void showChangePasswordPage(@RequestParam("id") long id, @RequestParam("token") String token,
 			HttpServletResponse response) throws InvalidPasswordResetTokenException, IOException {
 		userService.validatePasswordResetToken(id, token);
-		response.sendRedirect("/updatePassword.html");
+		response.sendRedirect("/update-password.html");
 	}
 
-	@RequestMapping(value = "/user/savePassword", method = RequestMethod.POST)
-	public void savePassword(@RequestParam("new-password") String newPassword) {
+	@RequestMapping(value = "/user/save-password", method = RequestMethod.POST)
+	public String savePassword(@RequestParam("new-password") String newPassword) {
 		userService.changeUserPassword(newPassword);
+		return "La contraseña se ha cambiado exitosamente";
 	}
 }

@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
@@ -40,15 +39,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				.and()
 
-				.authorizeRequests().antMatchers("/index.html", "/home.html", "/login.html", "/").permitAll()
+				.authorizeRequests().antMatchers("/index.html", "/home.html", "/login.html", "/",
+						"/user/reset-password", "/user/change-password")
+				.permitAll()
+
+				.antMatchers("/user/save-password").hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
+
 				.anyRequest().authenticated()
 
 				.and()
 
-				.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-		
-				// add this line to use H2 web console
-			    http.headers().frameOptions().disable();
+				// .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+				.csrf().disable();
+
+		// add this line to use H2 web console
+		http.headers().frameOptions().disable();
 	}
 
 	@Override

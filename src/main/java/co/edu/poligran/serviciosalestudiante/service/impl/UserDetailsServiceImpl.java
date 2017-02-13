@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,9 +32,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		try {
 			UserDTO user = userService.findByUsername(username);
-			logger.info("user authenticated: {}", user);
-			return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), true,
-					true, true, true, getGrantedAuhtorities(user));
+			logger.info("user authenticated: {}", username);
+			return getSpringSecurityUser(user);
 		} catch (UserNotFoundException e) {
 			logger.error("failed to authenticate user: {}", username);
 			throw new UsernameNotFoundException(e.getMessage());
@@ -45,13 +45,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
 		userDTO.getRoles().stream().map((role) -> {
-			logger.info("role: {}", role);
 			return role;
 		}).forEach((role) -> {
 			grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role.getType()));
 		});
 		logger.info("roles: {}", grantedAuthorities);
 		return grantedAuthorities;
+	}
+
+	public User getSpringSecurityUser(UserDTO user) {
+		return new User(user.getUsername(), user.getPassword(), true, true, true, true, getGrantedAuhtorities(user));
 	}
 
 }

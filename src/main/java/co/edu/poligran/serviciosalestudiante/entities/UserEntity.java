@@ -10,10 +10,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import co.edu.poligran.serviciosalestudiante.service.BCryptPasswordDeserializer;
 
 @Entity
 @Table(name = "USERS")
@@ -24,7 +29,10 @@ public class UserEntity extends BaseEntity {
 	@Column(unique = true)
 	private String username;
 
-	@JsonIgnore
+	@JsonProperty(access = Access.WRITE_ONLY)
+	@JsonDeserialize(using = BCryptPasswordDeserializer.class)
+	@Column(name = "password", nullable = false, length = 60)
+	@Size(min = 60, max = 60)
 	private String password;
 
 	private String fullName;

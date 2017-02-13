@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +46,9 @@ public class UserServiceImpl extends BaseService implements UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private UserDetailsServiceImpl userDetailsService;
+
 	@Override
 	public UserDTO findByUsername(String username) throws UserNotFoundException {
 		UserEntity user = userRepository.findByUsername(username);
@@ -62,7 +66,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
 		setUserRole(roleType, userDTO);
 
-		userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+		userDTO.setPassword(userDTO.getPassword());
 		userDTO.setActive(true);
 
 		UserEntity userEntity = mapper.map(userDTO, UserEntity.class);
@@ -147,18 +151,19 @@ public class UserServiceImpl extends BaseService implements UserService {
 		}
 
 		UserEntity user = passToken.getUser();
-		Authentication auth = new UsernamePasswordAuthenticationToken(user, null,
+		Authentication auth = new UsernamePasswordAuthenticationToken(
+				userDetailsService.getSpringSecurityUser(mapper.map(user, UserDTO.class)), null,
 				Arrays.asList(new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
 		SecurityContextHolder.getContext().setAuthentication(auth);
 	}
 
 	@Override
 	public void changeUserPassword(String newPassword) {
-		UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		user = userRepository.findByUsername(user.getUsername());
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserEntity userEntity = userRepository.findByUsername(user.getUsername());
 
-		user.setPassword(passwordEncoder.encode(newPassword));
-		userRepository.saveAndFlush(user);
+		userEntity.setPassword(passwordEncoder.encode(newPassword));
+		userRepository.saveAndFlush(userEntity);
 		logger.info("password for user {} successfully changed", user.getUsername());
 	}
 }
