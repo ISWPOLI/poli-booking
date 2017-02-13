@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,18 @@ public class DefaultDataInitializer implements ApplicationListener<ContextRefres
 
 	@Autowired
 	private UserService userService;
+	
+	@Value("${app.default.admin.email}")
+	private String defaultAdminEmail;
+	
+	@Value("${app.default.admin.fullName}")
+	private String defaultAdminFullName;
+	
+	@Value("${security.user.name}")
+	private String defaultAdminUsername;
+	
+	@Value("${security.user.password}")
+	private String defaultAdminPassword;
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent cre) {
@@ -74,11 +87,11 @@ public class DefaultDataInitializer implements ApplicationListener<ContextRefres
 
 	private void createDefaultAdmin() throws UsernameIsNotUniqueException {
 		UserDTO admin = new UserDTO();
-		admin.setUsername("admin");
-		admin.setPassword("admin");
+		admin.setUsername(defaultAdminUsername);
+		admin.setPassword(defaultAdminPassword);
 		admin.setActive(true);
-		admin.setEmail("admin_servicios_al_estudiante_poli@gmail.com");
-		admin.setFullName("Administrador");
+		admin.setEmail(defaultAdminEmail);
+		admin.setFullName(defaultAdminFullName);
 		userService.create(admin, RoleTypeEnum.ADMIN);
 	}
 }

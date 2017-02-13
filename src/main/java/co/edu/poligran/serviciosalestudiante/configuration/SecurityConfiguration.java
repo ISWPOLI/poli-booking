@@ -46,6 +46,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.and()
 
 				.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+		
+				// add this line to use H2 web console
+			    http.headers().frameOptions().disable();
 	}
 
 	@Override

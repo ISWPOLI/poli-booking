@@ -1,17 +1,31 @@
 package co.edu.poligran.serviciosalestudiante.service.impl;
 
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity;
 import co.edu.poligran.serviciosalestudiante.entities.RoleTypeEnum;
 import co.edu.poligran.serviciosalestudiante.entities.UserEntity;
+import co.edu.poligran.serviciosalestudiante.exception.InvalidPasswordResetTokenException;
 import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
 import co.edu.poligran.serviciosalestudiante.exception.UsernameIsNotUniqueException;
+import co.edu.poligran.serviciosalestudiante.repository.PasswordResetTokenRepository;
 import co.edu.poligran.serviciosalestudiante.repository.UserRepository;
 import co.edu.poligran.serviciosalestudiante.service.RoleService;
 import co.edu.poligran.serviciosalestudiante.service.UserService;
+import co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.RoleDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.UserDTO;
 
@@ -23,13 +37,16 @@ public class UserServiceImpl extends BaseService implements UserService {
 	private UserRepository userRepository;
 
 	@Autowired
+	private PasswordResetTokenRepository passwordResetTokenRepository;
+
+	@Autowired
 	private RoleService roleService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Override
-	public UserDTO getByUsername(String username) throws UserNotFoundException {
+	public UserDTO findByUsername(String username) throws UserNotFoundException {
 		UserEntity user = userRepository.findByUsername(username);
 
 		if (user != null) {
@@ -66,7 +83,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 	@Override
 	public boolean isUsernameUnique(Long idUsuario, String username) {
 		try {
-			UserDTO persistedUser = getByUsername(username);
+			UserDTO persistedUser = findByUsername(username);
 			return persistedUser != null && persistedUser.getId().compareTo(idUsuario) != 0;
 		} catch (UserNotFoundException e) {
 			return true;
@@ -76,5 +93,72 @@ public class UserServiceImpl extends BaseService implements UserService {
 	@Override
 	public boolean isUserCreated(String username) {
 		return userRepository.isUserCreated(username);
+	}
+
+	@Override
+	public UserDTO findByEmail(String email) throws UserNotFoundException {
+		UserEntity user = userRepository.findByEmail(email);
+		if (user != null) {
+			return mapper.map(user, UserDTO.class);
+		} else {
+			throw new UserNotFoundException();
+		}
+	}
+
+	@Override
+	public PasswordResetTokenDTO createPasswordResetTokenForUser(UserDTO user) {
+		PasswordResetTokenEntity tokenEntity = passwordResetTokenRepository
+				.findByUser(mapper.map(user, UserEntity.class));
+		if (tokenEntity != null) {
+			passwordResetTokenRepository.delete(tokenEntity.getId());
+		}
+
+		String token = UUID.randomUUID().toString();
+
+		PasswordResetTokenDTO tokenDTO = new PasswordResetTokenDTO();
+		tokenDTO.setUser(user);
+		tokenDTO.setExpirationDate(calculateExpirationDateForToken());
+		tokenDTO.setToken(token);
+
+		tokenEntity = passwordResetTokenRepository.saveAndFlush(mapper.map(tokenDTO, PasswordResetTokenEntity.class));
+		logger.info("generated token {} for user {}", tokenEntity.getToken(), user.getEmail());
+
+		return mapper.map(tokenEntity, PasswordResetTokenDTO.class);
+	}
+
+	private Date calculateExpirationDateForToken() {
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.MINUTE, PasswordResetTokenDTO.EXPIRATION_TIME_IN_MINUTES);
+
+		return calendar.getTime();
+	}
+
+	@Override
+	public void validatePasswordResetToken(long id, String token) throws InvalidPasswordResetTokenException {
+		PasswordResetTokenEntity passToken = passwordResetTokenRepository.findByToken(token);
+		if ((passToken == null) || (passToken.getUser().getId() != id)) {
+			throw new InvalidPasswordResetTokenException();
+		}
+
+		Calendar cal = Calendar.getInstance();
+		if ((passToken.getExpirationDate().getTime() - cal.getTime().getTime()) <= 0) {
+			throw new InvalidPasswordResetTokenException();
+		}
+
+		UserEntity user = passToken.getUser();
+		Authentication auth = new UsernamePasswordAuthenticationToken(user, null,
+				Arrays.asList(new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
+		SecurityContextHolder.getContext().setAuthentication(auth);
+	}
+
+	@Override
+	public void changeUserPassword(String newPassword) {
+		UserEntity user = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		user = userRepository.findByUsername(user.getUsername());
+
+		user.setPassword(passwordEncoder.encode(newPassword));
+		userRepository.saveAndFlush(user);
+		logger.info("password for user {} successfully changed", user.getUsername());
 	}
 }

@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		logger.info("authenticating user: {}", username);
 
 		try {
-			UserDTO user = userService.getByUsername(username);
+			UserDTO user = userService.findByUsername(username);
 			logger.info("user authenticated: {}", user);
 			return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), true,
 					true, true, true, getGrantedAuhtorities(user));
