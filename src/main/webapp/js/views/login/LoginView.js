@@ -3,7 +3,7 @@ define([
   'underscore',
   'backbone',
   'views/sidebar/SidebarView',
-  'text!templates/login/login.html'
+  'text!templates/usuario/login.html'
 ], function($, _, Backbone, SidebarView, login){
 
   var login = Backbone.View.extend({
@@ -18,6 +18,16 @@ define([
       var sidebarView = new SidebarView();
       sidebarView.render();
  
+    },
+
+    events: {
+      "click #loginButton": "login"
+    }, 
+
+    login: function(){
+    	var x=document.getElementById("user")
+    	var y=document.getElementById("pass")
+      alert(x)
     }
 
   });
