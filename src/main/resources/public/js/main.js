@@ -4,7 +4,8 @@ require.config({
 		jquery : '../bower_components/jquery/jquery.min',
 		underscore : '../bower_components/underscore/underscore-min',
 		backbone : '../bower_components/backbone/backbone',
-		templates : '../templates'
+		templates : '../templates',
+		SessionManager: './SessionManager'
 	}
 });
 

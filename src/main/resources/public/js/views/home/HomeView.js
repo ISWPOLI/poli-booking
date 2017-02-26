@@ -6,7 +6,6 @@ define([ 'jquery', 'underscore', 'backbone',
 		el : $("#page"),
 
 		render : function() {
-
 			$('.menu li').removeClass('active');
 			$('.menu li a[href="#"]').parent().addClass('active');
 			this.$el.html(homeTemplate);

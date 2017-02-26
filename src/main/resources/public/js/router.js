@@ -1,11 +1,13 @@
-// Filename: router.js
+'use strict';
 define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 		'views/login/LoginView', 'views/password/PasswordRecoveryView',
-		'views/password/PasswordChangeView' ], function($, _, Backbone,
-		HomeView, LoginView, PasswordRecoveryView, PasswordChangeView) {
+		'views/password/PasswordChangeView', 'SessionManager' ], function($, _,
+		Backbone, HomeView, LoginView, PasswordRecoveryView,
+		PasswordChangeView, SessionManager) {
 
 	var AppRouter = Backbone.Router.extend({
 		routes : {
+			'home' : 'home',
 			'login' : 'login',
 			'password-recovery' : 'password-recovery',
 			'password-change' : 'password-change',
@@ -32,9 +34,18 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 			passwordChangeView.render();
 		});
 
+		app_router.on('route:home', function(actions) {
+			if (SessionManager.checkAuthorization()) {
+				var homeView = new HomeView();
+				homeView.render();
+			}
+		});
+
 		app_router.on('route:defaultAction', function(actions) {
-			var homeView = new HomeView();
-			homeView.render();
+			if (SessionManager.checkAuthorization()) {
+				var homeView = new HomeView();
+				homeView.render();
+			}
 		});
 
 		Backbone.history.start();

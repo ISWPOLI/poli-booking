@@ -1,11 +1,12 @@
-// Filename: app.js
-define([ 'jquery', 'underscore', 'backbone', 'router' ], function($, _,
-		Backbone, Router) {
-	var initialize = function() {
-		Router.initialize();
-	};
+'use strict';
+define([ 'jquery', 'underscore', 'backbone', 'router', 'SessionManager' ],
+		function($, _, Backbone, Router, SessionManager) {
 
-	return {
-		initialize : initialize
-	};
-});
+			var App = {
+				initialize : function() {
+					Router.initialize();
+					SessionManager.initializeAuth();
+				}
+			}
+			return App;
+		});

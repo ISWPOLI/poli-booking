@@ -35,12 +35,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.httpBasic()
+		http
+
+				.httpBasic().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
 
 				.and()
 
-				.authorizeRequests().antMatchers("/", "/index.html", "/bower_components/**", "/templates/**", "/user/reset-password",
-						"/user/change-password")
+				.authorizeRequests().antMatchers("/", "/index.html", "/bower_components/**", "/templates/**",
+						"/user/reset-password", "/user/change-password")
 				.permitAll()
 
 				.antMatchers("/user/save-password").hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
@@ -52,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				// .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 				.csrf().disable();
 
-		// add this line to use H2 web console
+		// para poder usar H2 web console en desarrollo
 		http.headers().frameOptions().disable();
 	}
 
