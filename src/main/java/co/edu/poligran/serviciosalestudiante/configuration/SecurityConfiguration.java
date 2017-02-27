@@ -51,6 +51,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				.and()
 
+				.logout().logoutSuccessUrl("/#/login")
+
+				.and()
+
 				// .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 				.csrf().disable();
 
