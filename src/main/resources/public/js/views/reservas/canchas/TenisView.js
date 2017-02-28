@@ -1,5 +1,6 @@
 define([ 'jquery', 'underscore', 'backbone',
-		'text!templates/usuario/tenis.html' ], function($, _, Backbone, tenis) {
+		'text!templates/reservas/canchas/tenis.html' ], function($, _,
+		Backbone, tenis) {
 
 	var tenisView = Backbone.View.extend({
 		el : $("#page"),

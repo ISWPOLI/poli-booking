@@ -2,9 +2,16 @@
 define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 		'views/login/LoginView', 'views/password/PasswordRecoveryView',
 		'views/password/PasswordChangeView', 'SessionManager',
-		'views/usuario/BibliotecaView' ], function($, _, Backbone, HomeView,
-		LoginView, PasswordRecoveryView, PasswordChangeView, SessionManager,
-		BibliotecaView) {
+		'views/reservas/biblioteca/BibliotecaView',
+		'views/reservas/biblioteca/ComputadoresView',
+		'views/reservas/canchas/TenisView',
+		'views/administrador/usuarios/ActualizarUsuarioView',
+		'views/administrador/usuarios/EditarUsuarioView',
+		'views/administrador/usuarios/EliminarUsuarioView' ], function($, _,
+		Backbone, HomeView, LoginView, PasswordRecoveryView,
+		PasswordChangeView, SessionManager, BibliotecaView, ComputadoresView,
+		TenisView, ActualizarUsuarioView, EditarUsuarioView,
+		EliminarUsuarioView) {
 
 	var AppRouter = Backbone.Router.extend({
 		routes : {
@@ -13,7 +20,8 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 			'password-recovery' : 'password-recovery',
 			'password-change' : 'password-change',
 			'biblioteca' : 'biblioteca',
-			'canchas' : 'canchas',
+			'computadores' : 'computadores',
+			'tenis' : 'tenis',
 			'gimnasio' : 'gimnasio',
 			'actualizarUsuario' : 'actualizarUsuario',
 			'editarUsuario' : 'editarUsuario',
@@ -54,36 +62,34 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 				bibliotecaView.render();
 			}
 		});
-
-		app_router.on('route:canchas', function(actions) {
+		
+		app_router.on('route:computadores', function(actions) {
 			if (SessionManager.checkAuthorization()) {
-				var CanchasView = new canchasView();
-				CanchasView.render();
-			}
-		});
-
-		app_router.on('route:gimnasio', function(actions) {
-			if (SessionManager.checkAuthorization()) {
-				var GimnasioView = new GimnasioView();
-				GimnasioView.render();
+				var computadoresView = new ComputadoresView();
+				computadoresView.render();
 			}
 		});
 
 		app_router.on('route:actualizarUsuario', function(actions) {
-
-			var ActualizarUsuarioView = new actualizarUsuarioView();
-			ActualizarUsuarioView.render();
+			var actualizarUsuarioView = new ActualizarUsuarioView();
+			actualizarUsuarioView.render();
 		});
 		app_router.on('route:editarUsuario', function(actions) {
-
-			var EditarUsuarioView = new editarUsuarioView();
-			EditarUsuarioView.render();
+			var editarUsuarioView = new EditarUsuarioView();
+			editarUsuarioView.render();
 
 		});
 		app_router.on('route:eliminarUsuario', function(actions) {
-			var EliminarUsuarioView = new eliminarUsuarioView();
-			EliminarUsuarioView.render();
+			var eliminarUsuarioView = new EliminarUsuarioView();
+			eliminarUsuarioView.render();
 
+		});
+
+		app_router.on('route:tenis', function(actions) {
+			if (SessionManager.checkAuthorization()) {
+				var tenisView = new TenisView();
+				tenisView.render();
+			}
 		});
 
 		app_router.on('route:defaultAction', function(actions) {

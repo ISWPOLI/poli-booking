@@ -1,6 +1,6 @@
 define([ 'jquery', 'underscore', 'backbone',
-		'text!templates/usuario/biblioteca.html' ], function($, _, Backbone,
-		biblioteca) {
+		'text!templates/reservas/biblioteca/biblioteca.html' ], function($, _,
+		Backbone, biblioteca) {
 
 	var bibliotecaView = Backbone.View.extend({
 		el : $("#page"),
