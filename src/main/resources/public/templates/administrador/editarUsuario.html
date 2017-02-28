@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<style type="text/css">
+.demo-card-wide.mdl-card {
+  width: 60%;
+}
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 40%;
+  background: url('http://previews.123rf.com/images/undrey/undrey1512/undrey151200149/49297398-Mujer-que-trabaja-en-la-oficina-en-casa-mano-en-el-teclado-de-cerca--Foto-de-archivo.jpg') center / cover;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+.columna2 {
+  width:50%;
+  float:left;
+}
+
+@media (max-width: 500px) {
+  
+  .columna2 {
+    width:auto;
+    float:none;
+  }
+  
+}
+.columnaC {
+  width:100%;
+  float:left;
+}
+
+@media (max-width: 500px) {
+  
+  .columnaC{
+    width:auto;
+    float:none;
+  }
+  
+}
+
+body {
+  padding: 20px;
+  background: #fafafa;
+  position: relative;
+}	
+</style>
+  <head>
+  <title></title>
+    <!-- Material Design Lite -->
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <!-- Material Design icon font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <!-- Material Design icon font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  </head>
+  <body>
+    <!-- Wide card with share menu button -->
+    <center>
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 style="font-size:60px" class="mdl-card__title-text">Editar Usuario</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+          <form action="#">
+          <div class="coumnaC">
+          <div class="columna2">
+      <h3>Nombres</h3>
+      </div>
+      <div class="columna2">
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="sample1">
+        <label class="mdl-textfield__label" for="sample1">Nombres...</label>
+      </div>
+      </div>
+      </div>
+      <br>
+      <br>
+      <div class="columnaC">
+          <div class="columna2">
+      <h3>Apellidos</h3>
+      </div>
+      <div class="columna2">
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="sample1">
+        <label class="mdl-textfield__label" for="sample1">Apellidos...</label>
+      </div>
+      </div>
+      </div>
+          <div class="columnaC">
+          <div class="columna2">
+      <h3>Documento</h3>
+      </div>
+      <div class="columna2">
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
+        <label class="mdl-textfield__label" for="sample2">Documento...</label>
+        <span class="mdl-textfield__error">Lo ingresado no es numerico!</span>
+      </div>
+      </div>
+      </div>
+
+
+          <div class="columnaC">
+          <div class="columna2">
+      <h3>Codigo</h3>
+      </div>
+      <div class="columna2">
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
+        <label class="mdl-textfield__label" for="sample2">Codigo...</label>
+        <span class="mdl-textfield__error">Lo ingresado no es numerico!</span>
+      </div>
+      </div>
+      </div>
+
+
+          <div class="columnaC">
+          <div class="columna2">
+      <h3>Usario</h3>
+      </div>
+      <div class="columna2">
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="sample1">
+        <label class="mdl-textfield__label" for="sample1">Usuario...</label>
+      </div>
+      </div>
+      </div>
+
+          <div class="columnaC">
+          <div class="columna2">
+      <h3>Correo</h3>
+      </div>
+      <div class="columna2">
+       <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="sample1">
+        <label class="mdl-textfield__label" for="sample1">Correo...</label>
+      </div>
+      </div>
+      </div>
+      
+
+
+
+
+    </form>
+
+
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+      <br>
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+          Actualizar
+        </a>
+        <br>
+        <br>
+      </div>
+    </div>
+    </center>
+  </body>
+</html>
