@@ -1,9 +1,10 @@
 'use strict';
-define([ 'jquery', 'underscore', 'backbone', , 'views/home/HomeView',
+define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 		'views/login/LoginView', 'views/password/PasswordRecoveryView',
-		'views/password/PasswordChangeView', 'SessionManager','views/usuario/BibliotecaView' ], function($, _,
-		Backbone, HomeView, LoginView, PasswordRecoveryView,
-		PasswordChangeView, SessionManager, BibliotecaView) {
+		'views/password/PasswordChangeView', 'SessionManager',
+		'views/usuario/BibliotecaView' ], function($, _, Backbone, HomeView,
+		LoginView, PasswordRecoveryView, PasswordChangeView, SessionManager,
+		BibliotecaView) {
 
 	var AppRouter = Backbone.Router.extend({
 		routes : {
@@ -12,8 +13,8 @@ define([ 'jquery', 'underscore', 'backbone', , 'views/home/HomeView',
 			'password-recovery' : 'password-recovery',
 			'password-change' : 'password-change',
 			'biblioteca' : 'biblioteca',
-			'canchas':'canchas',
-			'gimnasio':'gimnasio',
+			'canchas' : 'canchas',
+			'gimnasio' : 'gimnasio',
 			'actualizarUsuario' : 'actualizarUsuario',
 			'editarUsuario' : 'editarUsuario',
 			'eliminarUsuario' : 'eliminarUsuario',
@@ -53,17 +54,17 @@ define([ 'jquery', 'underscore', 'backbone', , 'views/home/HomeView',
 				bibliotecaView.render();
 			}
 		});
-		
+
 		app_router.on('route:canchas', function(actions) {
 			if (SessionManager.checkAuthorization()) {
 				var CanchasView = new canchasView();
 				CanchasView.render();
 			}
 		});
-		
+
 		app_router.on('route:gimnasio', function(actions) {
 			if (SessionManager.checkAuthorization()) {
-				var GimnasioView = new gimnasioView();
+				var GimnasioView = new GimnasioView();
 				GimnasioView.render();
 			}
 		});

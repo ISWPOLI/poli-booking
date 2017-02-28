@@ -1,27 +1,19 @@
-define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'views/sidebar/SidebarView',
-  'text!templates/usuario/biblioteca.html'
-], function($, _, Backbone, SidebarView, biblioteca){
+define([ 'jquery', 'underscore', 'backbone',
+		'text!templates/usuario/biblioteca.html' ], function($, _, Backbone,
+		biblioteca) {
 
-  var bibliotecaView = Backbone.View.extend({
-    el: $("#page"),
+	var bibliotecaView = Backbone.View.extend({
+		el : $("#page"),
 
-    render: function(){
-      
-      $('.menu li').removeClass('active');
-      $('.menu li a[href="#"]').parent().addClass('active');
-      this.$el.html(biblioteca);
+		render : function() {
 
-      var sidebarView = new SidebarView();
-      sidebarView.render();
- 
-    }
+			$('.menu li').removeClass('active');
+			$('.menu li a[href="#"]').parent().addClass('active');
+			this.$el.html(biblioteca);
+		}
 
-  });
+	});
 
-  return bibliotecaView;
-  
+	return bibliotecaView;
+
 });

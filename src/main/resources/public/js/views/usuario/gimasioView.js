@@ -1,27 +1,19 @@
-define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'views/sidebar/SidebarView',
-  'text!templates/usuario/gimnasio.html'
-], function($, _, Backbone, SidebarView, gimnasio){
+define([ 'jquery', 'underscore', 'backbone',
+		'text!templates/usuario/gimnasio.html' ], function($, _, Backbone,
+		gimnasio) {
 
-  var gimnasioView = Backbone.View.extend({
-    el: $("#page"),
+	var gimnasioView = Backbone.View.extend({
+		el : $("#page"),
 
-    render: function(){
-      
-      $('.menu li').removeClass('active');
-      $('.menu li a[href="#"]').parent().addClass('active');
-      this.$el.html(gimnasio);
+		render : function() {
 
-      var sidebarView = new SidebarView();
-      sidebarView.render();
- 
-    }
+			$('.menu li').removeClass('active');
+			$('.menu li a[href="#"]').parent().addClass('active');
+			this.$el.html(gimnasio);
+		}
 
-  });
+	});
 
-  return gimnasioView;
-  
+	return gimnasioView;
+
 });

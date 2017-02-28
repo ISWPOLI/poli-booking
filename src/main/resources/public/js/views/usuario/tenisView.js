@@ -1,27 +1,18 @@
-define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'views/sidebar/SidebarView',
-  'text!templates/usuario/tenis.html'
-], function($, _, Backbone, SidebarView, tenis){
+define([ 'jquery', 'underscore', 'backbone',
+		'text!templates/usuario/tenis.html' ], function($, _, Backbone, tenis) {
 
-  var tenisView = Backbone.View.extend({
-    el: $("#page"),
+	var tenisView = Backbone.View.extend({
+		el : $("#page"),
 
-    render: function(){
-      
-      $('.menu li').removeClass('active');
-      $('.menu li a[href="#"]').parent().addClass('active');
-      this.$el.html(tenis);
+		render : function() {
 
-      var sidebarView = new SidebarView();
-      sidebarView.render();
- 
-    }
+			$('.menu li').removeClass('active');
+			$('.menu li a[href="#"]').parent().addClass('active');
+			this.$el.html(tenis);
+		}
 
-  });
+	});
 
-  return tenisView;
-  
+	return tenisView;
+
 });

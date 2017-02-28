@@ -1,27 +1,19 @@
-define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'views/sidebar/SidebarView',
-  'text!templates/usuario/canchas.html'
-], function($, _, Backbone, SidebarView, canchas){
+define([ 'jquery', 'underscore', 'backbone',
+		'text!templates/usuario/canchas.html' ], function($, _, Backbone,
+		canchas) {
 
-  var canchasView = Backbone.View.extend({
-    el: $("#page"),
+	var canchasView = Backbone.View.extend({
+		el : $("#page"),
 
-    render: function(){
-      
-      $('.menu li').removeClass('active');
-      $('.menu li a[href="#"]').parent().addClass('active');
-      this.$el.html(canchas);
+		render : function() {
 
-      var sidebarView = new SidebarView();
-      sidebarView.render();
- 
-    }
+			$('.menu li').removeClass('active');
+			$('.menu li a[href="#"]').parent().addClass('active');
+			this.$el.html(canchas);
+		}
 
-  });
+	});
 
-  return canchasView;
-  
+	return canchasView;
+
 });
