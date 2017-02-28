@@ -1,7 +1,7 @@
 'use strict';
 define([ 'jquery', 'underscore', 'backbone', , 'views/home/HomeView',
 		'views/login/LoginView', 'views/password/PasswordRecoveryView',
-		'views/password/PasswordChangeView', 'SessionManager' ], function($, _,
+		'views/password/PasswordChangeView', 'SessionManager','views/usuario/BibliotecaView' ], function($, _,
 		Backbone, HomeView, LoginView, PasswordRecoveryView,
 		PasswordChangeView, SessionManager, BibliotecaView) {
 
