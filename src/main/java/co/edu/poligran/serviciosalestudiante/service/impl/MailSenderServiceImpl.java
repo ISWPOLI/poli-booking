@@ -30,7 +30,7 @@ public class MailSenderServiceImpl extends BaseService implements MailSenderServ
 			MimeMessage mail = mailSender.createMimeMessage();
 			UserDTO user = token.getUser();
 			String tokenString = token.getToken();
-			String url = contextPath + "/user/changePassword?id=" + 
+			String url = contextPath + "/user/change-password?id=" + 
 				      user.getId() + "&token=" + tokenString;
 			
 			MimeMessageHelper helper = new MimeMessageHelper(mail, true);

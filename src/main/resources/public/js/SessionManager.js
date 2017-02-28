@@ -1,19 +1,21 @@
 'use strict';
 define([ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
 
+	var publicRoutes = [ 'password-change' ];
+
 	var App = {
 		initializeAuth : function() {
 			var authConfig = sessionStorage.getItem('auth');
 
-			if (!authConfig) {
+			if (!authConfig && !this.isPublicRoute()) {
 				return this.redirectToLogin();
+			} else if (authConfig) {
+				var authElements = authConfig.split(':');
+				var type = authElements[0];
+				var token = authElements[1];
+
+				this.setAuth(type, token);
 			}
-
-			var authElements = authConfig.split(':');
-			var type = authElements[0];
-			var token = authElements[1];
-
-			this.setAuth(type, token);
 		},
 		setAuth : function(type, token) {
 			var authString = type + " " + token;
@@ -59,6 +61,12 @@ define([ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
 			} else {
 				return this.redirectToLogin();
 			}
+		},
+		isPublicRoute : function() {
+			var currentRoute = Backbone.history.getFragment();
+			;
+
+			return _.contains(publicRoutes, currentRoute);
 		}
 	}
 	return App;

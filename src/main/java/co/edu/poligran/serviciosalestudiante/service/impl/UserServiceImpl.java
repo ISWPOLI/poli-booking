@@ -139,16 +139,9 @@ public class UserServiceImpl extends BaseService implements UserService {
 	}
 
 	@Override
-	public void validatePasswordResetToken(long id, String token) throws InvalidPasswordResetTokenException {
+	public void authorizePasswordChange(long id, String token) throws InvalidPasswordResetTokenException {
 		PasswordResetTokenEntity passToken = passwordResetTokenRepository.findByToken(token);
-		if ((passToken == null) || (passToken.getUser().getId() != id)) {
-			throw new InvalidPasswordResetTokenException();
-		}
-
-		Calendar cal = Calendar.getInstance();
-		if ((passToken.getExpirationDate().getTime() - cal.getTime().getTime()) <= 0) {
-			throw new InvalidPasswordResetTokenException();
-		}
+		validateToken(id, passToken);
 
 		UserEntity user = passToken.getUser();
 		Authentication auth = new UsernamePasswordAuthenticationToken(
@@ -158,12 +151,43 @@ public class UserServiceImpl extends BaseService implements UserService {
 	}
 
 	@Override
+	public void validatePasswordResetToken(long id, String token) throws InvalidPasswordResetTokenException {
+		PasswordResetTokenEntity passToken = passwordResetTokenRepository.findByToken(token);
+		validateToken(id, passToken);
+	}
+
+	private PasswordResetTokenEntity validateToken(long id, PasswordResetTokenEntity passToken)
+			throws InvalidPasswordResetTokenException {
+		if ((passToken == null) || (passToken.getUser().getId() != id)) {
+			throw new InvalidPasswordResetTokenException();
+		}
+
+		Calendar cal = Calendar.getInstance();
+		if ((passToken.getExpirationDate().getTime() - cal.getTime().getTime()) <= 0) {
+			throw new InvalidPasswordResetTokenException();
+		}
+
+		return passToken;
+	}
+
+	@Override
 	public void changeUserPassword(String newPassword) {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserEntity userEntity = userRepository.findByUsername(user.getUsername());
 
 		userEntity.setPassword(passwordEncoder.encode(newPassword));
 		userRepository.saveAndFlush(userEntity);
+
+		deletePasswordResetTokenForUser(mapper.map(userEntity, UserDTO.class));
 		logger.info("password for user {} successfully changed", user.getUsername());
+	}
+
+	@Override
+	public void deletePasswordResetTokenForUser(UserDTO user) {
+		PasswordResetTokenEntity tokenEntity = passwordResetTokenRepository
+				.findByUser(mapper.map(user, UserEntity.class));
+		if (tokenEntity != null) {
+			passwordResetTokenRepository.delete(tokenEntity.getId());
+		}
 	}
 }

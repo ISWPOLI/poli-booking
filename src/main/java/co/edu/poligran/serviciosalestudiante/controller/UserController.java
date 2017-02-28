@@ -52,8 +52,8 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/user/change-password", method = RequestMethod.GET)
 	public void showChangePasswordPage(@RequestParam("id") long id, @RequestParam("token") String token,
 			HttpServletResponse response) throws InvalidPasswordResetTokenException, IOException {
-		userService.validatePasswordResetToken(id, token);
-		response.sendRedirect("/update-password.html");
+		userService.authorizePasswordChange(id, token);
+		response.sendRedirect("/#/password-change");
 	}
 
 	@RequestMapping(value = "/user/save-password", method = RequestMethod.POST)

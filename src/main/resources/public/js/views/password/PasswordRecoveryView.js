@@ -1,29 +1,65 @@
-define([ 'jquery', 'underscore', 'backbone',
-		'text!templates/password/password-recovery.html' ], function($, _,
-		Backbone, recuperacionDeCuentaTemplate) {
+define(
+		[ 'jquery', 'underscore', 'backbone',
+				'text!templates/password/password-recovery.html' ],
+		function($, _, Backbone, recuperacionDeCuentaTemplate) {
 
-	var recuperacionDeCuenta = Backbone.View.extend({
-		el : $("#page"),
+			var recuperacionDeCuenta = Backbone.View
+					.extend({
+						el : $("#page"),
 
-		render : function() {
+						render : function() {
+							this.$el.html(recuperacionDeCuentaTemplate);
+						},
 
-			$('.menu li').removeClass('active');
-			$('.menu li a[href="#"]').parent().addClass('active');
-			this.$el.html(recuperacionDeCuentaTemplate);
-		},
+						events : {
+							"click #recuperacionDeCuentaButton" : "recuperacionDeCuenta"
+						},
 
-		events : {
-			"click #recuperacionDeCuentaButton" : "Recuperacion de la cuenta"
-		},
+						recuperacionDeCuenta : function() {
+							var that = this;
 
-		recuperacionDeCuenta : function() {
-			var x = document.getElementById("pass")
-			var y = document.getElementById("repass")
-			alert(x)
-		}
+							var email = that.$el.find('#email').val();
 
-	});
+							var data = {
+								email : email
+							};
 
-	return recuperacionDeCuenta;
+							Backbone.$
+									.ajax({
+										url : '/user/reset-password',
+										type : 'POST',
+										data : data,
+										success : function() {
+											that.showConfirmationMessage();
+										},
+										error : function(jqxhr) {
 
-});
+											that
+													.showErrorMessage('No se encuentra el correo');
+
+										}
+									});
+						},
+
+						showConfirmationMessage : function() {
+							this.clearMessages();
+							this.$el
+									.find('#token_sent_confirmation')
+									.html(
+											"Se ha enviado un mensaje al correo suministrado para restablecer la contraseña");
+						},
+
+						showErrorMessage : function(message) {
+							this.clearMessages();
+							this.$el.find('#token_error').html(message);
+						},
+
+						clearMessages : function() {
+							this.$el.find('#token_sent_confirmation').html('');
+							this.$el.find('#token_error').html('');
+						}
+					});
+
+			return recuperacionDeCuenta;
+
+		});

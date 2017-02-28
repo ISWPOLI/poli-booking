@@ -1,6 +1,5 @@
 package co.edu.poligran.serviciosalestudiante.service;
 
-
 import co.edu.poligran.serviciosalestudiante.entities.RoleTypeEnum;
 import co.edu.poligran.serviciosalestudiante.exception.InvalidPasswordResetTokenException;
 import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
@@ -20,6 +19,12 @@ public interface UserService {
 	boolean isUserCreated(String username);
 
 	PasswordResetTokenDTO createPasswordResetTokenForUser(UserDTO user);
+
+	void deletePasswordResetTokenForUser(UserDTO user);
+
 	void validatePasswordResetToken(long userId, String token) throws InvalidPasswordResetTokenException;
+
+	void authorizePasswordChange(long userId, String token) throws InvalidPasswordResetTokenException;
+
 	void changeUserPassword(String newPassword);
 }
