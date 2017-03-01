@@ -6,6 +6,13 @@ define([ 'jquery', 'underscore', 'backbone', ], function($, _, Backbone) {
 					|| !data.email || !data.roles || !data.active) {
 				return "Fallo de validación de campos requeridos";
 			}
+		},
+		parse : function(data) {
+			var self = data._links.self.href;
+			var selfArray = self.split('/');
+			var id = selfArray[selfArray.length - 1];
+			data.id = id;
+			return data;
 		}
 	});
 

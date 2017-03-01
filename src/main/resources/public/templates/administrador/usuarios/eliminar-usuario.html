@@ -14,74 +14,60 @@
 -->
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="Introducing Lollipop, a sweet new take on Android.">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-        <title>Modificar o Eliminar usuarios</title>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description"
+	content="Introducing Lollipop, a sweet new take on Android.">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+<title>Modificar o Eliminar usuarios</title>
 
-        <!-- Page styles -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.min.css">
-        <link rel="stylesheet" href="styles.css">
-        <style>
-            #view-source {
-                position: fixed;
-                display: block;
-                right: 0;
-                bottom: 0;
-                margin-right: 40px;
-                margin-bottom: 40px;
-                z-index: 900;
-            }
-        </style>
-    </head>
-    <body>
-        <center>
+<!-- Page styles -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet"
+	href="https://code.getmdl.io/1.2.1/material.min.css">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+#view-source {
+	position: fixed;
+	display: block;
+	right: 0;
+	bottom: 0;
+	margin-right: 40px;
+	margin-bottom: 40px;
+	z-index: 900;
+}
+</style>
+</head>
+<body>
+	<center>
+		<div class="android-content mdl-layout__content">
+			<a name="top"></a>
 
-            <div class="android-drawer mdl-layout__drawer">
-                <span class="mdl-layout-title">
-                    <img class="android-logo-image" src="images/Markup.jpg">
-                </span>
-                <nav class="mdl-navigation">
-                    <span class="mdl-navigation__link" href="">Marcas</span>
-                    <div class="android-drawer-separator"></div>
-                    <a class="mdl-navigation__link" href="modificar.html">Modificar Usuario</a>
-                    <a class="mdl-navigation__link" href="eliminar.html">Eliminar Usuario</a>
-                    <span class="mdl-navigation__link" href="">Versions</span>
-                    <div class="android-drawer-separator"></div>
-                    <a class="mdl-navigation__link" href="">Lollipop 5.0</a>
-                    </nav>
-            </div>
+			<div class="mdl-typography--text-center" id="eliminar">
+				<h4>Eliminar</h4>
 
-            <div class="android-content mdl-layout__content">
-                <a name="top"></a>
-                 
-                <div class="mdl-typography--text-center" id="eliminar">
-                    <br><br><h4>Eliminar </h4>
-                    <!-- Numeric Textfield -->
-
-                    <form action="#">
-                        <div class="mdl-textfield mdl-js-textfield">
-                        <center>
-                            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
-                            <label class="mdl-textfield__label" for="sample2">Codigo...</label>
-                            <span class="mdl-textfield__error">Lo digitado no es un numero!</span>    
-                            </center>                   
-                        </div>
-                    </form>
-                        <br>
-                        <button style="background-color: #86B404" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                            Eliminar
-                        </button>
-                    
-                    <br><br>
-                </div>
-            
-            </div>
-            </center>
-        </div>
-    </body>
+				<form action="#">
+					<div class="mdl-textfield mdl-js-textfield">
+						<center>
+							<input class="mdl-textfield__input" type="text"
+								pattern="-?[0-9]*(\.[0-9]+)?" id="username"> <label
+								class="mdl-textfield__label" for="username">usuario</label> <span
+								class="mdl-textfield__error"></span>
+						</center>
+					</div>
+				</form>
+				<br>
+				<button id="boton-eliminar-usuario" style="background-color: #86B404"
+					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Eliminar
+					Usuario</button>
+			</div>
+		</div>
+	</center>
+	</div>
+</body>
 </html>
