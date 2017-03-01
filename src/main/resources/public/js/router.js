@@ -4,14 +4,15 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 		'views/password/PasswordChangeView', 'SessionManager',
 		'views/reservas/biblioteca/BibliotecaView',
 		'views/reservas/biblioteca/ComputadoresView',
-		'views/reservas/canchas/TenisView', 'CrearUsuarioView',
+		'views/reservas/canchas/TenisView', 'UsuariosView', 'CrearUsuarioView',
 		'views/administrador/usuarios/ActualizarUsuarioView',
 		'views/administrador/usuarios/EditarUsuarioView',
-		'views/administrador/usuarios/EliminarUsuarioView' ], function($, _,
-		Backbone, HomeView, LoginView, PasswordRecoveryView,
+		'views/administrador/usuarios/EliminarUsuarioView'
+
+], function($, _, Backbone, HomeView, LoginView, PasswordRecoveryView,
 		PasswordChangeView, SessionManager, BibliotecaView, ComputadoresView,
-		TenisView, CrearUsuarioView, ActualizarUsuarioView, EditarUsuarioView,
-		EliminarUsuarioView) {
+		TenisView, UsuariosView, CrearUsuarioView, ActualizarUsuarioView,
+		EditarUsuarioView, EliminarUsuarioView) {
 
 	var AppRouter = Backbone.Router.extend({
 		routes : {
@@ -23,6 +24,7 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 			'computadores' : 'computadores',
 			'tenis' : 'tenis',
 			'gimnasio' : 'gimnasio',
+			'usuarios' : 'usuarios',
 			'crear-usuario' : 'crear-usuario',
 			'actualizar-usuario' : 'actualizar-usuario',
 			'editar-usuario' : 'editar-usuario',
@@ -71,6 +73,10 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 			}
 		});
 
+		app_router.on('route:usuarios', function(actions) {
+			var usuariosView = new UsuariosView();
+			usuariosView.render();
+		});
 		app_router.on('route:crear-usuario', function(actions) {
 			var crearUsuarioView = new CrearUsuarioView();
 			crearUsuarioView.render();

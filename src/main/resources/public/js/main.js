@@ -6,6 +6,8 @@ require.config({
 		backbone : '../bower_components/backbone/backbone',
 		templates : '../templates',
 		SessionManager : './SessionManager',
+
+		UsuariosView : './views/administrador/usuarios/UsuariosView',
 		CrearUsuarioView : './views/administrador/usuarios/CrearUsuarioView',
 		UsuarioModel : './models/usuario/UsuarioModel',
 		UsuarioCollection : './collections/usuario/UsuarioCollection',
