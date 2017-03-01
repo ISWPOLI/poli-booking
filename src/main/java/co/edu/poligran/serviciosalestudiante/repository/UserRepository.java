@@ -9,9 +9,9 @@ import co.edu.poligran.serviciosalestudiante.entities.UserEntity;
 
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-	UserEntity findByUsername(String username);
-	
-	UserEntity findByEmail(String email);
+	UserEntity findByUsername(@Param("username") String username);
+
+	UserEntity findByEmail(@Param("email") String email);
 
 	@Query("select count(u) > 0 from UserEntity u where u.username = :username")
 	boolean isUserCreated(@Param("username") String username);
