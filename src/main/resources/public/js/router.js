@@ -4,13 +4,13 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 		'views/password/PasswordChangeView', 'SessionManager',
 		'views/reservas/biblioteca/BibliotecaView',
 		'views/reservas/biblioteca/ComputadoresView',
-		'views/reservas/canchas/TenisView',
+		'views/reservas/canchas/TenisView', 'CrearUsuarioView',
 		'views/administrador/usuarios/ActualizarUsuarioView',
 		'views/administrador/usuarios/EditarUsuarioView',
 		'views/administrador/usuarios/EliminarUsuarioView' ], function($, _,
 		Backbone, HomeView, LoginView, PasswordRecoveryView,
 		PasswordChangeView, SessionManager, BibliotecaView, ComputadoresView,
-		TenisView, ActualizarUsuarioView, EditarUsuarioView,
+		TenisView, CrearUsuarioView, ActualizarUsuarioView, EditarUsuarioView,
 		EliminarUsuarioView) {
 
 	var AppRouter = Backbone.Router.extend({
@@ -23,9 +23,10 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 			'computadores' : 'computadores',
 			'tenis' : 'tenis',
 			'gimnasio' : 'gimnasio',
-			'actualizarUsuario' : 'actualizarUsuario',
-			'editarUsuario' : 'editarUsuario',
-			'eliminarUsuario' : 'eliminarUsuario',
+			'crear-usuario' : 'crear-usuario',
+			'actualizar-usuario' : 'actualizar-usuario',
+			'editar-usuario' : 'editar-usuario',
+			'eliminar-usuario' : 'eliminar-usuario',
 			'*actions' : 'defaultAction'
 		}
 	});
@@ -62,7 +63,7 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 				bibliotecaView.render();
 			}
 		});
-		
+
 		app_router.on('route:computadores', function(actions) {
 			if (SessionManager.checkAuthorization()) {
 				var computadoresView = new ComputadoresView();
@@ -70,16 +71,20 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 			}
 		});
 
-		app_router.on('route:actualizarUsuario', function(actions) {
+		app_router.on('route:crear-usuario', function(actions) {
+			var crearUsuarioView = new CrearUsuarioView();
+			crearUsuarioView.render();
+		});
+		app_router.on('route:actualizar-usuario', function(actions) {
 			var actualizarUsuarioView = new ActualizarUsuarioView();
 			actualizarUsuarioView.render();
 		});
-		app_router.on('route:editarUsuario', function(actions) {
+		app_router.on('route:editar-usuario', function(actions) {
 			var editarUsuarioView = new EditarUsuarioView();
 			editarUsuarioView.render();
 
 		});
-		app_router.on('route:eliminarUsuario', function(actions) {
+		app_router.on('route:eliminar-usuario', function(actions) {
 			var eliminarUsuarioView = new EliminarUsuarioView();
 			eliminarUsuarioView.render();
 

@@ -5,7 +5,12 @@ require.config({
 		underscore : '../bower_components/underscore/underscore-min',
 		backbone : '../bower_components/backbone/backbone',
 		templates : '../templates',
-		SessionManager: './SessionManager'
+		SessionManager : './SessionManager',
+		CrearUsuarioView : './views/administrador/usuarios/CrearUsuarioView',
+		UsuarioModel : './models/usuario/UsuarioModel',
+		UsuarioCollection : './collections/usuario/UsuarioCollection',
+		RolModel : './models/usuario/RolModel',
+		RolCollection : './collections/usuario/RolCollection',
 	}
 });
 
