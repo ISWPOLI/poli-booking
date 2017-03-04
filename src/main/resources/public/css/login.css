@@ -1,5 +1,5 @@
 .demo-card-wide.mdl-card {
-	width: 512px;
+	width: 100%;
 }
 
 .mdl-shadow--2dp {
@@ -37,4 +37,7 @@ h4 {
 
 #auth_error_message {
 	color: red;
+}
+.columna{
+	width : 100%
 }
