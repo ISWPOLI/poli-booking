@@ -21,8 +21,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import co.edu.poligran.serviciosalestudiante.service.BCryptPasswordDeserializer;
 
 @Entity
-@Table(name = "USERS")
-public class UserEntity extends BaseEntity {
+@Table(name = "USUARIOS")
+public class UsuarioEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 

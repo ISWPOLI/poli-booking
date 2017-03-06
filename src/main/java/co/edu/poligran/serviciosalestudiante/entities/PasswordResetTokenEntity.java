@@ -4,8 +4,10 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "PASSWORD_RESET_TOKENS")
 public class PasswordResetTokenEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -13,7 +15,7 @@ public class PasswordResetTokenEntity extends BaseEntity {
 	private String token;
 
 	@OneToOne
-	private UserEntity user;
+	private UsuarioEntity user;
 
 	private Date expirationDate;
 
@@ -25,11 +27,11 @@ public class PasswordResetTokenEntity extends BaseEntity {
 		this.token = token;
 	}
 
-	public UserEntity getUser() {
+	public UsuarioEntity getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity user) {
+	public void setUser(UsuarioEntity user) {
 		this.user = user;
 	}
 

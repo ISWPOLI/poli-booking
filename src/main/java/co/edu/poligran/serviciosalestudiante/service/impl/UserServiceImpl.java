@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity;
 import co.edu.poligran.serviciosalestudiante.entities.RoleTypeEnum;
-import co.edu.poligran.serviciosalestudiante.entities.UserEntity;
+import co.edu.poligran.serviciosalestudiante.entities.UsuarioEntity;
 import co.edu.poligran.serviciosalestudiante.exception.InvalidPasswordResetTokenException;
 import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
 import co.edu.poligran.serviciosalestudiante.exception.UsernameIsNotUniqueException;
@@ -51,7 +51,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
 	@Override
 	public UserDTO findByUsername(String username) throws UserNotFoundException {
-		UserEntity user = userRepository.findByUsername(username);
+		UsuarioEntity user = userRepository.findByUsername(username);
 
 		if (user != null) {
 			return mapper.map(user, UserDTO.class);
@@ -69,7 +69,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 		userDTO.setPassword(userDTO.getPassword());
 		userDTO.setActive(true);
 
-		UserEntity userEntity = mapper.map(userDTO, UserEntity.class);
+		UsuarioEntity userEntity = mapper.map(userDTO, UsuarioEntity.class);
 		return mapper.map(userRepository.saveAndFlush(userEntity), UserDTO.class);
 	}
 
@@ -101,7 +101,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
 	@Override
 	public UserDTO findByEmail(String email) throws UserNotFoundException {
-		UserEntity user = userRepository.findByEmail(email);
+		UsuarioEntity user = userRepository.findByEmail(email);
 		if (user != null) {
 			return mapper.map(user, UserDTO.class);
 		} else {
@@ -112,7 +112,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 	@Override
 	public PasswordResetTokenDTO createPasswordResetTokenForUser(UserDTO user) {
 		PasswordResetTokenEntity tokenEntity = passwordResetTokenRepository
-				.findByUser(mapper.map(user, UserEntity.class));
+				.findByUser(mapper.map(user, UsuarioEntity.class));
 		if (tokenEntity != null) {
 			passwordResetTokenRepository.delete(tokenEntity.getId());
 		}
@@ -143,7 +143,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 		PasswordResetTokenEntity passToken = passwordResetTokenRepository.findByToken(token);
 		validateToken(id, passToken);
 
-		UserEntity user = passToken.getUser();
+		UsuarioEntity user = passToken.getUser();
 		Authentication auth = new UsernamePasswordAuthenticationToken(
 				userDetailsService.getSpringSecurityUser(mapper.map(user, UserDTO.class)), null,
 				Arrays.asList(new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
@@ -173,7 +173,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 	@Override
 	public void changeUserPassword(String newPassword) {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserEntity userEntity = userRepository.findByUsername(user.getUsername());
+		UsuarioEntity userEntity = userRepository.findByUsername(user.getUsername());
 
 		userEntity.setPassword(passwordEncoder.encode(newPassword));
 		userRepository.saveAndFlush(userEntity);
@@ -185,7 +185,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 	@Override
 	public void deletePasswordResetTokenForUser(UserDTO user) {
 		PasswordResetTokenEntity tokenEntity = passwordResetTokenRepository
-				.findByUser(mapper.map(user, UserEntity.class));
+				.findByUser(mapper.map(user, UsuarioEntity.class));
 		if (tokenEntity != null) {
 			passwordResetTokenRepository.delete(tokenEntity.getId());
 		}
