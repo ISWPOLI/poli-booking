@@ -4,14 +4,16 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 		'views/password/PasswordChangeView', 'SessionManager',
 		'views/reservas/biblioteca/BibliotecaView',
 		'views/reservas/biblioteca/ComputadoresView',
-		'views/reservas/canchas/TenisView', 'CrearUsuarioView',
+		'views/reservas/canchas/TenisView', 'UsuariosView',
+		'ConsultarUsuarioView', 'CrearUsuarioView',
 		'views/administrador/usuarios/ActualizarUsuarioView',
 		'views/administrador/usuarios/EditarUsuarioView',
-		'views/administrador/usuarios/EliminarUsuarioView' ], function($, _,
-		Backbone, HomeView, LoginView, PasswordRecoveryView,
+		'views/administrador/usuarios/EliminarUsuarioView'
+
+], function($, _, Backbone, HomeView, LoginView, PasswordRecoveryView,
 		PasswordChangeView, SessionManager, BibliotecaView, ComputadoresView,
-		TenisView, CrearUsuarioView, ActualizarUsuarioView, EditarUsuarioView,
-		EliminarUsuarioView) {
+		TenisView, UsuariosView, ConsultarUsuarioView, CrearUsuarioView,
+		ActualizarUsuarioView, EditarUsuarioView, EliminarUsuarioView) {
 
 	var AppRouter = Backbone.Router.extend({
 		routes : {
@@ -23,6 +25,8 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 			'computadores' : 'computadores',
 			'tenis' : 'tenis',
 			'gimnasio' : 'gimnasio',
+			'usuarios' : 'usuarios',
+			'consultar-usuario' : 'consultar-usuario',
 			'crear-usuario' : 'crear-usuario',
 			'actualizar-usuario' : 'actualizar-usuario',
 			'editar-usuario' : 'editar-usuario',
@@ -71,13 +75,29 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 			}
 		});
 
+		app_router.on('route:usuarios', function(actions) {
+			if (SessionManager.checkAuthorization()) {
+				var usuariosView = new UsuariosView();
+				usuariosView.render();
+			}
+		});
+		app_router.on('route:consultar-usuario', function(actions) {
+			if (SessionManager.checkAuthorization()) {
+				var consultarUsuarioView = new ConsultarUsuarioView();
+				consultarUsuarioView.render();
+			}
+		});
 		app_router.on('route:crear-usuario', function(actions) {
-			var crearUsuarioView = new CrearUsuarioView();
-			crearUsuarioView.render();
+			if (SessionManager.checkAuthorization()) {
+				var crearUsuarioView = new CrearUsuarioView();
+				crearUsuarioView.render();
+			}
 		});
 		app_router.on('route:actualizar-usuario', function(actions) {
-			var actualizarUsuarioView = new ActualizarUsuarioView();
-			actualizarUsuarioView.render();
+			if (SessionManager.checkAuthorization()) {
+				var actualizarUsuarioView = new ActualizarUsuarioView();
+				actualizarUsuarioView.render();
+			}
 		});
 		app_router.on('route:editar-usuario', function(actions) {
 			var editarUsuarioView = new EditarUsuarioView();
@@ -85,9 +105,10 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 
 		});
 		app_router.on('route:eliminar-usuario', function(actions) {
-			var eliminarUsuarioView = new EliminarUsuarioView();
-			eliminarUsuarioView.render();
-
+			if (SessionManager.checkAuthorization()) {
+				var eliminarUsuarioView = new EliminarUsuarioView();
+				eliminarUsuarioView.render();
+			}
 		});
 
 		app_router.on('route:tenis', function(actions) {

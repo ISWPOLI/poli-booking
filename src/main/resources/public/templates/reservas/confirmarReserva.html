@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<style type="text/css">
+.demo-card-wide.mdl-card {
+  width: 60%;
+}
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 40%;
+  background: url('http://previews.123rf.com/images/cienpies/cienpies1308/cienpies130801252/21821195-Moderno-colorido-tri-ngulo-de-fondo-sin-patr-n-Resumen-de-poca-Archivo-vectorial-en-capas-para-facil-Foto-de-archivo.jpg') center / cover;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+.columna2 {
+  width:50%;
+  float:left;
+}
+
+@media (max-width: 500px) {
+  
+  .columna {
+    width:auto;
+    float:none;
+  }
+  
+}
+
+body {
+  padding: 20px;
+  background: #fafafa;
+  position: relative;
+}	
+</style>
+  <head>
+  <title></title>
+    <!-- Material Design Lite -->
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <!-- Material Design icon font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <!-- Material Design icon font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  </head>
+  <body>
+    <!-- Wide card with share menu button -->
+    <center>
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 style="font-size:60px" class="mdl-card__title-text">Confirmar reserva</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+      <h5>Informacion de tu reserva</h5>
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+      <br>
+      <div class="columna2">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+          Confirmar
+        </a>
+        <br>
+        </div>
+        <div class="columna2">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+          Editar
+        </a>
+        <br>
+        </div>
+        <br>
+        <br>
+      </div>
+    </div>
+    </center>
+  </body>
+</html>

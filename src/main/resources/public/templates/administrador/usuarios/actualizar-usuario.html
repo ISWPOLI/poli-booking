@@ -1,73 +1,110 @@
 <!DOCTYPE html>
 <style type="text/css">
-.demo-card-wide.mdl-card {
-  width: 60%;
-}
-.demo-card-wide > .mdl-card__title {
-  color: #fff;
-  height: 40%;
-  background: url('http://previews.123rf.com/images/undrey/undrey1512/undrey151200149/49297398-Mujer-que-trabaja-en-la-oficina-en-casa-mano-en-el-teclado-de-cerca--Foto-de-archivo.jpg') center / cover;
-}
-.demo-card-wide > .mdl-card__menu {
-  color: #fff;
-}
-.columna {
-  width:33%;
-  float:left;
-}
+    .demo-card-wide.mdl-card {
+        width: 60%;
+    }
 
-@media (max-width: 500px) {
-  
-  .columna {
-    width:auto;
-    float:none;
-  }
-  
-}
+    .demo-card-wide > .mdl-card__title {
+        color: #fff;
+        height: 40%;
+        background: url('http://previews.123rf.com/images/undrey/undrey1512/undrey151200149/49297398-Mujer-que-trabaja-en-la-oficina-en-casa-mano-en-el-teclado-de-cerca--Foto-de-archivo.jpg') center/cover;
+    }
 
-body {
-  padding: 20px;
-  background: #fafafa;
-  position: relative;
-}	
+    .demo-card-wide > .mdl-card__menu {
+        color: #fff;
+    }
+
+    .columna {
+        width: 33%;
+        float: left;
+    }
+
+    @media ( max-width: 500px) {
+        .columna {
+            width: auto;
+            float: none;
+        }
+    }
+
+    body {
+        padding: 20px;
+        background: #fafafa;
+        position: relative;
+    }
 </style>
-  <head>
-  <title></title>
+<head>
+    <title></title>
     <!-- Material Design Lite -->
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet"
+          href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <!-- Material Design icon font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet"
+          href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <!-- Material Design icon font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  </head>
-  <body>
-    <!-- Wide card with share menu button -->
-    <center>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+<!-- Wide card with share menu button -->
+<center>
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-      <div class="mdl-card__title">
-        <h2 style="font-size:60px" class="mdl-card__title-text">Actualizar Usuario</h2>
-      </div>
-      <div class="mdl-card__supporting-text">
-          <form action="#">
-      <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2">
-        <label class="mdl-textfield__label" for="sample2">Codigo...</label>
-        <span class="mdl-textfield__error">Lo ingresado no es numerico!</span>
-      </div>
-    </form>
-      </div>
-      <div class="mdl-card__actions mdl-card--border">
-      <br>
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-          Buscar
-        </a>
+        <div class="mdl-card__title">
+            <h2 style="font-size: 60px" class="mdl-card__title-text">Actualizar
+                Usuario</h2>
+        </div>
+        <div
+                class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+            <input class="mdl-textfield__input" type="text" id="username">
+            <label class="mdl-textfield__label" for="sample3">Usuario</label>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <button id="consultarUsuarioActualizacion" href="marca/Marca.html"
+                    class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                    href="crearUsuario.html">Consultar
+            </button>
+        </div>
+
+        <div class="mdl-card__actions mdl-card--border">
+            <h4>Detalle usuario</h4>
+        </div>
+        <div
+                class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+            <input class="mdl-textfield__input" type="text" id="full-name">
+            <label class="mdl-textfield__label" for="full-name">Nombre
+                Completo</label>
+        </div>
         <br>
-        <br>
-      </div>
+        <div
+                class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+            <input class="mdl-textfield__input" type="text" id="email">
+            <label class="mdl-textfield__label" for="email">Correo
+                Electrónico</label>
+        </div>
+        <div
+                class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+            <select name="role" id="role">
+                <option value="STUDENT">Estudiante</option>
+                <option value="ADMIN">Administrador</option>
+                <option value="FACULTY_OR_STAFF">Profesores o Staff</option>
+            </select>
+            <label
+                    class="mdl-textfield__label" for="role">Rol</label>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <button id="saveActualizarUsuario" href="marca/Marca.html"
+                    class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                    href="crearUsuario.html">Enviar
+            </button>
+        </div>
     </div>
-    </center>
-  </body>
+</center>
+</body>
 </html>
