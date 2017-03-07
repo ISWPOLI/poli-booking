@@ -1,11 +1,14 @@
 package co.edu.poligran.serviciosalestudiante.service.dto;
 
-import java.util.Set;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class EspacioDTO extends BaseDTO {
 	private String nombre;
 
-	private Set<BloqueDTO> bloques;
+	@JsonIgnore
+	private List<BloqueDTO> bloques;
 
 	public String getNombre() {
 		return nombre;
@@ -15,11 +18,11 @@ public class EspacioDTO extends BaseDTO {
 		this.nombre = nombre;
 	}
 
-	public Set<BloqueDTO> getBloques() {
+	public List<BloqueDTO> getBloques() {
 		return bloques;
 	}
 
-	public void setBloques(Set<BloqueDTO> bloques) {
+	public void setBloques(List<BloqueDTO> bloques) {
 		this.bloques = bloques;
 	}
 

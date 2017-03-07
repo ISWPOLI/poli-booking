@@ -1,7 +1,10 @@
 package co.edu.poligran.serviciosalestudiante.service.impl;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -13,7 +16,9 @@ import co.edu.poligran.serviciosalestudiante.entities.BloqueEntity;
 import co.edu.poligran.serviciosalestudiante.entities.EspacioEntity;
 import co.edu.poligran.serviciosalestudiante.repository.BloqueRepository;
 import co.edu.poligran.serviciosalestudiante.service.BloquesService;
+import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO;
+import co.edu.poligran.serviciosalestudiante.utils.DozerUtils;
 
 @Service
 @Transactional
@@ -79,7 +84,14 @@ public class BloquesServiceImpl extends BaseService implements BloquesService {
 		bloque.setTiempoInicio(new Date(diaDate.getTime() + inicio.getMillisOfDay()));
 		bloque.setTiempoFin(new Date(diaDate.getTime() + fin.getMillisOfDay()));
 		bloque.setEspacio(mapper.map(espacio, EspacioEntity.class));
+		bloque.setDia(DateUtils.truncate(bloque.getTiempoInicio(), Calendar.DAY_OF_MONTH));
 		bloqueRepository.saveAndFlush(bloque);
 	}
 
+	@Override
+	public List<BloqueDTO> consultarBloquesVigentesPorDiaYEspacio(Date dia, Long idEspacio) {
+		List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentesPorDiaYEspacio(dia, idEspacio);
+
+		return DozerUtils.mapCollection(bloques, BloqueDTO.class, mapper);
+	}
 }
