@@ -14,6 +14,7 @@ public class BloqueEntity extends BaseEntity {
 
 	private Date tiempoInicio;
 	private Date tiempoFin;
+	private Date dia;
 	
 	@ManyToOne
 	private EspacioEntity espacio;
@@ -40,6 +41,14 @@ public class BloqueEntity extends BaseEntity {
 
 	public void setEspacio(EspacioEntity espacio) {
 		this.espacio = espacio;
+	}
+
+	public Date getDia() {
+		return dia;
+	}
+
+	public void setDia(Date dia) {
+		this.dia = dia;
 	}
 
 }

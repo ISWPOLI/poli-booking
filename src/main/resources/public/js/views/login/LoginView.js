@@ -9,6 +9,7 @@ define([ 'jquery', 'underscore', 'backbone', 'text!templates/login/login.html',
 			$('.menu li').removeClass('active');
 			$('.menu li a[href="#/login"]').parent().addClass('active');
 			this.$el.html(loginTemplate);
+			this.fireLoad();
 		},
 
 		events : {

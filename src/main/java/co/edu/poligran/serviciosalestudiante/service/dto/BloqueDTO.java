@@ -5,6 +5,7 @@ import java.util.Date;
 public class BloqueDTO extends BaseDTO {
 	private Date tiempoInicio;
 	private Date tiempoFin;
+	private Date dia;
 	private EspacioDTO espacio;
 
 	public Date getTiempoInicio() {
@@ -29,6 +30,14 @@ public class BloqueDTO extends BaseDTO {
 
 	public void setEspacio(EspacioDTO espacio) {
 		this.espacio = espacio;
+	}
+
+	public Date getDia() {
+		return dia;
+	}
+
+	public void setDia(Date dia) {
+		this.dia = dia;
 	}
 
 }

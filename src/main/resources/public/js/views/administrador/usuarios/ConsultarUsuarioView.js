@@ -14,6 +14,7 @@ define(['jquery', 'underscore', 'backbone',
             $('.menu li').removeClass('active');
             $('.menu li a[href="#/usuarios"]').parent().addClass('active');
             this.$el.html(consultarUsuarioTemplate);
+			this.fireLoad();
         },
 
         consultarDetalleUsuario: function () {

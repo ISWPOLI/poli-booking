@@ -1,3 +1,6 @@
 @import url('style.css');
 
-@import url('../bower_components/bootstrap/docs/assets/css/bootstrap.css');
+@import url('../bower_components/bootstrap/dist/css/bootstrap.css');
+
+@import url('../bower_components/material-design-lite/material.min.css')
+	;

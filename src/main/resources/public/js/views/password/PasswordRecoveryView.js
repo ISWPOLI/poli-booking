@@ -9,6 +9,7 @@ define(
 
 						render : function() {
 							this.$el.html(recuperacionDeCuentaTemplate);
+							this.fireLoad();
 						},
 
 						events : {
