@@ -1,9 +1,11 @@
 package co.edu.poligran.serviciosalestudiante.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,9 +17,12 @@ public class BloqueEntity extends BaseEntity {
 	private Date tiempoInicio;
 	private Date tiempoFin;
 	private Date dia;
-	
+
 	@ManyToOne
 	private EspacioEntity espacio;
+
+	@OneToMany(mappedBy = "bloque")
+	private List<ReservaEntity> reservas;
 
 	public Date getTiempoInicio() {
 		return tiempoInicio;
@@ -49,6 +54,14 @@ public class BloqueEntity extends BaseEntity {
 
 	public void setDia(Date dia) {
 		this.dia = dia;
+	}
+
+	public List<ReservaEntity> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<ReservaEntity> reservas) {
+		this.reservas = reservas;
 	}
 
 }

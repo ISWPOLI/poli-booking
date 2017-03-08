@@ -1,4 +1,4 @@
-package co.edu.poligran.serviciosalestudiante;
+package co.edu.poligran.serviciosalestudiante.initializer;
 
 import java.util.ArrayList;
 import java.util.List;
