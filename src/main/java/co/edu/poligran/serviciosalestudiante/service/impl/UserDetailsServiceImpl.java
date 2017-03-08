@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
 import co.edu.poligran.serviciosalestudiante.service.UserService;
-import co.edu.poligran.serviciosalestudiante.service.dto.UserDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		logger.info("authenticating user: {}", username);
 
 		try {
-			UserDTO user = userService.findByUsername(username);
+			UsuarioDTO user = userService.findByUsername(username);
 			logger.info("user authenticated: {}", username);
 			return getSpringSecurityUser(user);
 		} catch (UserNotFoundException e) {
@@ -41,7 +41,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	}
 
-	private List<GrantedAuthority> getGrantedAuhtorities(UserDTO userDTO) {
+	private List<GrantedAuthority> getGrantedAuhtorities(UsuarioDTO userDTO) {
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
 		userDTO.getRoles().stream().map((role) -> {
@@ -53,7 +53,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return grantedAuthorities;
 	}
 
-	public User getSpringSecurityUser(UserDTO user) {
+	public User getSpringSecurityUser(UsuarioDTO user) {
 		return new User(user.getUsername(), user.getPassword(), true, true, true, true, getGrantedAuhtorities(user));
 	}
 

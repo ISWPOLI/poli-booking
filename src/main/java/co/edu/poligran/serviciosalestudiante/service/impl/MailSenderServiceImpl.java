@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.poligran.serviciosalestudiante.service.MailSenderService;
 import co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO;
-import co.edu.poligran.serviciosalestudiante.service.dto.UserDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 
 @Service
 @Transactional
@@ -28,7 +28,7 @@ public class MailSenderServiceImpl extends BaseService implements MailSenderServ
 	public void sendPasswordResetTokenEmail(PasswordResetTokenDTO token, String contextPath) {
 		try {
 			MimeMessage mail = mailSender.createMimeMessage();
-			UserDTO user = token.getUser();
+			UsuarioDTO user = token.getUser();
 			String tokenString = token.getToken();
 			String url = contextPath + "/user/change-password?id=" + 
 				      user.getId() + "&token=" + tokenString;

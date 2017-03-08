@@ -17,7 +17,7 @@ import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
 import co.edu.poligran.serviciosalestudiante.service.MailSenderService;
 import co.edu.poligran.serviciosalestudiante.service.UserService;
 import co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO;
-import co.edu.poligran.serviciosalestudiante.service.dto.UserDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 
 @RestController
 public class UserController extends BaseController {
@@ -36,7 +36,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/user/reset-password", method = RequestMethod.POST)
 	public String resetPassword(HttpServletRequest request, @RequestParam("email") String email)
 			throws UserNotFoundException {
-		UserDTO user = userService.findByEmail(email);
+		UsuarioDTO user = userService.findByEmail(email);
 
 		PasswordResetTokenDTO token = userService.createPasswordResetTokenForUser(user);
 

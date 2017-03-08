@@ -3,7 +3,7 @@ package co.edu.poligran.serviciosalestudiante.service.dto;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserDTO extends BaseDTO {
+public class UsuarioDTO extends BaseDTO {
 	private String username;
 
 	private String password;

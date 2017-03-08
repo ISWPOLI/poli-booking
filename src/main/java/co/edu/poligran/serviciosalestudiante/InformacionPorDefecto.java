@@ -21,7 +21,7 @@ import co.edu.poligran.serviciosalestudiante.service.BloquesService;
 import co.edu.poligran.serviciosalestudiante.service.EspacioService;
 import co.edu.poligran.serviciosalestudiante.service.UserService;
 import co.edu.poligran.serviciosalestudiante.service.dto.CubiculoDTO;
-import co.edu.poligran.serviciosalestudiante.service.dto.UserDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 
 @Component
 public class InformacionPorDefecto implements ApplicationListener<ContextRefreshedEvent> {
@@ -125,7 +125,7 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 	}
 
 	private void createDefaultAdmin() throws UsernameIsNotUniqueException {
-		UserDTO admin = new UserDTO();
+		UsuarioDTO admin = new UsuarioDTO();
 		admin.setUsername(defaultAdminUsername);
 		admin.setPassword(passwordEncoder.encode(defaultAdminPassword));
 		admin.setActive(true);

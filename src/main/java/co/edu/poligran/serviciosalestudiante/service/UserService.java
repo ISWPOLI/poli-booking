@@ -5,22 +5,22 @@ import co.edu.poligran.serviciosalestudiante.exception.InvalidPasswordResetToken
 import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
 import co.edu.poligran.serviciosalestudiante.exception.UsernameIsNotUniqueException;
 import co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO;
-import co.edu.poligran.serviciosalestudiante.service.dto.UserDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 
 public interface UserService {
-	UserDTO findByUsername(String username) throws UserNotFoundException;
+	UsuarioDTO findByUsername(String username) throws UserNotFoundException;
 
-	UserDTO findByEmail(String email) throws UserNotFoundException;
+	UsuarioDTO findByEmail(String email) throws UserNotFoundException;
 
-	UserDTO create(UserDTO user, RoleTypeEnum roleType) throws UsernameIsNotUniqueException;
+	UsuarioDTO create(UsuarioDTO user, RoleTypeEnum roleType) throws UsernameIsNotUniqueException;
 
 	boolean isUsernameUnique(Long idUsuario, String username);
 
 	boolean isUserCreated(String username);
 
-	PasswordResetTokenDTO createPasswordResetTokenForUser(UserDTO user);
+	PasswordResetTokenDTO createPasswordResetTokenForUser(UsuarioDTO user);
 
-	void deletePasswordResetTokenForUser(UserDTO user);
+	void deletePasswordResetTokenForUser(UsuarioDTO user);
 
 	void validatePasswordResetToken(long userId, String token) throws InvalidPasswordResetTokenException;
 
