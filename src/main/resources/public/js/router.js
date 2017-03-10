@@ -8,12 +8,15 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 		'ConsultarUsuarioView', 'CrearUsuarioView',
 		'views/administrador/usuarios/ActualizarUsuarioView',
 		'views/administrador/usuarios/EditarUsuarioView',
-		'views/administrador/usuarios/EliminarUsuarioView'
+		'views/administrador/usuarios/EliminarUsuarioView',
+		'views/reservas/biblioteca/EspaciosDisponiblesView'
+		
 
 ], function($, _, Backbone, HomeView, LoginView, PasswordRecoveryView,
 		PasswordChangeView, SessionManager, BibliotecaView, ComputadoresView,
 		TenisView, UsuariosView, ConsultarUsuarioView, CrearUsuarioView,
-		ActualizarUsuarioView, EditarUsuarioView, EliminarUsuarioView) {
+		ActualizarUsuarioView, EditarUsuarioView, EliminarUsuarioView,
+		EspaciosDisponiblesView) {
 
 	var AppRouter = Backbone.Router.extend({
 		routes : {
@@ -31,6 +34,7 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 			'actualizar-usuario' : 'actualizar-usuario',
 			'editar-usuario' : 'editar-usuario',
 			'eliminar-usuario' : 'eliminar-usuario',
+			'espacios-disponibles': 'espacios-disponibles',
 			'*actions' : 'defaultAction'
 		}
 	});
@@ -117,6 +121,13 @@ define([ 'jquery', 'underscore', 'backbone', 'views/home/HomeView',
 				tenisView.render();
 			}
 		});
+		app_router.on('route:espacios-disponibles', function(actions) {
+			if (SessionManager.checkAuthorization()) {
+				var espaciosDisponiblesView = new EspaciosDisponiblesView();
+				espaciosDisponiblesView.render();
+			}
+		});
+
 
 		app_router.on('route:defaultAction', function(actions) {
 			if (SessionManager.checkAuthorization()) {
