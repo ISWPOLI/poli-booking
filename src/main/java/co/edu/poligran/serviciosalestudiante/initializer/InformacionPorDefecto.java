@@ -1,5 +1,6 @@
 package co.edu.poligran.serviciosalestudiante.initializer;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,20 +15,23 @@ import org.springframework.stereotype.Component;
 
 import co.edu.poligran.serviciosalestudiante.entities.RoleEntity;
 import co.edu.poligran.serviciosalestudiante.entities.RoleTypeEnum;
+import co.edu.poligran.serviciosalestudiante.entities.TipoEspacio;
 import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
 import co.edu.poligran.serviciosalestudiante.exception.UsernameIsNotUniqueException;
 import co.edu.poligran.serviciosalestudiante.repository.RoleRepository;
-import co.edu.poligran.serviciosalestudiante.service.BloquesService;
+import co.edu.poligran.serviciosalestudiante.service.BloqueService;
 import co.edu.poligran.serviciosalestudiante.service.EspacioService;
-import co.edu.poligran.serviciosalestudiante.service.UserService;
-import co.edu.poligran.serviciosalestudiante.service.dto.CubiculoDTO;
+import co.edu.poligran.serviciosalestudiante.service.ReservaService;
+import co.edu.poligran.serviciosalestudiante.service.UsuarioService;
+import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 
 @Component
 public class InformacionPorDefecto implements ApplicationListener<ContextRefreshedEvent> {
 
 	private static final boolean INSERTAR_INFO_POR_DEFECTO = true;
-	private static final long DIAS_BLOQUES_POR_DEFECTO = 60;
+	private static final long DIAS_BLOQUES_POR_DEFECTO = 30;
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -35,16 +39,19 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 	private RoleRepository roleRepository;
 
 	@Autowired
-	private UserService userService;
+	private UsuarioService usuarioService;
 
 	@Autowired
-	private BloquesService bloquesService;
+	private BloqueService bloqueService;
 
 	@Autowired
 	private EspacioService cubiculoService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private ReservaService reservaService;
 
 	@Value("${app.default.admin.email}")
 	private String defaultAdminEmail;
@@ -58,6 +65,18 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 	@Value("${security.user.password}")
 	private String defaultAdminPassword;
 
+	@Value("${app.default.estudiante.username}")
+	private String defaultEstudianteUsername;
+
+	@Value("${app.default.estudiante.email}")
+	private String defaultEstudianteEmail;
+
+	@Value("${app.default.estudiante.fullName}")
+	private String defaultEstudianteFullName;
+
+	@Value("${app.default.estudiante.password}")
+	private String defaultEstudiantePassword;
+
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent cre) {
 		try {
@@ -68,6 +87,7 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 
 				crearCubiculosPorDefecto();
 				crearBloquesDeCubiculosPorDefecto();
+				crearReservasDePrueba();
 			}
 			logger.info("finalizó la inicialización de información por defecto");
 		} catch (Exception e) {
@@ -76,7 +96,26 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 
 	}
 
+	private void crearReservasDePrueba() throws UserNotFoundException {
+		logger.info("creando reservas de prueba");
+
+		UsuarioDTO estudiantePorDefecto = usuarioService.findByUsername(defaultEstudianteUsername);
+		List<BloqueDTO> bloques = bloqueService.consultarBloquesVigentes();
+
+		int totalBloques = bloques.size();
+		SecureRandom random = new SecureRandom();
+
+		for (int i = 0; i < 1; i++) {
+			int index = random.nextInt(totalBloques);
+			BloqueDTO bloque = bloques.get(index);
+
+			reservaService.crearReserva(estudiantePorDefecto, bloque);
+		}
+	}
+
 	private void crearCubiculosPorDefecto() {
+		logger.info("creando cubiculos por defecto");
+
 		crearCubiculo("cubiculo1");
 		crearCubiculo("cubiculo2");
 		crearCubiculo("cubiculo3");
@@ -85,15 +124,18 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 	}
 
 	private void crearCubiculo(String nombre) {
-		CubiculoDTO cubiculo = new CubiculoDTO();
+		EspacioDTO cubiculo = new EspacioDTO();
 		cubiculo.setNombre(nombre);
-		cubiculoService.crearCubiculo(cubiculo);
+		cubiculo.setTipoEspacio(TipoEspacio.CUBICULO);
+		cubiculoService.crearEspacio(cubiculo);
 	}
 
 	private void crearBloquesDeCubiculosPorDefecto() {
-		List<CubiculoDTO> cubiculos = cubiculoService.getCubiculos();
-		for (CubiculoDTO cubiculo : cubiculos) {
-			bloquesService.generarBloques(cubiculo, DIAS_BLOQUES_POR_DEFECTO);
+		logger.info("creando bloques de cubiculos por defecto");
+
+		List<EspacioDTO> cubiculos = cubiculoService.getCubiculos();
+		for (EspacioDTO cubiculo : cubiculos) {
+			bloqueService.generarBloques(cubiculo, DIAS_BLOQUES_POR_DEFECTO);
 		}
 
 	}
@@ -119,8 +161,12 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 	}
 
 	private void crearUsuariosPorDefecto() throws UsernameIsNotUniqueException, UserNotFoundException {
-		if (!userService.isUserCreated("admin")) {
+		logger.info("creando usuarios por defecto");
+		if (!usuarioService.isUserCreated(defaultAdminUsername)) {
 			createDefaultAdmin();
+		}
+		if (!usuarioService.isUserCreated(defaultEstudianteUsername)) {
+			createDefaultEstudiante();
 		}
 	}
 
@@ -131,6 +177,16 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 		admin.setActive(true);
 		admin.setEmail(defaultAdminEmail);
 		admin.setFullName(defaultAdminFullName);
-		userService.create(admin, RoleTypeEnum.ADMIN);
+		usuarioService.create(admin, RoleTypeEnum.ADMIN);
+	}
+
+	private void createDefaultEstudiante() throws UsernameIsNotUniqueException {
+		UsuarioDTO estudiante = new UsuarioDTO();
+		estudiante.setUsername(defaultEstudianteUsername);
+		estudiante.setPassword(passwordEncoder.encode(defaultEstudiantePassword));
+		estudiante.setActive(true);
+		estudiante.setEmail(defaultEstudianteEmail);
+		estudiante.setFullName(defaultEstudianteFullName);
+		usuarioService.create(estudiante, RoleTypeEnum.STUDENT);
 	}
 }

@@ -1,7 +1,7 @@
 package co.edu.poligran.serviciosalestudiante.entities;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -45,7 +47,11 @@ public class UsuarioEntity extends BaseEntity {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "user_role_id") })
-	private Set<RoleEntity> roles = new HashSet<RoleEntity>();
+	private List<RoleEntity> roles = new ArrayList<RoleEntity>();
+
+	@OneToMany(mappedBy = "usuario")
+	@JsonIgnore
+	private List<ReservaEntity> reservas = new ArrayList<>();
 
 	public String getUsername() {
 		return username;
@@ -79,11 +85,11 @@ public class UsuarioEntity extends BaseEntity {
 		this.email = email;
 	}
 
-	public Set<RoleEntity> getRoles() {
+	public List<RoleEntity> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<RoleEntity> roles) {
+	public void setRoles(List<RoleEntity> roles) {
 		this.roles = roles;
 	}
 
@@ -93,6 +99,14 @@ public class UsuarioEntity extends BaseEntity {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public List<ReservaEntity> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<ReservaEntity> reservas) {
+		this.reservas = reservas;
 	}
 
 }

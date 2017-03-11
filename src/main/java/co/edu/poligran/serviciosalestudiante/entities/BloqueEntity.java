@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "BLOQUES")
 public class BloqueEntity extends BaseEntity {
@@ -22,6 +24,7 @@ public class BloqueEntity extends BaseEntity {
 	private EspacioEntity espacio;
 
 	@OneToMany(mappedBy = "bloque")
+	@JsonIgnore
 	private List<ReservaEntity> reservas;
 
 	public Date getTiempoInicio() {

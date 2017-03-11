@@ -6,8 +6,10 @@ import java.util.List;
 import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO;
 
-public interface BloquesService {
+public interface BloqueService {
 	void generarBloques(EspacioDTO espacio, long numeroDeDias);
 
 	List<BloqueDTO> consultarBloquesVigentesPorDiaYEspacio(Date dia, Long idEspacio);
+
+	List<BloqueDTO> consultarBloquesVigentes();
 }

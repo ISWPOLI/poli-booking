@@ -7,7 +7,7 @@ import co.edu.poligran.serviciosalestudiante.exception.UsernameIsNotUniqueExcept
 import co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 
-public interface UserService {
+public interface UsuarioService {
 	UsuarioDTO findByUsername(String username) throws UserNotFoundException;
 
 	UsuarioDTO findByEmail(String email) throws UserNotFoundException;

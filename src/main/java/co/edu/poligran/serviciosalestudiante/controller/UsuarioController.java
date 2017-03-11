@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.poligran.serviciosalestudiante.exception.InvalidPasswordResetTokenException;
 import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
 import co.edu.poligran.serviciosalestudiante.service.MailSenderService;
-import co.edu.poligran.serviciosalestudiante.service.UserService;
+import co.edu.poligran.serviciosalestudiante.service.UsuarioService;
 import co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 
 @RestController
-public class UserController extends BaseController {
+public class UsuarioController extends BaseController {
 
 	@Autowired
-	private UserService userService;
+	private UsuarioService usuarioService;
 
 	@Autowired
 	private MailSenderService mailSenderService;
@@ -36,9 +36,9 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/user/reset-password", method = RequestMethod.POST)
 	public String resetPassword(HttpServletRequest request, @RequestParam("email") String email)
 			throws UserNotFoundException {
-		UsuarioDTO user = userService.findByEmail(email);
+		UsuarioDTO user = usuarioService.findByEmail(email);
 
-		PasswordResetTokenDTO token = userService.createPasswordResetTokenForUser(user);
+		PasswordResetTokenDTO token = usuarioService.createPasswordResetTokenForUser(user);
 
 		mailSenderService.sendPasswordResetTokenEmail(token, getFullAppUrl(request));
 
@@ -52,13 +52,13 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/user/change-password", method = RequestMethod.GET)
 	public void showChangePasswordPage(@RequestParam("id") long id, @RequestParam("token") String token,
 			HttpServletResponse response) throws InvalidPasswordResetTokenException, IOException {
-		userService.authorizePasswordChange(id, token);
+		usuarioService.authorizePasswordChange(id, token);
 		response.sendRedirect("/#/password-change");
 	}
 
 	@RequestMapping(value = "/user/save-password", method = RequestMethod.POST)
 	public String savePassword(@RequestParam("new-password") String newPassword) {
-		userService.changeUserPassword(newPassword);
+		usuarioService.changeUserPassword(newPassword);
 		return "La contraseña se ha cambiado exitosamente";
 	}
 }

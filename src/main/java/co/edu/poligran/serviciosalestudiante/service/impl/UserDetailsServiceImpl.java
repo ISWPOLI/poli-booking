@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
-import co.edu.poligran.serviciosalestudiante.service.UserService;
+import co.edu.poligran.serviciosalestudiante.service.UsuarioService;
 import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 
 @Service
@@ -24,14 +24,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private UserService userService;
+	private UsuarioService usuarioService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("authenticating user: {}", username);
 
 		try {
-			UsuarioDTO user = userService.findByUsername(username);
+			UsuarioDTO user = usuarioService.findByUsername(username);
 			logger.info("user authenticated: {}", username);
 			return getSpringSecurityUser(user);
 		} catch (UserNotFoundException e) {

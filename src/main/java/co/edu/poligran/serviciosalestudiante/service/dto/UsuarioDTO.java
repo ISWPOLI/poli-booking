@@ -1,11 +1,16 @@
 package co.edu.poligran.serviciosalestudiante.service.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 public class UsuarioDTO extends BaseDTO {
 	private String username;
 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
 	private String fullName;
@@ -14,7 +19,10 @@ public class UsuarioDTO extends BaseDTO {
 
 	private boolean active;
 
-	private Set<RoleDTO> roles = new HashSet<RoleDTO>();
+	private List<RoleDTO> roles = new ArrayList<RoleDTO>();
+
+	@JsonIgnore
+	private List<ReservaDTO> reservas = new ArrayList<>();
 
 	public String getUsername() {
 		return username;
@@ -48,11 +56,11 @@ public class UsuarioDTO extends BaseDTO {
 		this.email = email;
 	}
 
-	public Set<RoleDTO> getRoles() {
+	public List<RoleDTO> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<RoleDTO> roles) {
+	public void setRoles(List<RoleDTO> roles) {
 		this.roles = roles;
 	}
 
@@ -62,6 +70,14 @@ public class UsuarioDTO extends BaseDTO {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public List<ReservaDTO> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<ReservaDTO> reservas) {
+		this.reservas = reservas;
 	}
 
 }

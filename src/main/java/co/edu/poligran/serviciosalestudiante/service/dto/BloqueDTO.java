@@ -3,11 +3,14 @@ package co.edu.poligran.serviciosalestudiante.service.dto;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class BloqueDTO extends BaseDTO {
 	private Date tiempoInicio;
 	private Date tiempoFin;
 	private Date dia;
 	private EspacioDTO espacio;
+	@JsonIgnore
 	private List<ReservaDTO> reservas;
 
 	public Date getTiempoInicio() {

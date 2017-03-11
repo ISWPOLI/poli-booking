@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.poligran.serviciosalestudiante.service.BloquesService;
+import co.edu.poligran.serviciosalestudiante.service.BloqueService;
 import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
 
 @RestController
 public class BloquesController extends BaseController {
 
 	@Autowired
-	private BloquesService bloquesService;
+	private BloqueService bloquesService;
 
 	@RequestMapping(value = "/bloques/consultar-bloques-vigentes", method = RequestMethod.GET)
 	public List<BloqueDTO> consultarBloquesVigentesPorDiaYEspacio(@DateTimeFormat(pattern = "yyyy-MM-dd") Date dia,

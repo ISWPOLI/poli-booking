@@ -25,14 +25,14 @@ import co.edu.poligran.serviciosalestudiante.exception.UsernameIsNotUniqueExcept
 import co.edu.poligran.serviciosalestudiante.repository.PasswordResetTokenRepository;
 import co.edu.poligran.serviciosalestudiante.repository.UserRepository;
 import co.edu.poligran.serviciosalestudiante.service.RoleService;
-import co.edu.poligran.serviciosalestudiante.service.UserService;
+import co.edu.poligran.serviciosalestudiante.service.UsuarioService;
 import co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.RoleDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 
 @Service
 @Transactional
-public class UserServiceImpl extends BaseService implements UserService {
+public class UsuarioServiceImpl extends BaseService implements UsuarioService {
 
 	@Autowired
 	private UserRepository userRepository;

@@ -15,14 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import co.edu.poligran.serviciosalestudiante.entities.BloqueEntity;
 import co.edu.poligran.serviciosalestudiante.entities.EspacioEntity;
 import co.edu.poligran.serviciosalestudiante.repository.BloqueRepository;
-import co.edu.poligran.serviciosalestudiante.service.BloquesService;
+import co.edu.poligran.serviciosalestudiante.service.BloqueService;
 import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO;
 import co.edu.poligran.serviciosalestudiante.utils.DozerUtils;
 
 @Service
 @Transactional
-public class BloquesServiceImpl extends BaseService implements BloquesService {
+public class BloqueServiceImpl extends BaseService implements BloqueService {
 
 	public static final LocalTime BLOQUE1_INICIO = new LocalTime(7, 0);
 	public static final LocalTime BLOQUE1_FIN = new LocalTime(8, 30);
@@ -91,6 +91,13 @@ public class BloquesServiceImpl extends BaseService implements BloquesService {
 	@Override
 	public List<BloqueDTO> consultarBloquesVigentesPorDiaYEspacio(Date dia, Long idEspacio) {
 		List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentesPorDiaYEspacio(dia, idEspacio);
+
+		return DozerUtils.mapCollection(bloques, BloqueDTO.class, mapper);
+	}
+
+	@Override
+	public List<BloqueDTO> consultarBloquesVigentes() {
+		List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentes();
 
 		return DozerUtils.mapCollection(bloques, BloqueDTO.class, mapper);
 	}
