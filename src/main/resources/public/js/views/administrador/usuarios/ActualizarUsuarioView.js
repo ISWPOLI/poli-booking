@@ -1,6 +1,6 @@
-define(['jquery', 'underscore', 'backbone',
+define(['jquery', 'underscore', 'backbone', 'App',
     'text!templates/administrador/usuarios/actualizar-usuario.html',
-    'UsuarioCollection', 'RolCollection'], function ($, _, Backbone, actualizarUsuario,
+    'UsuarioCollection', 'RolCollection'], function ($, _, Backbone, App, actualizarUsuario,
                                                      UsuarioCollection, RolCollection) {
 
     var actualizarUsuarioView = Backbone.View.extend({
@@ -18,7 +18,7 @@ define(['jquery', 'underscore', 'backbone',
                 $('.menu li').removeClass('active');
                 $('.menu li a[href="#/usuarios"]').parent().addClass('active');
                 this.$el.html(actualizarUsuario);
-    			App.lanzarEventoLoad();
+                App.lanzarEventoLoad();
             },
 
             consultarDetalleUsuario: function () {

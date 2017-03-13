@@ -1,20 +1,20 @@
-define([ 'jquery', 'underscore', 'backbone',
-		'text!templates/administrador/usuarios/editar-usuario.html' ],
-		function($, _, Backbone, editarUsuario) {
+define(['jquery', 'underscore', 'backbone', 'App',
+        'text!templates/administrador/usuarios/editar-usuario.html'],
+    function ($, _, Backbone, App, editarUsuario) {
 
-			var editarUsuarioView = Backbone.View.extend({
-				el : $("#page"),
+        var editarUsuarioView = Backbone.View.extend({
+            el: $("#page"),
 
-				render : function() {
+            render: function () {
 
-					$('.menu li').removeClass('active');
-					$('.menu li a[href="#"]').parent().addClass('active');
-					this.$el.html(editarUsuario);
-					App.lanzarEventoLoad();
-				}
+                $('.menu li').removeClass('active');
+                $('.menu li a[href="#"]').parent().addClass('active');
+                this.$el.html(editarUsuario);
+                App.lanzarEventoLoad();
+            }
 
-			});
+        });
 
-			return editarUsuarioView;
+        return editarUsuarioView;
 
-		});
+    });

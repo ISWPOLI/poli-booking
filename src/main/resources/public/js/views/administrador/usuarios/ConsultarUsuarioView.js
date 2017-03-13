@@ -1,6 +1,6 @@
-define(['jquery', 'underscore', 'backbone',
+define(['jquery', 'underscore', 'backbone', 'App',
     'text!templates/administrador/usuarios/consultar-usuario.html',
-    'UsuarioCollection'], function ($, _, Backbone,
+    'UsuarioCollection'], function ($, _, Backbone, App,
                                     consultarUsuarioTemplate, UsuarioCollection) {
 
     var consultarUsuarioView = Backbone.View.extend({
@@ -14,7 +14,7 @@ define(['jquery', 'underscore', 'backbone',
             $('.menu li').removeClass('active');
             $('.menu li a[href="#/usuarios"]').parent().addClass('active');
             this.$el.html(consultarUsuarioTemplate);
-			App.lanzarEventoLoad();
+            App.lanzarEventoLoad();
         },
 
         consultarDetalleUsuario: function () {
