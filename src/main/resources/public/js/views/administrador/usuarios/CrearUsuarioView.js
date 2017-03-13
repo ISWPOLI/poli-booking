@@ -15,7 +15,7 @@ define([ 'jquery', 'underscore', 'backbone',
 			$('.menu li').removeClass('active');
 			$('.menu li a[href="#/users"]').parent().addClass('active');
 			this.$el.html(crearUsuarioTemplate);
-			this.fireLoad();
+			App.lanzarEventoLoad();
 		},
 
 		crearUsuario : function() {

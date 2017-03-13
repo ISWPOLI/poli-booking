@@ -3,6 +3,7 @@
         width: 256px;
         height: 256px;
         background: #3E4EB8;
+        margin-bottom: 10px;
     }
 
     .poli-booking-reserva-event > .mdl-card__actions {
@@ -33,10 +34,15 @@
     }
 </style>
 
+<h3></h3>
 <div class="poli-booking-reserva-event mdl-card mdl-shadow--2dp">
     <div class="mdl-card__title mdl-card--expand">
-        <h4>cubiculo1. Día:
-        Hora inicio: Hora fin:</h4>
+        <h4>Tipo: <%= bloque.espacio.tipoEspacio %> <br/>
+            Nombre: <%= bloque.espacio.nombre %> <br/>
+            Día: <%= bloque.dia.toLocaleDateString() %> <br/>
+            Inicio: <%= bloque.tiempoInicio.toLocaleTimeString() %> <br/>
+            Fin: <%= bloque.tiempoFin.toLocaleTimeString() %>
+        </h4>
     </div>
     <div class="mdl-card__actions mdl-card--border">
         <a

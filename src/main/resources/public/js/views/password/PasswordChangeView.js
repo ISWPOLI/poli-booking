@@ -1,50 +1,50 @@
-define([ 'jquery', 'underscore', 'backbone',
-		'text!templates/password/password-change.html' ], function($, _,
-		Backbone, cambioContrasenaTemplate) {
+define(['jquery', 'underscore', 'backbone', 'App',
+        'text!templates/password/password-change.html'],
+    function ($, _, Backbone, App, cambioContrasenaTemplate) {
 
-	var cambioContrasena = Backbone.View.extend({
-		el : $("#page"),
+        var cambioContrasena = Backbone.View.extend({
+            el: $("#page"),
 
-		render : function() {
+            render: function () {
 
-			$('.menu li').removeClass('active');
-			$('.menu li a[href="#"]').parent().addClass('active');
-			this.$el.html(cambioContrasenaTemplate);
-			this.fireLoad();
-		},
+                $('.menu li').removeClass('active');
+                $('.menu li a[href="#"]').parent().addClass('active');
+                this.$el.html(cambioContrasenaTemplate);
+                App.lanzarEventoLoad();
+            },
 
-		events : {
-			"click #password-change-button" : "changePassword"
-		},
+            events: {
+                "click #password-change-button": "changePassword"
+            },
 
-		changePassword : function() {
-			var that = this;
+            changePassword: function () {
+                var that = this;
 
-			var password = that.$el.find('#password').val();
-			var confirmPassword = that.$el.find('#confirm-password').val();
+                var password = that.$el.find('#password').val();
+                var confirmPassword = that.$el.find('#confirm-password').val();
 
-			if (password !== confirmPassword) {
-				alert('las contraseñas no coinciden');
-				return;
-			}
+                if (password !== confirmPassword) {
+                    alert('las contraseñas no coinciden');
+                    return;
+                }
 
-			Backbone.$.ajax({
-				url : '/user/save-password',
-				type : 'POST',
-				data : {
-					"new-password" : password
-				},
-				success : function() {
-					window.location.replace('#/home');
-				},
-				error : function() {
-					alert('Ha ocurrido un error');
-				}
-			});
-		}
+                Backbone.$.ajax({
+                    url: '/user/save-password',
+                    type: 'POST',
+                    data: {
+                        "new-password": password
+                    },
+                    success: function () {
+                        window.location.replace('#/home');
+                    },
+                    error: function () {
+                        alert('Ha ocurrido un error');
+                    }
+                });
+            }
 
-	});
+        });
 
-	return cambioContrasena;
+        return cambioContrasena;
 
-});
+    });

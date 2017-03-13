@@ -1,7 +1,7 @@
 'use strict';
 define(['jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
     'views/login/LoginView', 'views/password/PasswordRecoveryView',
-    'views/password/PasswordChangeView', 'SessionManager',
+    'views/password/PasswordChangeView',
     'views/reservas/biblioteca/BibliotecaView',
     'views/reservas/biblioteca/ComputadoresView',
     'views/reservas/canchas/TenisView', 'UsuariosView',
@@ -10,13 +10,13 @@ define(['jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
     'views/administrador/usuarios/EditarUsuarioView',
     'views/administrador/usuarios/EliminarUsuarioView',
     'views/reservas/biblioteca/EspaciosDisponiblesView',
-    'ConsultarReservasView'
+    'ReservaApp'
 
 ], function ($, _, Backbone, App, HomeView, LoginView, PasswordRecoveryView,
-             PasswordChangeView, SessionManager, BibliotecaView, ComputadoresView,
+             PasswordChangeView, BibliotecaView, ComputadoresView,
              TenisView, UsuariosView, ConsultarUsuarioView, CrearUsuarioView,
              ActualizarUsuarioView, EditarUsuarioView, EliminarUsuarioView,
-             EspaciosDisponiblesView, ConsultarReservasView) {
+             EspaciosDisponiblesView, ReservasApp) {
 
     var reservasRouter = Backbone.Router.extend({
         routes: {
@@ -35,11 +35,10 @@ define(['jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
             'editar-usuario': 'showEditarUsuario',
             'eliminar-usuario': 'showEliminarUsuario',
             'espacios-disponibles': 'showEspaciosDisponibles',
-            'mis-reservas': 'showMisReservas',
-            '*actions': 'defaultAction'
+            'mis-reservas': 'mostrarMisReservas'
         },
         showHome: function () {
-            if (SessionManager.checkAuthorization()) {
+            if (App.verificarAutorizacion()) {
                 var homeView = new HomeView();
                 homeView.render();
             }
@@ -57,37 +56,37 @@ define(['jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
             passwordChangeView.render();
         },
         showBiblioteca: function () {
-            if (SessionManager.checkAuthorization()) {
+            if (App.verificarAutorizacion()) {
                 var bibliotecaView = new BibliotecaView();
                 bibliotecaView.render();
             }
         },
         showComputadores: function () {
-            if (SessionManager.checkAuthorization()) {
+            if (App.verificarAutorizacion()) {
                 var computadoresView = new ComputadoresView();
                 computadoresView.render();
             }
         },
         showUsuarios: function () {
-            if (SessionManager.checkAuthorization()) {
+            if (App.verificarAutorizacion()) {
                 var usuariosView = new UsuariosView();
                 usuariosView.render();
             }
         },
         showConsultarUsuario: function () {
-            if (SessionManager.checkAuthorization()) {
+            if (App.verificarAutorizacion()) {
                 var consultarUsuarioView = new ConsultarUsuarioView();
                 consultarUsuarioView.render();
             }
         },
         showCrearUsuario: function () {
-            if (SessionManager.checkAuthorization()) {
+            if (App.verificarAutorizacion()) {
                 var crearUsuarioView = new CrearUsuarioView();
                 crearUsuarioView.render();
             }
         },
         showActualizarUsuario: function () {
-            if (SessionManager.checkAuthorization()) {
+            if (App.verificarAutorizacion()) {
                 var actualizarUsuarioView = new ActualizarUsuarioView();
                 actualizarUsuarioView.render();
             }
@@ -97,37 +96,35 @@ define(['jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
             editarUsuarioView.render();
         },
         showEliminarUsuario: function () {
-            if (SessionManager.checkAuthorization()) {
+            if (App.verificarAutorizacion()) {
                 var eliminarUsuarioView = new EliminarUsuarioView();
                 eliminarUsuarioView.render();
             }
         },
         showTenis: function () {
-            if (SessionManager.checkAuthorization()) {
+            if (App.verificarAutorizacion()) {
                 var tenisView = new TenisView();
                 tenisView.render();
             }
         },
         showEspaciosDisponibles: function () {
-            if (SessionManager.checkAuthorization()) {
+            if (App.verificarAutorizacion()) {
                 var espaciosDisponiblesView = new EspaciosDisponiblesView();
                 espaciosDisponiblesView.render();
             }
         },
-        showMisReservas: function () {
-            if (SessionManager.checkAuthorization()) {
-                var consultarReservasView = new ConsultarReservasView({
-                    model: null,
-                    el: '#page'
-                });
-                consultarReservasView.render();
+        mostrarMisReservas: function () {
+            var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+            this.procesarRuta(reservasApp.mostrarMisReservas, reservasApp);
+        },
+        procesarRuta: function (funcion, contexto, argumentos) {
+            if (App.verificarAutorizacion()) {
+                funcion.apply(contexto, argumentos);
             }
         },
         startApp: function () {
-            var App = require('App');
-            return App.startSubApplication(ReservasApp);
+            return App.arrancarSubAplicacion(ReservasApp);
         }
-
     });
 
     App.Routers.ReservasRouter = reservasRouter;

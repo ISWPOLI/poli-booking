@@ -1,20 +1,20 @@
-define([ 'jquery', 'underscore', 'backbone',
-		'text!templates/reservas/biblioteca/biblioteca.html' ], function($, _,
-		Backbone, biblioteca) {
+define(['jquery', 'underscore', 'backbone', 'App',
+        'text!templates/reservas/biblioteca/biblioteca.html'],
+    function ($, _, Backbone, App, biblioteca) {
 
-	var bibliotecaView = Backbone.View.extend({
-		el : $("#page"),
+        var bibliotecaView = Backbone.View.extend({
+            el: $("#page"),
 
-		render : function() {
+            render: function () {
 
-			$('.menu li').removeClass('active');
-			$('.menu li a[href="#"]').parent().addClass('active');
-			this.$el.html(biblioteca);
-			this.fireLoad();
-		}
+                $('.menu li').removeClass('active');
+                $('.menu li a[href="#"]').parent().addClass('active');
+                this.$el.html(biblioteca);
+                App.lanzarEventoLoad();
+            }
 
-	});
+        });
 
-	return bibliotecaView;
+        return bibliotecaView;
 
-});
+    });

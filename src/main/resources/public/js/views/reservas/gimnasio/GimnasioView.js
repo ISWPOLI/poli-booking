@@ -1,20 +1,20 @@
-define([ 'jquery', 'underscore', 'backbone',
-		'text!templates/usuario/gimnasio.html' ], function($, _, Backbone,
-		gimnasio) {
+define(['jquery', 'underscore', 'backbone', 'App',
+        'text!templates/usuario/gimnasio.html'],
+    function ($, _, Backbone, App, gimnasio) {
 
-	var gimnasioView = Backbone.View.extend({
-		el : $("#page"),
+        var gimnasioView = Backbone.View.extend({
+            el: $("#page"),
 
-		render : function() {
+            render: function () {
 
-			$('.menu li').removeClass('active');
-			$('.menu li a[href="#"]').parent().addClass('active');
-			this.$el.html(gimnasio);
-			this.fireLoad();
-		}
+                $('.menu li').removeClass('active');
+                $('.menu li a[href="#"]').parent().addClass('active');
+                this.$el.html(gimnasio);
+                App.lanzarEventoLoad();
+            }
 
-	});
+        });
 
-	return gimnasioView;
+        return gimnasioView;
 
-});
+    });

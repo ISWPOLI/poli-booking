@@ -1,20 +1,20 @@
-define([ 'jquery', 'underscore', 'backbone',
-		'text!templates/reservas/canchas/tenis.html' ], function($, _,
-		Backbone, tenis) {
+define(['jquery', 'underscore', 'backbone', 'App',
+        'text!templates/reservas/canchas/tenis.html'],
+    function ($, _, Backbone, App, tenis) {
 
-	var tenisView = Backbone.View.extend({
-		el : $("#page"),
+        var tenisView = Backbone.View.extend({
+            el: $("#page"),
 
-		render : function() {
+            render: function () {
 
-			$('.menu li').removeClass('active');
-			$('.menu li a[href="#"]').parent().addClass('active');
-			this.$el.html(tenis);
-			this.fireLoad();
-		}
+                $('.menu li').removeClass('active');
+                $('.menu li a[href="#"]').parent().addClass('active');
+                this.$el.html(tenis);
+                App.lanzarEventoLoad();
+            }
 
-	});
+        });
 
-	return tenisView;
+        return tenisView;
 
-});
+    });

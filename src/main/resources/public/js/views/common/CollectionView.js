@@ -26,7 +26,7 @@ define(['backbone'], function (Backbone) {
             var that = this;
             this.closeChildren();
 
-            var htmlArray = _.map(this.collection, function (model) {
+            var htmlArray = this.collection.map(function (model) {
                 var view = that.renderModel(model);
                 return view.$el;
             });

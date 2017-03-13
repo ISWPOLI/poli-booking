@@ -5,7 +5,7 @@ define(['backbone'], function (Backbone) {
         },
 
         defaultRoute: function () {
-            this.navigate('#', true);
+            this.navigate('#/home', true);
         }
     });
 

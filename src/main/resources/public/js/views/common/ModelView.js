@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
+define(['jquery', 'underscore', 'backbone', 'App'], function ($, _, Backbone, App) {
     var modelView = Backbone.View.extend({
         render: function () {
             var data = this.serializarData();
@@ -14,9 +14,10 @@ define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
             this.$el.html(htmlRenderizado);
 
             if (this.onRender) {
+                App.lanzarEventoLoad();
                 this.onRender();
             }
-            this.fireLoad();
+
 
             return this;
         },

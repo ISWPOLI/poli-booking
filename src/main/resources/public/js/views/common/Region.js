@@ -10,16 +10,16 @@ define([], function () {
             },
 
             closeView: function (view) {
-                if (view && view.remove) {
-                    view.remove();
-                }
+                // if (view && view.remove) {
+                //     view.remove();
+                // }
             },
 
             openView: function (view) {
                 this.ensureEl();
 
                 view.render();
-                this.$el.html(view.el);
+                this.$el.html(view.$el.html());
 
                 if (view.onShow) {
                     view.onShow();
@@ -38,6 +38,8 @@ define([], function () {
                 this.closeView(this.currentView);
             }
         };
+
+        return view;
     };
 
     return regionView;
