@@ -1,5 +1,5 @@
 define(['jquery', 'underscore', 'backbone', 'App',
-        'text!templates/usuario/canchas.html'],
+        'text!templates/espacios/canchas.html'],
     function ($, _, Backbone, App, canchas) {
 
         var canchasView = Backbone.View.extend({

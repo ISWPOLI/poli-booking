@@ -1,5 +1,5 @@
 define(['jquery', 'underscore', 'backbone', 'App',
-        'text!templates/usuario/gimnasio.html'],
+        'text!templates/espacios/gimnasio.html'],
     function ($, _, Backbone, App, gimnasio) {
 
         var gimnasioView = Backbone.View.extend({
