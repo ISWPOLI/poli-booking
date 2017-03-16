@@ -14,8 +14,8 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 		'views/reservas/gimnasio/GimnasioView',
 		'views/reservas/canchas/CanchaMultipleView',
 		'views/reservas/canchas/CanchaFutbolTenisView',
-		'views/reservas/biblioteca/CubiculoEstudioViews',
-		'views/reservas/biblioteca/CubiculoVideoViews',
+		'views/reservas/biblioteca/CubiculoEstudioView',
+		'views/reservas/biblioteca/CubiculoVideoView',
 		'ReservaApp'
 
 ], function($, _, Backbone, App, HomeView, LoginView, PasswordRecoveryView,
@@ -23,7 +23,7 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 		UsuariosView, ConsultarUsuarioView, CrearUsuarioView,
 		ActualizarUsuarioView, EditarUsuarioView, EliminarUsuarioView,
 		EspaciosDisponiblesView, CanchasView, GimnasioView,CanchaMultipleView,
-		CanchaFutbolTenisView, CubiculoEstudioViews,CubiculoVideoViews,ReservasApp) {
+		CanchaFutbolTenisView, CubiculoEstudioView,CubiculoVideoView,ReservasApp) {
 
 	var reservasRouter = Backbone.Router.extend({
 		routes : {

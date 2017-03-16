@@ -1,5 +1,5 @@
 define(['jquery', 'underscore', 'backbone', 'App',
-        'text!templates/reservas/biblioteca/computads.html'],
+        'text!templates/reservas/biblioteca/computadores.html'],
     function ($, _, Backbone, App, computadores) {
 
         var computadoresView = Backbone.View.extend({

@@ -1,6 +1,6 @@
 define(['jquery', 'underscore', 'backbone', 'App',
         'text!templates/reservas/biblioteca/cubiculoEstudio.html'],
-    function ($, _, Backbone, App, computadores) {
+    function ($, _, Backbone, App, cubiculoEstudio) {
 
         var cubiculoEstudioView = Backbone.View.extend({
             el: $("#page"),

@@ -1,6 +1,6 @@
 define(['jquery', 'underscore', 'backbone', 'App',
-        'text!templates/reservas/canchas/canchaFutolTenis.html'],
-    function ($, _, Backbone, App, computadores) {
+        'text!templates/reservas/canchas/canchaFutbolTenis.html'],
+    function ($, _, Backbone, App, canchaFutbolTenis) {
 
         var canchaFutbolTenisView = Backbone.View.extend({
             el: $("#page"),
@@ -9,7 +9,7 @@ define(['jquery', 'underscore', 'backbone', 'App',
 
                 $('.menu li').removeClass('active');
                 $('.menu li a[href="#"]').parent().addClass('active');
-                this.$el.html(canchaFutolTenis);
+                this.$el.html(canchaFutbolTenis);
                 App.lanzarEventoLoad();
             }
 

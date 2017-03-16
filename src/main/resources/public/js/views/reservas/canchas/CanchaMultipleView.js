@@ -1,6 +1,6 @@
 define(['jquery', 'underscore', 'backbone', 'App',
         'text!templates/reservas/canchas/canchaMultiple.html'],
-    function ($, _, Backbone, App, computadores) {
+    function ($, _, Backbone, App, canchaMultiple) {
 
         var canchaMultipleView = Backbone.View.extend({
             el: $("#page"),
