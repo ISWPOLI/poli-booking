@@ -11,13 +11,19 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 		'views/administrador/usuarios/EliminarUsuarioView',
 		'views/reservas/biblioteca/EspaciosDisponiblesView',
 		'views/reservas/canchas/CanchasView', 
-		'views/reservas/gimnasio/GimnasioView', 'ReservaApp'
+		'views/reservas/gimnasio/GimnasioView',
+		'views/reservas/canchas/CanchaMultipleView',
+		'views/reservas/canchas/CanchaFutbolTenisView',
+		'views/reservas/biblioteca/CubiculoEstudioViews',
+		'views/reservas/biblioteca/CubiculoVideoViews',
+		'ReservaApp'
 
 ], function($, _, Backbone, App, HomeView, LoginView, PasswordRecoveryView,
 		PasswordChangeView, BibliotecaView, ComputadoresView, TenisView,
 		UsuariosView, ConsultarUsuarioView, CrearUsuarioView,
 		ActualizarUsuarioView, EditarUsuarioView, EliminarUsuarioView,
-		EspaciosDisponiblesView, CanchasView, GimnasioView, ReservasApp) {
+		EspaciosDisponiblesView, CanchasView, GimnasioView,CanchaMultipleView,
+		CanchaFutbolTenisView, CubiculoEstudioViews,CubiculoVideoViews,ReservasApp) {
 
 	var reservasRouter = Backbone.Router.extend({
 		routes : {
@@ -37,6 +43,10 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 			'editar-usuario' : 'showEditarUsuario',
 			'eliminar-usuario' : 'showEliminarUsuario',
 			'espacios-disponibles' : 'showEspaciosDisponibles',
+			'cancha-multiple': 'showCanchaMultiple',
+			'cancha-futbolTenis': 'showCanchaFutbolTenis',
+			'cubiculo-estudio': 'showCubiculoEstudio',
+			'cubiculo-video': 'showCubiculoVideo',
 			'mis-reservas' : 'mostrarMisReservas'
 		},
 		showHome : function() {
@@ -131,6 +141,37 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 				gimnasioView.render();
 			}
 		},
+		
+		showCanchaMultiple: function(){
+			if(App.verificarAutorizacion()){
+				var canchaMultipleView=new CanchaMultipleView();
+				canchaMultipleView.render();
+			}
+		},
+		
+		showCanchaFutbolTenis : function(){
+			if(App.verificarAutorizacion()){
+				var canchaFutbolTenisView= new CanchaFutbolTenisView();
+				canchaFutbolTenisView.render();
+			}
+		},
+		
+		showCubiculoEstudio : function(){
+			if(App.verificarAutorizacion()){
+				var cubiculoEstudioView= new CubiculoEstudioView();
+				cubiculoEstudioView.render();
+			}
+		},
+		
+		showCubiculoVideo : function(){
+			if(App.verificarAutorizacion()){
+				var cubiculoVideoView= new CubiculoVideoView();
+				cubiculoVideoView.render();
+			}
+		},
+		
+		
+		
 		procesarRuta : function(funcion, contexto, argumentos) {
 			if (App.verificarAutorizacion()) {
 				funcion.apply(contexto, argumentos);

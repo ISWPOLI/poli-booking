@@ -1,20 +1,20 @@
 define(['jquery', 'underscore', 'backbone', 'App',
-        'text!templates/reservas/biblioteca/computads.html'],
+        'text!templates/reservas/canchas/canchaFutolTenis.html'],
     function ($, _, Backbone, App, computadores) {
 
-        var computadoresView = Backbone.View.extend({
+        var canchaFutbolTenisView = Backbone.View.extend({
             el: $("#page"),
 
             render: function () {
 
                 $('.menu li').removeClass('active');
                 $('.menu li a[href="#"]').parent().addClass('active');
-                this.$el.html(computadores);
+                this.$el.html(canchaFutolTenis);
                 App.lanzarEventoLoad();
             }
 
         });
 
-        return computadoresView;
+        return canchaFutbolTenisView;
 
     });

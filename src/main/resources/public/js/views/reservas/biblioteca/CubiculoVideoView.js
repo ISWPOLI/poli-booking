@@ -1,20 +1,20 @@
 define(['jquery', 'underscore', 'backbone', 'App',
-        'text!templates/reservas/biblioteca/computads.html'],
+        'text!templates/reservas/biblioteca/cubiculoVideo.html'],
     function ($, _, Backbone, App, computadores) {
 
-        var computadoresView = Backbone.View.extend({
+        var cubiculoVideoView = Backbone.View.extend({
             el: $("#page"),
 
             render: function () {
 
                 $('.menu li').removeClass('active');
                 $('.menu li a[href="#"]').parent().addClass('active');
-                this.$el.html(computadores);
+                this.$el.html(cubiculoVideo);
                 App.lanzarEventoLoad();
             }
 
         });
 
-        return computadoresView;
+        return cubiculoVideoView;
 
     });
