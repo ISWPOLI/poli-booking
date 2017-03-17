@@ -19,7 +19,7 @@ define([], function () {
                 this.ensureEl();
 
                 view.render();
-                this.$el.html(view.$el.html());
+                this.$el.html(view.el);
 
                 if (view.onShow) {
                     view.onShow();
