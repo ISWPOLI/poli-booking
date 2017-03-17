@@ -4,7 +4,6 @@ define(['underscore', 'backbone', 'ConsultarReservasCollectionView'], function (
             region: options.region,
             mostrarMisReservas: function (collection) {
                 var reservasCollectionView = new ConsultarReservasCollectionView({
-                    el: '#page',
                     collection: collection
                 });
 

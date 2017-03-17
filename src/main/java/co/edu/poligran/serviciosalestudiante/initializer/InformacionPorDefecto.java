@@ -105,7 +105,7 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 		int totalBloques = bloques.size();
 		SecureRandom random = new SecureRandom();
 
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 10; i++) {
 			int index = random.nextInt(totalBloques);
 			BloqueDTO bloque = bloques.get(index);
 

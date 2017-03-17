@@ -40,7 +40,7 @@ public class UsuarioController extends BaseController {
 
 		PasswordResetTokenDTO token = usuarioService.createPasswordResetTokenForUser(user);
 
-		mailSenderService.sendPasswordResetTokenEmail(token, getFullAppUrl(request));
+		mailSenderService.enviarTokenRestablecimientoContraseña(token, getFullAppUrl(request));
 
 		return "El enlace para cambiar la contraseña se ha enviado correctamente al correo suministrado";
 	}
