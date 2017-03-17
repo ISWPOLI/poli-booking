@@ -1,5 +1,7 @@
 define(['jquery', 'underscore', 'backbone', 'App'], function ($, _, Backbone, App) {
     var modelView = Backbone.View.extend({
+
+        // metodo sobreescrito de Backbone.View
         render: function () {
             var data = this.serializarData();
             var htmlRenderizado;
@@ -18,9 +20,9 @@ define(['jquery', 'underscore', 'backbone', 'App'], function ($, _, Backbone, Ap
                 this.onRender();
             }
 
-
             return this;
         },
+
         serializarData: function () {
             var data;
 
@@ -30,6 +32,7 @@ define(['jquery', 'underscore', 'backbone', 'App'], function ($, _, Backbone, Ap
 
             return data;
         },
+
         compilarTemplate: function () {
             var $el = $(this.template);
             return _.template($el.html())

@@ -7,7 +7,7 @@ define(['underscore', 'backbone', 'ConsultarReservasCollectionView'], function (
                     collection: collection
                 });
 
-                this.region.show(reservasCollectionView);
+                this.region.mostrar(reservasCollectionView);
             }
         };
         _.extend(controlador, Backbone.Events);

@@ -1,44 +1,48 @@
 define(['ModelView'], function (ModelView) {
     var layout = ModelView.extend({
+
+        // metodo sobreescrito de Backbone.View
         render: function () {
-            this.closeRegions();
+            this.cerrarRegiones();
 
-            var result = ModelView.prototype.render.call(this);
+            var respuestaRenderPadre = ModelView.prototype.render.call(this);
 
-            this.configureRegions();
-            return result;
+            this.configurarRegiones();
+            return respuestaRenderPadre;
         },
 
-        configureRegions: function () {
-            var that = this;
-            var regionDefinitions = this.regions || {};
+        // metodo sobreescrito de Backbone.View
+        remove: function (options) {
+            ModelView.prototype.remove.call(this, options);
+            this.cerrarRegiones();
+        },
 
-            if (!this._regions) {
-                this._regions = {};
+        configurarRegiones: function () {
+            var that = this;
+            var regionesDefinidas = this.regiones || {};
+
+            if (!this._regiones) {
+                this._regiones = {};
             }
 
-            _.each(regionDefinitions, function (selector, name) {
-                var $el = that.$(selector);
-                this._regions[name] = new Region({el: $el});
+            _.each(regionesDefinidas, function (selectorDelElemento, nombre) {
+                var $el = that.$(selectorDelElemento);
+                this._regiones[nombre] = new Region({el: $el});
             })
         },
 
-        getRegion: function (regionName) {
-            var regions = this._regions || {};
-            return regions[regionName];
+        getRegion: function (nombreRegion) {
+            var regiones = this._regiones || {};
+            return regiones[nombreRegion];
         },
 
-        remove: function (options) {
-            ModelView.prototype.remove.call(this, options);
-            this.closeRegions();
-        },
 
-        closeRegions: function () {
-            var regions = this._regions || {};
+        cerrarRegiones: function () {
+            var regions = this._regiones || {};
 
             _.each(regions, function (region) {
-                if (region && region.remove) {
-                    region.remove();
+                if (region && region.eliminar) {
+                    region.eliminar();
                 }
             });
         }

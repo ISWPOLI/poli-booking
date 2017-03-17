@@ -22,22 +22,22 @@ define(['App', 'ReservaCollection', 'MisReservasController'],
                 },
 
                 mostrarMisReservasController: function (collection) {
-                    var reservasController = this.startController(MisReservasController);
+                    var reservasController = this.arrancarControlador(MisReservasController);
                     reservasController.mostrarMisReservas(collection);
                 },
 
-                startController: function (controller) {
-                    if (this.currentController &&
-                        this.currentController instanceof controller) {
-                        return this.currentController;
+                arrancarControlador: function (controlador) {
+                    if (this.controladorActual &&
+                        this.controladorActual instanceof controlador) {
+                        return this.controladorActual;
                     }
 
-                    if (this.currentController && this.currentController.destroy) {
-                        this.currentController.destroy();
+                    if (this.controladorActual && this.controladorActual.destroy) {
+                        this.controladorActual.destroy();
                     }
 
-                    this.currentController = new controller({region: this.region});
-                    return this.currentController;
+                    this.controladorActual = new controlador({region: this.region});
+                    return this.controladorActual;
                 }
             }
         };
