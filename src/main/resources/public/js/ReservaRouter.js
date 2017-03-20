@@ -16,6 +16,7 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 		'views/reservas/canchas/CanchaFutbolTenisView',
 		'views/reservas/biblioteca/CubiculoEstudioView',
 		'views/reservas/biblioteca/CubiculoVideoView',
+		'views/reservas/ConfirmarReservaView',
 		'ReservaApp'
 
 ], function($, _, Backbone, App, HomeView, LoginView, PasswordRecoveryView,
@@ -23,7 +24,7 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 		UsuariosView, ConsultarUsuarioView, CrearUsuarioView,
 		ActualizarUsuarioView, EditarUsuarioView, EliminarUsuarioView,
 		EspaciosDisponiblesView, CanchasView, GimnasioView,CanchaMultipleView,
-		CanchaFutbolTenisView, CubiculoEstudioView,CubiculoVideoView,ReservasApp) {
+		CanchaFutbolTenisView, CubiculoEstudioView,CubiculoVideoView,ConfirmarReservaView,ReservasApp) {
 
 	var reservasRouter = Backbone.Router.extend({
 		routes : {
@@ -47,6 +48,7 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 			'cancha-futbolTenis': 'showCanchaFutbolTenis',
 			'cubiculo-estudio': 'showCubiculoEstudio',
 			'cubiculo-video': 'showCubiculoVideo',
+			'confirmar-reserva': 'showConfirmarReserva',
 			'mis-reservas' : 'mostrarMisReservas'
 		},
 		showHome : function() {
@@ -169,9 +171,12 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 				cubiculoVideoView.render();
 			}
 		},
-		
-		
-		
+		showConfirmarReserva: function(){
+			if(App.verficarAutorizacion()){
+				var confirmarReservaView= new ConfirmarReservaView();
+				confirmarReservaView.render();
+			}
+		},
 		procesarRuta : function(funcion, contexto, argumentos) {
 			if (App.verificarAutorizacion()) {
 				funcion.apply(contexto, argumentos);
