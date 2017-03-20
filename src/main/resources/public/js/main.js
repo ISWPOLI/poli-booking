@@ -20,6 +20,14 @@ require
             Layout: './views/common/Layout',
             Region: './views/common/Region',
 
+            MainLayout: './views/MainLayout',
+
+            // public
+            PublicApp: './PublicApp',
+            PublicController: './PublicController',
+            PublicRouter: './PublicRouter',
+            LoginView: './views/login/LoginView',
+
             // usuarios
             UsuarioModel: './models/usuario/UsuarioModel',
             RolModel: './models/usuario/RolModel',
@@ -35,10 +43,10 @@ require
             ReservaCollection: './collections/reserva/ReservaCollection',
             ConsultarReservasModelView: './views/reservas/ConsultarReservasModelView',
             ConsultarReservasCollectionView: './views/reservas/ConsultarReservasCollectionView',
-            MisReservasController: './MisReservasController'
+            ReservaController: './ReservaController'
         }
     });
 
-require(['App', 'ReservaRouter'], function (App, ReservasRouter) {
+require(['App', 'ReservaRouter', 'PublicRouter'], function (App, ReservasRouter, PublicRouter) {
     App.iniciar();
 });

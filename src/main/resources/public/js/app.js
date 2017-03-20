@@ -12,7 +12,7 @@ define(['jquery', 'underscore', 'material', 'backbone', 'backboneValidation', 's
                     new Router();
                 });
 
-                this.mainRegion = new Region({el: '#page'});
+                this.mainRegion = new Region({el: '#poli-booking-main-region'});
 
                 this.router = new DefaultRouter();
 
@@ -155,6 +155,14 @@ define(['jquery', 'underscore', 'material', 'backbone', 'backboneValidation', 's
 
             lanzarEventoLoad: function () {
                 dispatchEvent(new Event('load'));
+            },
+
+            notificarInicioCargue: function () {
+                this.trigger('loading:start');
+            },
+
+            notificarFinCargue: function () {
+                this.trigger('loading:stop');
             }
         }
 

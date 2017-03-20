@@ -2,8 +2,6 @@
 define(['jquery', 'underscore', 'backbone', 'App', 'text!templates/login/login.html'],
     function ($, _, Backbone, App, loginTemplate) {
         var login = Backbone.View.extend({
-            el: $("#page"),
-
             render: function () {
                 $('.menu li').removeClass('active');
                 $('.menu li a[href="#/login"]').parent().addClass('active');

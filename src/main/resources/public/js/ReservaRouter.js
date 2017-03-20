@@ -28,9 +28,6 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 	var reservasRouter = Backbone.Router.extend({
 		routes : {
 			'home' : 'showHome',
-			'login' : 'showLogin',
-			'password-recovery' : 'showPasswordRecovery',
-			'password-change' : 'showPasswordChange',
 			'biblioteca' : 'showBiblioteca',
 			'computadores' : 'showComputadores',
 			'tenis' : 'showTenis',
@@ -54,18 +51,6 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 				var homeView = new HomeView();
 				homeView.render();
 			}
-		},
-		showLogin : function() {
-			var loginView = new LoginView();
-			loginView.render();
-		},
-		showPasswordRecovery : function() {
-			var passwordRecoveryView = new PasswordRecoveryView();
-			passwordRecoveryView.render();
-		},
-		showPasswordChange : function() {
-			var passwordChangeView = new PasswordChangeView();
-			passwordChangeView.render();
 		},
 		showBiblioteca : function() {
 			if (App.verificarAutorizacion()) {
@@ -176,9 +161,6 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 			if (App.verificarAutorizacion()) {
 				funcion.apply(contexto, argumentos);
 			}
-		},
-		startApp : function() {
-			return App.arrancarSubAplicacion(ReservasApp);
 		}
 	});
 

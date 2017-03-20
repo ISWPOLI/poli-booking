@@ -1,8 +1,8 @@
-define(['App', 'ReservaCollection', 'MisReservasController'],
-    function (App, ReservaCollection, MisReservasController) {
-        var reservasApp = function (options) {
+define(['App', 'ReservaCollection', 'ReservaController'],
+    function (App, ReservaCollection, ReservaController) {
+        var reservasApp = function (opciones) {
             return {
-                region: options.region,
+                region: opciones.region,
 
                 mostrarMisReservas: function () {
                     var that = this;
@@ -22,7 +22,7 @@ define(['App', 'ReservaCollection', 'MisReservasController'],
                 },
 
                 mostrarMisReservasController: function (collection) {
-                    var reservasController = this.arrancarControlador(MisReservasController);
+                    var reservasController = this.arrancarControlador(ReservaController);
                     reservasController.mostrarMisReservas(collection);
                 },
 
