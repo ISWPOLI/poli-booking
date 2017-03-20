@@ -1,27 +1,18 @@
-define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'views/sidebar/SidebarView',
-  'text!templates/reservas/confirmarReserva.html'
-], function($, _, Backbone, SidebarView, confirmarReserva){
+define(['jquery', 'underscore', 'backbone', 'App',
+        'text!templates/reservas/confirmarReserva.html'],
+    function ($, _, Backbone, App, confirmarReserva) {
 
-  var confirmarReservaView = Backbone.View.extend({
-    el: $("#page"),
+        var ConfirmarReservaView = Backbone.View.extend({
+            el: $("#page"),
 
-    render: function(){
-      
-      $('.menu li').removeClass('active');
-      $('.menu li a[href="#"]').parent().addClass('active');
-      this.$el.html(confirmarReserva);
+            render: function () {
+                $('.menu li').removeClass('active');
+                $('.menu li a[href="#"]').parent().addClass('active');
+                this.$el.html(confirmarReserva);
+                App.lanzarEventoLoad();
+            }
+        });
 
-      var sidebarView = new SidebarView();
-      sidebarView.render();
- 
-    }
+        return ConfirmarReservaView;
 
-  });
-
-  return confirmarReservaView;
-  
-});
+    });

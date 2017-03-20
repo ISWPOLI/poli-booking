@@ -24,7 +24,8 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 		UsuariosView, ConsultarUsuarioView, CrearUsuarioView,
 		ActualizarUsuarioView, EditarUsuarioView, EliminarUsuarioView,
 		EspaciosDisponiblesView, CanchasView, GimnasioView,CanchaMultipleView,
-		CanchaFutbolTenisView, CubiculoEstudioView,CubiculoVideoView,ConfirmarReservaView,ReservasApp) {
+		CanchaFutbolTenisView, CubiculoEstudioView,CubiculoVideoView,
+		ConfirmarReservaView,ReservasApp) {
 
 	var reservasRouter = Backbone.Router.extend({
 		routes : {
@@ -172,8 +173,8 @@ define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
 			}
 		},
 		showConfirmarReserva: function(){
-			if(App.verficarAutorizacion()){
-				var confirmarReservaView= new ConfirmarReservaView();
+			if(App.verificarAutorizacion()){
+				var confirmarReservaView = new ConfirmarReservaView();
 				confirmarReservaView.render();
 			}
 		},
