@@ -145,14 +145,16 @@ define(
                         .createTextNode("Reservar");
                     var n=espacios[i]["id"];
                     boton.setAttribute("id","btn-reservar-"+n);
-//                    var alerta= alerta_function(n);
-//                    boton.addEventListener("click",function alerta_function(n){
-//                        alert(n);
-//                    }(n));
+                    $(boton).click(function(){
+                    	var boton=document
+                        .createElement("button");
+                    	boton=this;
+                    	
+                    	alert(boton.id);
+                    });
+                    
                     boton.appendChild(texto);
                     celda.appendChild(boton);
-                    var x=celda.getElementById("btn-reservar-"+n);
-                    x.addEventListener(click,alerta_function(n));
                     hilera.appendChild(celda);
                   }
                 }
