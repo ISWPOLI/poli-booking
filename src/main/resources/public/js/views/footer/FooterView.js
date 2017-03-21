@@ -1,3 +1,10 @@
-/**
- * Created by antoniopaternina on 20/03/17.
- */
+define(['ModelView', 'text!FooterTemplate'], function (ModelView, FooterTemplate) {
+    var footerView = ModelView.extend({
+        template: function (data) {
+            var compiled = _.template(FooterTemplate);
+            return compiled(data);
+        }
+    });
+
+    return footerView;
+});

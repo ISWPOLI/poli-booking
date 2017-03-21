@@ -23,8 +23,6 @@ require
             MainLayout: './views/main-layout/MainLayout',
             HeaderView: './views/header/HeaderView',
             HeaderTemplate: '../templates/header/header.html',
-            DrawerView: './views/drawer/DrawerView',
-            DrawerTemplate: '../templates/drawer/drawer.html',
             FooterView: './views/footer/FooterView',
             FooterTemplate: '../templates/footer/footer.html',
 

@@ -1,5 +1,5 @@
-define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'LoginView'],
-    function (_, Backbone, MainLayout, HeaderView, LoginView) {
+define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'FooterView', 'LoginView'],
+    function (_, Backbone, MainLayout, HeaderView, FooterView, LoginView) {
         var publicController = function (opciones) {
             var controlador = {
                 region: opciones.region,
@@ -8,10 +8,12 @@ define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'LoginView'],
                     var layout = new MainLayout();
                     var loginView = new LoginView();
                     var headerView = new HeaderView();
+                    var footerView = new FooterView();
 
                     this.region.mostrar(layout);
                     layout.getRegion('header').mostrar(headerView);
                     layout.getRegion('content').mostrar(loginView);
+                    layout.getRegion('footer').mostrar(footerView);
                 },
 
                 mostrarRecuperacionCuenta: function () {
@@ -28,4 +30,5 @@ define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'LoginView'],
         };
 
         return publicController;
-    });
+    }
+);
