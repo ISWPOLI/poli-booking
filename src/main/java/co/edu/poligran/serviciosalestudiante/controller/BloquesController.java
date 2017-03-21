@@ -16,12 +16,17 @@ import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
 @RestController
 public class BloquesController extends BaseController {
 
-	@Autowired
-	private BloqueService bloquesService;
+    @Autowired
+    private BloqueService bloquesService;
 
-	@RequestMapping(value = "/bloques/consultar-bloques-vigentes", method = RequestMethod.GET)
-	public List<BloqueDTO> consultarBloquesVigentesPorDiaYEspacio(@DateTimeFormat(pattern = "yyyy-MM-dd") Date dia,
-			@RequestParam("id-espacio") Long idEspacio) {
-		return bloquesService.consultarBloquesVigentesPorDiaYEspacio(dia, idEspacio);
-	}
+    @RequestMapping(value = "/bloques/consultar-bloques-vigentes", method = RequestMethod.GET)
+    public List<BloqueDTO> consultarBloquesVigentesPorDiaYEspacio(@DateTimeFormat(pattern = "yyyy-MM-dd") Date dia,
+                                                                  @RequestParam("id-espacio") Long idEspacio) {
+        return bloquesService.consultarBloquesVigentesPorDiaYEspacio(dia, idEspacio);
+    }
+
+    @RequestMapping(value = "/bloques/consultar-bloque", method = RequestMethod.GET)
+    public BloqueDTO consultarBloque(Long idBloque) {
+        return bloquesService.consultarBloque(idBloque);
+    }
 }

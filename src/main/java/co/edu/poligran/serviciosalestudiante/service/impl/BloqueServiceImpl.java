@@ -24,81 +24,86 @@ import co.edu.poligran.serviciosalestudiante.utils.DozerUtils;
 @Transactional
 public class BloqueServiceImpl extends BaseService implements BloqueService {
 
-	public static final LocalTime BLOQUE1_INICIO = new LocalTime(7, 0);
-	public static final LocalTime BLOQUE1_FIN = new LocalTime(8, 30);
+    public static final LocalTime BLOQUE1_INICIO = new LocalTime(7, 0);
+    public static final LocalTime BLOQUE1_FIN = new LocalTime(8, 30);
 
-	public static final LocalTime BLOQUE2_INICIO = new LocalTime(8, 40);
-	public static final LocalTime BLOQUE2_FIN = new LocalTime(10, 10);
+    public static final LocalTime BLOQUE2_INICIO = new LocalTime(8, 40);
+    public static final LocalTime BLOQUE2_FIN = new LocalTime(10, 10);
 
-	public static final LocalTime BLOQUE3_INICIO = new LocalTime(10, 20);
-	public static final LocalTime BLOQUE3_FIN = new LocalTime(11, 50);
+    public static final LocalTime BLOQUE3_INICIO = new LocalTime(10, 20);
+    public static final LocalTime BLOQUE3_FIN = new LocalTime(11, 50);
 
-	public static final LocalTime BLOQUE4_INICIO = new LocalTime(12, 0);
-	public static final LocalTime BLOQUE4_FIN = new LocalTime(13, 30);
+    public static final LocalTime BLOQUE4_INICIO = new LocalTime(12, 0);
+    public static final LocalTime BLOQUE4_FIN = new LocalTime(13, 30);
 
-	public static final LocalTime BLOQUE5_INICIO = new LocalTime(13, 40);
-	public static final LocalTime BLOQUE5_FIN = new LocalTime(15, 10);
+    public static final LocalTime BLOQUE5_INICIO = new LocalTime(13, 40);
+    public static final LocalTime BLOQUE5_FIN = new LocalTime(15, 10);
 
-	public static final LocalTime BLOQUE6_INICIO = new LocalTime(15, 20);
-	public static final LocalTime BLOQUE6_FIN = new LocalTime(16, 50);
+    public static final LocalTime BLOQUE6_INICIO = new LocalTime(15, 20);
+    public static final LocalTime BLOQUE6_FIN = new LocalTime(16, 50);
 
-	public static final LocalTime BLOQUE7_INICIO = new LocalTime(17, 0);
-	public static final LocalTime BLOQUE7_FIN = new LocalTime(18, 30);
+    public static final LocalTime BLOQUE7_INICIO = new LocalTime(17, 0);
+    public static final LocalTime BLOQUE7_FIN = new LocalTime(18, 30);
 
-	public static final LocalTime BLOQUE8_INICIO = new LocalTime(18, 40);
-	public static final LocalTime BLOQUE8_FIN = new LocalTime(20, 10);
+    public static final LocalTime BLOQUE8_INICIO = new LocalTime(18, 40);
+    public static final LocalTime BLOQUE8_FIN = new LocalTime(20, 10);
 
-	public static final LocalTime BLOQUE9_INICIO = new LocalTime(20, 20);
-	public static final LocalTime BLOQUE9_FIN = new LocalTime(21, 50);
+    public static final LocalTime BLOQUE9_INICIO = new LocalTime(20, 20);
+    public static final LocalTime BLOQUE9_FIN = new LocalTime(21, 50);
 
-	@Autowired
-	private BloqueRepository bloqueRepository;
+    @Autowired
+    private BloqueRepository bloqueRepository;
 
-	@Override
-	public void generarBloques(EspacioDTO espacio, long numeroDeDias) {
-		LocalDate hoy = new LocalDate(new Date());
+    @Override
+    public void generarBloques(EspacioDTO espacio, long numeroDeDias) {
+        LocalDate hoy = new LocalDate(new Date());
 
-		for (int i = 0; i < numeroDeDias; i++) {
-			LocalDate dia = hoy.plusDays(i);
-			Date diaDate = dia.toDate();
+        for (int i = 0; i < numeroDeDias; i++) {
+            LocalDate dia = hoy.plusDays(i);
+            Date diaDate = dia.toDate();
 
-			if (dia.getDayOfWeek() != DateTimeConstants.SUNDAY) {
-				crearBloque(diaDate, BLOQUE1_INICIO, BLOQUE1_FIN, espacio);
-				crearBloque(diaDate, BLOQUE2_INICIO, BLOQUE2_FIN, espacio);
-				crearBloque(diaDate, BLOQUE3_INICIO, BLOQUE3_FIN, espacio);
-				crearBloque(diaDate, BLOQUE4_INICIO, BLOQUE4_FIN, espacio);
-				crearBloque(diaDate, BLOQUE5_INICIO, BLOQUE5_FIN, espacio);
-				crearBloque(diaDate, BLOQUE6_INICIO, BLOQUE6_FIN, espacio);
+            if (dia.getDayOfWeek() != DateTimeConstants.SUNDAY) {
+                crearBloque(diaDate, BLOQUE1_INICIO, BLOQUE1_FIN, espacio);
+                crearBloque(diaDate, BLOQUE2_INICIO, BLOQUE2_FIN, espacio);
+                crearBloque(diaDate, BLOQUE3_INICIO, BLOQUE3_FIN, espacio);
+                crearBloque(diaDate, BLOQUE4_INICIO, BLOQUE4_FIN, espacio);
+                crearBloque(diaDate, BLOQUE5_INICIO, BLOQUE5_FIN, espacio);
+                crearBloque(diaDate, BLOQUE6_INICIO, BLOQUE6_FIN, espacio);
 
-				if (dia.getDayOfWeek() != (DateTimeConstants.SATURDAY)) {
-					crearBloque(diaDate, BLOQUE7_INICIO, BLOQUE7_FIN, espacio);
-					crearBloque(diaDate, BLOQUE8_INICIO, BLOQUE8_FIN, espacio);
-					crearBloque(diaDate, BLOQUE9_INICIO, BLOQUE9_FIN, espacio);
-				}
-			}
-		}
-	}
+                if (dia.getDayOfWeek() != (DateTimeConstants.SATURDAY)) {
+                    crearBloque(diaDate, BLOQUE7_INICIO, BLOQUE7_FIN, espacio);
+                    crearBloque(diaDate, BLOQUE8_INICIO, BLOQUE8_FIN, espacio);
+                    crearBloque(diaDate, BLOQUE9_INICIO, BLOQUE9_FIN, espacio);
+                }
+            }
+        }
+    }
 
-	private void crearBloque(Date diaDate, LocalTime inicio, LocalTime fin, EspacioDTO espacio) {
-		BloqueEntity bloque = new BloqueEntity();
-		bloque.setTiempoInicio(new Date(diaDate.getTime() + inicio.getMillisOfDay()));
-		bloque.setTiempoFin(new Date(diaDate.getTime() + fin.getMillisOfDay()));
-		bloque.setEspacio(mapper.map(espacio, EspacioEntity.class));
-		bloque.setDia(DateUtils.truncate(bloque.getTiempoInicio(), Calendar.DAY_OF_MONTH));
-		bloqueRepository.saveAndFlush(bloque);
-	}
+    private void crearBloque(Date diaDate, LocalTime inicio, LocalTime fin, EspacioDTO espacio) {
+        BloqueEntity bloque = new BloqueEntity();
+        bloque.setTiempoInicio(new Date(diaDate.getTime() + inicio.getMillisOfDay()));
+        bloque.setTiempoFin(new Date(diaDate.getTime() + fin.getMillisOfDay()));
+        bloque.setEspacio(mapper.map(espacio, EspacioEntity.class));
+        bloque.setDia(DateUtils.truncate(bloque.getTiempoInicio(), Calendar.DAY_OF_MONTH));
+        bloqueRepository.saveAndFlush(bloque);
+    }
 
-	@Override
-	public List<BloqueDTO> consultarBloquesVigentesPorDiaYEspacio(Date dia, Long idEspacio) {
-		List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentesPorDiaYEspacio(dia, idEspacio);
+    @Override
+    public List<BloqueDTO> consultarBloquesVigentesPorDiaYEspacio(Date dia, Long idEspacio) {
+        List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentesPorDiaYEspacio(dia, idEspacio);
 
-		return DozerUtils.mapCollection(bloques, BloqueDTO.class, mapper);
-	}
+        return DozerUtils.mapCollection(bloques, BloqueDTO.class, mapper);
+    }
 
-	@Override
-	public List<BloqueDTO> consultarBloquesVigentes() {
-		List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentes();
+    @Override
+    public List<BloqueDTO> consultarBloquesVigentes() {
+        List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentes();
 
-		return DozerUtils.mapCollection(bloques, BloqueDTO.class, mapper);
-	}
+        return DozerUtils.mapCollection(bloques, BloqueDTO.class, mapper);
+    }
+
+    @Override
+    public BloqueDTO consultarBloque(Long idBloque) {
+        return mapper.map(bloqueRepository.findOne(idBloque), BloqueDTO.class);
+    }
 }
