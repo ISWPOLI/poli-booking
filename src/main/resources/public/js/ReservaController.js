@@ -69,7 +69,15 @@ define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'FooterView', 'Con
                 },
 
                 mostrarEspaciosDisponibles: function () {
-                    this.mostrarEnContent(new EspaciosDisponiblesView());
+                    var espaciosDisponiblesView = new EspaciosDisponiblesView();
+                    this.mostrarEnContent(espaciosDisponiblesView);
+
+                    var date = new Date();
+                    var day = date.getDate();
+                    var allMonth = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+                    var month = allMonth[date.getMonth()];
+                    var year = date.getFullYear();
+                    espaciosDisponiblesView.buscarFechasDisponibles('' + year + '-' + month + '-' + day + '', "1");
                 },
 
                 mostrarCanchaMultiple: function () {

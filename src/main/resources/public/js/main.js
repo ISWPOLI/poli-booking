@@ -64,7 +64,8 @@ require
             CanchaFutbolTenisView: './views/reservas/canchas/CanchaFutbolTenisView',
             GimnasioView: './views/reservas/gimnasio/GimnasioView',
             EspaciosDisponiblesView: './views/reservas/biblioteca/EspaciosDisponiblesView',
-            ConfirmarReservaView: './views/reservas/ConfirmarReservaView'
+            ConfirmarReservaView: './views/reservas/ConfirmarReservaView',
+            EspaciosDisponiblesTemplate: '../templates/reservas/biblioteca/EspaciosDisponibles.html'
         }
     });
 
