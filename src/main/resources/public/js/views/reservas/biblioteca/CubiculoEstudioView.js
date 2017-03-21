@@ -3,7 +3,6 @@ define(['jquery', 'underscore', 'backbone', 'App',
     function ($, _, Backbone, App, cubiculoEstudio) {
 
         var cubiculoEstudioView = Backbone.View.extend({
-            el: $("#page"),
 
             render: function () {
 

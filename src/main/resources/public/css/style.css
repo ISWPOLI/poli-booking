@@ -42,7 +42,7 @@ body {
 }
 
 #container {
-
+    margin: auto;
 }
 
 #logo {
@@ -60,6 +60,7 @@ h1 {
     min-height: 400px;
     padding: 20px;
     overflow: hidden;
+    margin: auto
 }
 
 #page {
@@ -302,7 +303,7 @@ h1 {
     width: 300px;
     height: 300px;
     background: #3E4EB8;
-    margin-bottom: 10px;
+    margin: 10px auto;
 }
 
 .poli-booking-reserva-event > .mdl-card__actions {

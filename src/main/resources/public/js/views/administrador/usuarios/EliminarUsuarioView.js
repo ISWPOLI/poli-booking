@@ -4,7 +4,7 @@ define(['jquery', 'underscore', 'backbone', 'App',
     function ($, _, Backbone, App, eliminarUsuario, UsuarioCollection) {
 
         var eliminarUsuarioView = Backbone.View.extend({
-            el: $("#page"),
+
 
             events: {
                 "click #boton-eliminar-usuario": "eliminarUsuario"

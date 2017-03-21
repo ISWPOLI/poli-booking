@@ -1,32 +1,35 @@
 define([], function () {
-    var regionView = function (options) {
-        var view = {
-            el: options.el,
+    var region = function (opciones) {
+        var vista = {
+            el: opciones.el,
 
-            show: function (view) {
-                this.closeView(this.currentView);
-                this.currentView = view;
-                this.openView(view);
+            mostrar: function (vista) {
+                this.cerrarVista(this.vistaActual);
+                this.vistaActual = vista;
+                this.abrirVista(vista);
+
+                var App = require('App');
+                App.lanzarEventoLoad();
             },
 
-            closeView: function (view) {
-                // if (view && view.remove) {
-                //     view.remove();
+            cerrarVista: function (vista) {
+                // if (vista && vista.remove) {
+                //     vista.remove();
                 // }
             },
 
-            openView: function (view) {
-                this.ensureEl();
+            abrirVista: function (vista) {
+                this.configurarElemento();
 
-                view.render();
-                this.$el.html(view.el);
+                vista.render();
+                this.$el.html(vista.el);
 
-                if (view.onShow) {
-                    view.onShow();
+                if (vista.onShow) {
+                    vista.onShow();
                 }
             },
 
-            ensureEl: function () {
+            configurarElemento: function () {
                 if (this.$el) {
                     return;
                 }
@@ -34,14 +37,14 @@ define([], function () {
                 this.$el = $(this.el);
             },
 
-            remove: function () {
-                this.closeView(this.currentView);
+            eliminar: function () {
+                this.cerrarVista(this.vistaActual);
             }
         };
 
-        return view;
+        return vista;
     };
 
-    return regionView;
+    return region;
 
 });

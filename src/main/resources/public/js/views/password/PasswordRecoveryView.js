@@ -4,8 +4,6 @@ define(['jquery', 'underscore', 'backbone', 'App',
 
         var recuperacionDeCuenta = Backbone.View
             .extend({
-                el: $("#page"),
-
                 render: function () {
                     this.$el.html(recuperacionDeCuentaTemplate);
                     App.lanzarEventoLoad();

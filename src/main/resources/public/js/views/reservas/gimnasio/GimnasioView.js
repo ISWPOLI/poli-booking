@@ -3,7 +3,6 @@ define(['jquery', 'underscore', 'backbone', 'App',
     function ($, _, Backbone, App, gimnasio) {
 
         var gimnasioView = Backbone.View.extend({
-            el: $("#page"),
 
             render: function () {
 

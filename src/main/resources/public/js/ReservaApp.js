@@ -1,8 +1,8 @@
-define(['App', 'ReservaCollection', 'MisReservasController'],
-    function (App, ReservaCollection, MisReservasController) {
-        var reservasApp = function (options) {
+define(['App', 'ReservaCollection', 'ReservaController'],
+    function (App, ReservaCollection, ReservaController) {
+        var reservasApp = function (opciones) {
             return {
-                region: options.region,
+                region: opciones.region,
 
                 mostrarMisReservas: function () {
                     var that = this;
@@ -22,22 +22,111 @@ define(['App', 'ReservaCollection', 'MisReservasController'],
                 },
 
                 mostrarMisReservasController: function (collection) {
-                    var reservasController = this.startController(MisReservasController);
+                    var reservasController = this.arrancarControlador(ReservaController);
                     reservasController.mostrarMisReservas(collection);
                 },
 
-                startController: function (controller) {
-                    if (this.currentController &&
-                        this.currentController instanceof controller) {
-                        return this.currentController;
+                mostrarHome: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarHome();
+                },
+
+                mostrarBiblioteca: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarBiblioteca();
+                },
+
+                mostrarComputadores: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarComputadores();
+                },
+
+                mostrarTenis: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarTenis();
+                },
+
+                mostrarGimnasioView: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarGimnasioView();
+                },
+
+                mostrarCanchasView: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCanchasView();
+                },
+
+                mostrarUsuarios: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarUsuarios();
+                },
+
+                mostrarConsultarUsuario: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarConsultarUsuario();
+                },
+
+                mostrarCrearUsuario: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCrearUsuario();
+                },
+
+                mostrarActualizarUsuario: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarActualizarUsuario();
+                },
+
+                mostrarEditarUsuario: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarEditarUsuario();
+                },
+
+                mostrarEliminarUsuario: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarEliminarUsuario();
+                },
+
+                mostrarEspaciosDisponibles: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarEspaciosDisponibles();
+                },
+                mostrarCanchaMultiple: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCanchaMultiple();
+                },
+
+                mostrarCanchaFutbolTenis: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCanchaFutbolTenis();
+                },
+
+                mostrarCubiculoEstudio: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCubiculoEstudio();
+                },
+
+                mostrarCubiculoVideo: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCubiculoVideo();
+                },
+
+                showConfirmarReserva: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCubiculoVideo();
+                },
+
+                arrancarControlador: function (controlador) {
+                    if (this.controladorActual &&
+                        this.controladorActual instanceof controlador) {
+                        return this.controladorActual;
                     }
 
-                    if (this.currentController && this.currentController.destroy) {
-                        this.currentController.destroy();
+                    if (this.controladorActual && this.controladorActual.destroy) {
+                        this.controladorActual.destroy();
                     }
 
-                    this.currentController = new controller({region: this.region});
-                    return this.currentController;
+                    this.controladorActual = new controlador({region: this.region});
+                    return this.controladorActual;
                 }
             }
         };

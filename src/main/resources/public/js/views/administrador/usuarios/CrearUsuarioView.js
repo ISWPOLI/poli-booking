@@ -4,7 +4,7 @@ define(['jquery', 'underscore', 'backbone', 'App',
     function ($, _, Backbone, App, crearUsuarioTemplate, UsuarioCollection, UsuarioModel, RolCollection) {
 
         var crearUsuarioView = Backbone.View.extend({
-            el: $("#page"),
+
 
             events: {
                 "click #send": "crearUsuario"

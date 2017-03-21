@@ -3,7 +3,6 @@ define(['jquery', 'underscore', 'backbone', 'App',
     function ($, _, Backbone, App, canchaFutbolTenis) {
 
         var canchaFutbolTenisView = Backbone.View.extend({
-            el: $("#page"),
 
             render: function () {
 

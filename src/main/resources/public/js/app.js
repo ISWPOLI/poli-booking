@@ -12,7 +12,7 @@ define(['jquery', 'underscore', 'material', 'backbone', 'backboneValidation', 's
                     new Router();
                 });
 
-                this.mainRegion = new Region({el: '#page'});
+                this.mainRegion = new Region({el: '#poli-booking-main-region'});
 
                 this.router = new DefaultRouter();
 
@@ -107,6 +107,7 @@ define(['jquery', 'underscore', 'material', 'backbone', 'backboneValidation', 's
                 this.configurarAutenticacionAjax(cadenaAutenticacion);
             },
             configurarAutenticacionAjax: function (cadenaAutenticacion) {
+                var that = this;
                 var headers = {};
 
                 if (cadenaAutenticacion) {
@@ -118,7 +119,7 @@ define(['jquery', 'underscore', 'material', 'backbone', 'backboneValidation', 's
                 Backbone.$.ajaxSetup({
                     statusCode: {
                         401: function () {
-                            return this.redirigirRutaLogin();
+                            return that.redirigirRutaLogin();
                         }
                     },
                     headers: headers
@@ -129,6 +130,38 @@ define(['jquery', 'underscore', 'material', 'backbone', 'backboneValidation', 's
 
                 sessionStorage.setItem('auth', cadenaAutenticacion);
                 this.configurarAutenticacion(tipo, token);
+            },
+            limpiarAutenticacion: function () {
+                sessionStorage.removeItem('auth');
+                sessionStorage.removeItem('authorities');
+            },
+            guardarRoles: function (authorities) {
+                sessionStorage.setItem('authorities', JSON.stringify(authorities));
+            },
+            getRoles: function () {
+                var authorities = sessionStorage.getItem('authorities');
+                var roles = new Array();
+                if (authorities) {
+                    _.each(JSON.parse(authorities), function (authority) {
+                        roles.push(authority.authority);
+                    });
+                }
+                return roles;
+            },
+            logout: function () {
+                var that = this;
+                Backbone.$.ajax({
+                    method: 'GET',
+                    url: '/logout',
+                    success: function (data) {
+                        that.limpiarAutenticacion();
+                        that.redirigirRutaLogin();
+                    },
+                    error: function (jqxhr) {
+                        that.limpiarAutenticacion();
+                        that.redirigirRutaLogin();
+                    }
+                });
             },
             estaAutenticado: function () {
                 if (sessionStorage.getItem('auth')) {
@@ -155,6 +188,14 @@ define(['jquery', 'underscore', 'material', 'backbone', 'backboneValidation', 's
 
             lanzarEventoLoad: function () {
                 dispatchEvent(new Event('load'));
+            },
+
+            notificarInicioCargue: function () {
+                this.trigger('loading:start');
+            },
+
+            notificarFinCargue: function () {
+                this.trigger('loading:stop');
             }
         }
 

@@ -1,194 +1,132 @@
-'use strict';
-define([ 'jquery', 'underscore', 'backbone', 'App', 'views/home/HomeView',
-		'views/login/LoginView', 'views/password/PasswordRecoveryView',
-		'views/password/PasswordChangeView',
-		'views/reservas/biblioteca/BibliotecaView',
-		'views/reservas/biblioteca/ComputadoresView',
-		'views/reservas/canchas/TenisView', 'UsuariosView',
-		'ConsultarUsuarioView', 'CrearUsuarioView',
-		'views/administrador/usuarios/ActualizarUsuarioView',
-		'views/administrador/usuarios/EditarUsuarioView',
-		'views/administrador/usuarios/EliminarUsuarioView',
-		'views/reservas/biblioteca/EspaciosDisponiblesView',
-		'views/reservas/canchas/CanchasView', 
-		'views/reservas/gimnasio/GimnasioView',
-		'views/reservas/canchas/CanchaMultipleView',
-		'views/reservas/canchas/CanchaFutbolTenisView',
-		'views/reservas/biblioteca/CubiculoEstudioView',
-		'views/reservas/biblioteca/CubiculoVideoView',
-		'views/reservas/ConfirmarReservaView',
-		'ReservaApp'
+define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
+    function ($, _, Backbone, App, ReservasApp) {
 
-], function($, _, Backbone, App, HomeView, LoginView, PasswordRecoveryView,
-		PasswordChangeView, BibliotecaView, ComputadoresView, TenisView,
-		UsuariosView, ConsultarUsuarioView, CrearUsuarioView,
-		ActualizarUsuarioView, EditarUsuarioView, EliminarUsuarioView,
-		EspaciosDisponiblesView, CanchasView, GimnasioView,CanchaMultipleView,
-		CanchaFutbolTenisView, CubiculoEstudioView,CubiculoVideoView,
-		ConfirmarReservaView,ReservasApp) {
+        var reservasRouter = Backbone.Router.extend({
+            routes: {
+                'home': 'mostrarHome',
+                'biblioteca': 'mostrarBiblioteca',
+                'computadores': 'mostrarComputadores',
+                'tenis': 'mostrarTenis',
+                'gimnasio': 'mostrarGimnasioView',
+                'canchas': 'mostrarCanchasView',
+                'usuarios': 'mostrarUsuarios',
+                'consultar-usuario': 'mostrarConsultarUsuario',
+                'crear-usuario': 'mostrarCrearUsuario',
+                'actualizar-usuario': 'mostrarActualizarUsuario',
+                'editar-usuario': 'mostrarEditarUsuario',
+                'eliminar-usuario': 'mostrarEliminarUsuario',
+                'espacios-disponibles': 'mostrarEspaciosDisponibles',
+                'cancha-multiple': 'mostrarCanchaMultiple',
+                'cancha-futbolTenis': 'mostrarCanchaFutbolTenis',
+                'cubiculo-estudio': 'mostrarCubiculoEstudio',
+                'cubiculo-video': 'mostrarCubiculoVideo',
+                'confirmar-reserva': 'showConfirmarReserva',
+                'mis-reservas': 'mostrarMisReservas'
+            },
 
-	var reservasRouter = Backbone.Router.extend({
-		routes : {
-			'home' : 'showHome',
-			'login' : 'showLogin',
-			'password-recovery' : 'showPasswordRecovery',
-			'password-change' : 'showPasswordChange',
-			'biblioteca' : 'showBiblioteca',
-			'computadores' : 'showComputadores',
-			'tenis' : 'showTenis',
-			'gimnasio' : 'showGimnasioView',
-			'canchas' : 'showCanchasView',
-			'usuarios' : 'showUsuarios',
-			'consultar-usuario' : 'showConsultarUsuario',
-			'crear-usuario' : 'showCrearUsuario',
-			'actualizar-usuario' : 'showActualizarUsuario',
-			'editar-usuario' : 'showEditarUsuario',
-			'eliminar-usuario' : 'showEliminarUsuario',
-			'espacios-disponibles' : 'showEspaciosDisponibles',
-			'cancha-multiple': 'showCanchaMultiple',
-			'cancha-futbolTenis': 'showCanchaFutbolTenis',
-			'cubiculo-estudio': 'showCubiculoEstudio',
-			'cubiculo-video': 'showCubiculoVideo',
-			'confirmar-reserva': 'showConfirmarReserva',
-			'mis-reservas' : 'mostrarMisReservas'
-		},
-		showHome : function() {
-			if (App.verificarAutorizacion()) {
-				var homeView = new HomeView();
-				homeView.render();
-			}
-		},
-		showLogin : function() {
-			var loginView = new LoginView();
-			loginView.render();
-		},
-		showPasswordRecovery : function() {
-			var passwordRecoveryView = new PasswordRecoveryView();
-			passwordRecoveryView.render();
-		},
-		showPasswordChange : function() {
-			var passwordChangeView = new PasswordChangeView();
-			passwordChangeView.render();
-		},
-		showBiblioteca : function() {
-			if (App.verificarAutorizacion()) {
-				var bibliotecaView = new BibliotecaView();
-				bibliotecaView.render();
-			}
-		},
-		showComputadores : function() {
-			if (App.verificarAutorizacion()) {
-				var computadoresView = new ComputadoresView();
-				computadoresView.render();
-			}
-		},
-		showUsuarios : function() {
-			if (App.verificarAutorizacion()) {
-				var usuariosView = new UsuariosView();
-				usuariosView.render();
-			}
-		},
-		showConsultarUsuario : function() {
-			if (App.verificarAutorizacion()) {
-				var consultarUsuarioView = new ConsultarUsuarioView();
-				consultarUsuarioView.render();
-			}
-		},
-		showCrearUsuario : function() {
-			if (App.verificarAutorizacion()) {
-				var crearUsuarioView = new CrearUsuarioView();
-				crearUsuarioView.render();
-			}
-		},
-		showActualizarUsuario : function() {
-			if (App.verificarAutorizacion()) {
-				var actualizarUsuarioView = new ActualizarUsuarioView();
-				actualizarUsuarioView.render();
-			}
-		},
-		showEditarUsuario : function() {
-			var editarUsuarioView = new EditarUsuarioView();
-			editarUsuarioView.render();
-		},
-		showEliminarUsuario : function() {
-			if (App.verificarAutorizacion()) {
-				var eliminarUsuarioView = new EliminarUsuarioView();
-				eliminarUsuarioView.render();
-			}
-		},
-		showTenis : function() {
-			if (App.verificarAutorizacion()) {
-				var tenisView = new TenisView();
-				tenisView.render();
-			}
-		},
-		showEspaciosDisponibles : function() {
-			if (App.verificarAutorizacion()) {
-				var espaciosDisponiblesView = new EspaciosDisponiblesView();
-				espaciosDisponiblesView.render();
-			}
-		},
-		mostrarMisReservas : function() {
-			var reservasApp = App.arrancarSubAplicacion(ReservasApp);
-			this.procesarRuta(reservasApp.mostrarMisReservas, reservasApp);
-		},
-		showCanchasView : function() {
-			if (App.verificarAutorizacion()) {
-				var canchasView = new CanchasView();
-				canchasView.render();
-			}
-		},
-		showGimnasioView: function(){
-			if(App.verificarAutorizacion()){
-				var gimnasioView= new GimnasioView();
-				gimnasioView.render();
-			}
-		},
-		
-		showCanchaMultiple: function(){
-			if(App.verificarAutorizacion()){
-				var canchaMultipleView=new CanchaMultipleView();
-				canchaMultipleView.render();
-			}
-		},
-		
-		showCanchaFutbolTenis : function(){
-			if(App.verificarAutorizacion()){
-				var canchaFutbolTenisView= new CanchaFutbolTenisView();
-				canchaFutbolTenisView.render();
-			}
-		},
-		
-		showCubiculoEstudio : function(){
-			if(App.verificarAutorizacion()){
-				var cubiculoEstudioView= new CubiculoEstudioView();
-				cubiculoEstudioView.render();
-			}
-		},
-		
-		showCubiculoVideo : function(){
-			if(App.verificarAutorizacion()){
-				var cubiculoVideoView= new CubiculoVideoView();
-				cubiculoVideoView.render();
-			}
-		},
-		showConfirmarReserva: function(){
-			if(App.verificarAutorizacion()){
-				var confirmarReservaView = new ConfirmarReservaView();
-				confirmarReservaView.render();
-			}
-		},
-		procesarRuta : function(funcion, contexto, argumentos) {
-			if (App.verificarAutorizacion()) {
-				funcion.apply(contexto, argumentos);
-			}
-		},
-		startApp : function() {
-			return App.arrancarSubAplicacion(ReservasApp);
-		}
-	});
+            mostrarHome: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarHome, reservasApp);
+            },
 
-	App.Routers.ReservasRouter = reservasRouter;
+            mostrarBiblioteca: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarBiblioteca, reservasApp);
+            },
 
-	return reservasRouter;
-});
+            mostrarComputadores: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarComputadores, reservasApp);
+            },
+
+            mostrarTenis: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarTenis, reservasApp);
+            },
+
+            mostrarGimnasioView: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarGimnasioView, reservasApp);
+            },
+
+            mostrarCanchasView: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarCanchasView, reservasApp);
+            },
+
+            mostrarUsuarios: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarUsuarios, reservasApp);
+            },
+
+            mostrarConsultarUsuario: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarConsultarUsuario, reservasApp);
+            },
+
+            mostrarCrearUsuario: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarCrearUsuario, reservasApp);
+            },
+
+            mostrarActualizarUsuario: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarActualizarUsuario, reservasApp);
+            },
+
+            mostrarEditarUsuario: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarEditarUsuario, reservasApp);
+            },
+
+            mostrarEliminarUsuario: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarEliminarUsuario, reservasApp);
+            },
+
+            mostrarEspaciosDisponibles: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarEspaciosDisponibles, reservasApp);
+            },
+
+            mostrarCanchaMultiple: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarCanchaMultiple, reservasApp);
+            },
+
+            mostrarCanchaFutbolTenis: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarCanchaFutbolTenis, reservasApp);
+            },
+
+            mostrarCubiculoEstudio: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarCubiculoEstudio, reservasApp);
+            },
+
+            mostrarCubiculoVideo: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarCubiculoVideo, reservasApp);
+            },
+
+            showConfirmarReserva: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.showConfirmarReserva, reservasApp);
+            },
+
+            mostrarMisReservas: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarMisReservas, reservasApp);
+            },
+
+            procesarRuta: function (funcion, contexto, argumentos) {
+                if (App.verificarAutorizacion()) {
+                    funcion.apply(contexto, argumentos);
+                }
+            }
+        });
+
+        App.Routers.ReservasRouter = reservasRouter;
+
+        return reservasRouter;
+    });

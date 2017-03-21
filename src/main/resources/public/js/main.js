@@ -20,6 +20,20 @@ require
             Layout: './views/common/Layout',
             Region: './views/common/Region',
 
+            MainLayout: './views/main-layout/MainLayout',
+            HeaderView: './views/header/HeaderView',
+            HeaderTemplate: '../templates/header/header.html',
+            FooterView: './views/footer/FooterView',
+            FooterTemplate: '../templates/footer/footer.html',
+
+            // public
+            PublicApp: './PublicApp',
+            PublicController: './PublicController',
+            PublicRouter: './PublicRouter',
+            LoginView: './views/login/LoginView',
+            PasswordRecoveryView: './views/password/PasswordRecoveryView',
+            PasswordChangeView: './views/password/PasswordChangeView',
+
             // usuarios
             UsuarioModel: './models/usuario/UsuarioModel',
             RolModel: './models/usuario/RolModel',
@@ -28,17 +42,32 @@ require
             UsuariosView: './views/administrador/usuarios/UsuariosView',
             ConsultarUsuarioView: './views/administrador/usuarios/ConsultarUsuarioView',
             CrearUsuarioView: './views/administrador/usuarios/CrearUsuarioView',
+            ActualizarUsuarioView: './views/administrador/usuarios/ActualizarUsuarioView',
+            EditarUsuarioView: './views/administrador/usuarios/EditarUsuarioView',
+            EliminarUsuarioView: './views/administrador/usuarios/EliminarUsuarioView',
 
             // reservas
+            HomeView: './views/home/HomeView',
             ReservaApp: './ReservaApp',
             ReservaModel: './models/reserva/ReservaModel',
             ReservaCollection: './collections/reserva/ReservaCollection',
             ConsultarReservasModelView: './views/reservas/ConsultarReservasModelView',
             ConsultarReservasCollectionView: './views/reservas/ConsultarReservasCollectionView',
-            MisReservasController: './MisReservasController'
+            ReservaController: './ReservaController',
+            BibliotecaView: './views/reservas/biblioteca/BibliotecaView',
+            ComputadoresView: './views/reservas/biblioteca/ComputadoresView',
+            CubiculoEstudioView: './views/reservas/biblioteca/CubiculoEstudioView',
+            CubiculoVideoView: './views/reservas/biblioteca/CubiculoVideoView',
+            TenisView: './views/reservas/canchas/TenisView',
+            CanchasView: './views/reservas/canchas/CanchasView',
+            CanchaMultipleView: './views/reservas/canchas/CanchaMultipleView',
+            CanchaFutbolTenisView: './views/reservas/canchas/CanchaFutbolTenisView',
+            GimnasioView: './views/reservas/gimnasio/GimnasioView',
+            EspaciosDisponiblesView: './views/reservas/biblioteca/EspaciosDisponiblesView',
+            ConfirmarReservaView: './views/reservas/ConfirmarReservaView'
         }
     });
 
-require(['App', 'ReservaRouter'], function (App, ReservasRouter) {
+require(['App', 'ReservaRouter', 'PublicRouter'], function (App, ReservasRouter, PublicRouter) {
     App.iniciar();
 });

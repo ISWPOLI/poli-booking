@@ -2,8 +2,6 @@
 define(['jquery', 'underscore', 'backbone', 'App', 'text!templates/login/login.html'],
     function ($, _, Backbone, App, loginTemplate) {
         var login = Backbone.View.extend({
-            el: $("#page"),
-
             render: function () {
                 $('.menu li').removeClass('active');
                 $('.menu li a[href="#/login"]').parent().addClass('active');
@@ -33,8 +31,9 @@ define(['jquery', 'underscore', 'backbone', 'App', 'text!templates/login/login.h
                     headers: {
                         Authorization: 'Basic ' + authString
                     },
-                    success: function () {
+                    success: function (data) {
                         that.clearError();
+                        App.guardarRoles(data.authorities);
                         App.guardarAutenticacion('Basic', authString);
                         window.location.replace('#/home');
                     },

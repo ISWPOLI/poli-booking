@@ -1,48 +1,53 @@
-define(['ModelView'], function (ModelView) {
-    var layout = ModelView.extend({
-        render: function () {
-            this.closeRegions();
+define(['ModelView', 'Region'],
+    function (ModelView, Region) {
+        var layout = ModelView.extend({
 
-            var result = ModelView.prototype.render.call(this);
+            // metodo sobreescrito de Backbone.View
+            render: function () {
+                this.cerrarRegiones();
 
-            this.configureRegions();
-            return result;
-        },
+                var respuestaRenderPadre = ModelView.prototype.render.call(this);
 
-        configureRegions: function () {
-            var that = this;
-            var regionDefinitions = this.regions || {};
+                this.configurarRegiones();
+                return respuestaRenderPadre;
+            },
 
-            if (!this._regions) {
-                this._regions = {};
-            }
+            // metodo sobreescrito de Backbone.View
+            remove: function (options) {
+                ModelView.prototype.remove.call(this, options);
+                this.cerrarRegiones();
+            },
 
-            _.each(regionDefinitions, function (selector, name) {
-                var $el = that.$(selector);
-                this._regions[name] = new Region({el: $el});
-            })
-        },
+            configurarRegiones: function () {
+                var that = this;
+                var regionesDefinidas = this.regiones || {};
 
-        getRegion: function (regionName) {
-            var regions = this._regions || {};
-            return regions[regionName];
-        },
-
-        remove: function (options) {
-            ModelView.prototype.remove.call(this, options);
-            this.closeRegions();
-        },
-
-        closeRegions: function () {
-            var regions = this._regions || {};
-
-            _.each(regions, function (region) {
-                if (region && region.remove) {
-                    region.remove();
+                if (!this._regiones) {
+                    this._regiones = {};
                 }
-            });
-        }
-    });
 
-    return layout;
-});
+                _.each(regionesDefinidas, function (selectorDelElemento, nombre) {
+                    var $el = that.$(selectorDelElemento);
+                    that._regiones[nombre] = new Region({el: $el});
+                })
+            },
+
+            getRegion: function (nombreRegion) {
+                var regiones = this._regiones || {};
+                return regiones[nombreRegion];
+            },
+
+
+            cerrarRegiones: function () {
+                var regions = this._regiones || {};
+
+                _.each(regions, function (region) {
+                    if (region && region.eliminar) {
+                        region.eliminar();
+                    }
+                });
+            }
+        });
+
+        return layout;
+    });

@@ -3,7 +3,6 @@ define(['jquery', 'underscore', 'backbone', 'App',
     function ($, _, Backbone, App, confirmarReserva) {
 
         var ConfirmarReservaView = Backbone.View.extend({
-            el: $("#page"),
 
             render: function () {
                 $('.menu li').removeClass('active');
