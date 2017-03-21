@@ -3,8 +3,6 @@ define(['jquery', 'underscore', 'backbone', 'App',
     function ($, _, Backbone, App, cambioContrasenaTemplate) {
 
         var cambioContrasena = Backbone.View.extend({
-            el: $("#page"),
-
             render: function () {
 
                 $('.menu li').removeClass('active');

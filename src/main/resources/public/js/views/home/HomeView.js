@@ -1,15 +1,12 @@
-define(['jquery', 'underscore', 'backbone', 'App',
+define(['jquery', 'underscore', 'backbone', 'App', 'ModelView',
         'text!templates/home/home-template.html'],
-    function ($, _, Backbone, App, homeTemplate) {
+    function ($, _, Backbone, App, ModelView, homeTemplate) {
 
-        var HomeView = Backbone.View.extend({
-            el: $("#page"),
+        var HomeView = ModelView.extend({
 
-            render: function () {
-                $('.menu li').removeClass('active');
-                $('.menu li a[href="#"]').parent().addClass('active');
-                this.$el.html(homeTemplate);
-                App.lanzarEventoLoad();
+            template: function (data) {
+                var compiled = _.template(homeTemplate);
+                return compiled(data);
             }
         });
 

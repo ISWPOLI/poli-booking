@@ -26,6 +26,11 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                     reservasController.mostrarMisReservas(collection);
                 },
 
+                mostrarHome: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarHome();
+                },
+
                 arrancarControlador: function (controlador) {
                     if (this.controladorActual &&
                         this.controladorActual instanceof controlador) {

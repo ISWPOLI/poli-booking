@@ -31,6 +31,8 @@ require
             PublicController: './PublicController',
             PublicRouter: './PublicRouter',
             LoginView: './views/login/LoginView',
+            PasswordRecoveryView: './views/password/PasswordRecoveryView',
+            PasswordChangeView: './views/password/PasswordChangeView',
 
             // usuarios
             UsuarioModel: './models/usuario/UsuarioModel',
@@ -42,6 +44,7 @@ require
             CrearUsuarioView: './views/administrador/usuarios/CrearUsuarioView',
 
             // reservas
+            HomeView: './views/home/HomeView',
             ReservaApp: './ReservaApp',
             ReservaModel: './models/reserva/ReservaModel',
             ReservaCollection: './collections/reserva/ReservaCollection',
