@@ -100,14 +100,13 @@ define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'FooterView', 'Con
                 },
 
                 mostrarConfirmarReserva: function (fecha, idBloque) {
-
                     var vista = new ConfirmarReservaView();
                     vista.fecha = fecha;
                     vista.idBloque = idBloque;
 
                     var layout = this.armarLayoutBasico();
                     layout.getRegion('content').mostrar(vista);
-
+                    
                     vista.mostrarResumenReserva();
                 },
 

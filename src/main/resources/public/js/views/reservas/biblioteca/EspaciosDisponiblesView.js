@@ -106,8 +106,6 @@ define(
                                 segundos = date.getSeconds();
                                 var n = date.toLocaleTimeString();
                                 var textoCelda = document
-                                    .createTextNode('' + horas + '' + ':' + minutos + ':' + segundos);
-                                var textoCelda = document
                                     .createTextNode(n);
                                 celda.appendChild(textoCelda);
                                 hilera.appendChild(celda);
@@ -116,11 +114,7 @@ define(
                                 //hora fin
                                 t = espacios[i]["tiempoFin"];
                                 date = new Date(t);
-                                minutos = date.getMinutes();
-                                horas = date.getHours();
-                                segundos = date.getSeconds();
-                                var textoCelda = document
-                                    .createTextNode('' + horas + '' + ':' + minutos + ':' + segundos);
+                         
                                 var n = date.toLocaleTimeString();
                                 var textoCelda = document
                                     .createTextNode(n);
