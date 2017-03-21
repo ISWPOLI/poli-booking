@@ -31,8 +31,9 @@ define(['jquery', 'underscore', 'backbone', 'App', 'text!templates/login/login.h
                     headers: {
                         Authorization: 'Basic ' + authString
                     },
-                    success: function () {
+                    success: function (data) {
                         that.clearError();
+                        App.guardarRoles(data.authorities);
                         App.guardarAutenticacion('Basic', authString);
                         window.location.replace('#/home');
                     },

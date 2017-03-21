@@ -1,5 +1,5 @@
-define(['underscore', 'backbone', 'MainLayout', 'LoginView'],
-    function (_, Backbone, MainLayout, LoginView) {
+define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'LoginView'],
+    function (_, Backbone, MainLayout, HeaderView, LoginView) {
         var publicController = function (opciones) {
             var controlador = {
                 region: opciones.region,
@@ -7,8 +7,10 @@ define(['underscore', 'backbone', 'MainLayout', 'LoginView'],
                 mostrarLogin: function () {
                     var layout = new MainLayout();
                     var loginView = new LoginView();
+                    var headerView = new HeaderView();
 
                     this.region.mostrar(layout);
+                    layout.getRegion('header').mostrar(headerView);
                     layout.getRegion('content').mostrar(loginView);
                 },
 

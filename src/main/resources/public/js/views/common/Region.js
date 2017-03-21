@@ -7,6 +7,9 @@ define([], function () {
                 this.cerrarVista(this.vistaActual);
                 this.vistaActual = vista;
                 this.abrirVista(vista);
+
+                var App = require('App');
+                App.lanzarEventoLoad();
             },
 
             cerrarVista: function (vista) {

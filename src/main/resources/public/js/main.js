@@ -20,7 +20,13 @@ require
             Layout: './views/common/Layout',
             Region: './views/common/Region',
 
-            MainLayout: './views/MainLayout',
+            MainLayout: './views/main-layout/MainLayout',
+            HeaderView: './views/header/HeaderView',
+            HeaderTemplate: '../templates/header/header.html',
+            DrawerView: './views/drawer/DrawerView',
+            DrawerTemplate: '../templates/drawer/drawer.html',
+            FooterView: './views/footer/FooterView',
+            FooterTemplate: '../templates/footer/footer.html',
 
             // public
             PublicApp: './PublicApp',
