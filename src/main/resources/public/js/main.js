@@ -42,6 +42,9 @@ require
             UsuariosView: './views/administrador/usuarios/UsuariosView',
             ConsultarUsuarioView: './views/administrador/usuarios/ConsultarUsuarioView',
             CrearUsuarioView: './views/administrador/usuarios/CrearUsuarioView',
+            ActualizarUsuarioView: './views/administrador/usuarios/ActualizarUsuarioView',
+            EditarUsuarioView: './views/administrador/usuarios/EditarUsuarioView',
+            EliminarUsuarioView: './views/administrador/usuarios/EliminarUsuarioView',
 
             // reservas
             HomeView: './views/home/HomeView',
@@ -50,7 +53,17 @@ require
             ReservaCollection: './collections/reserva/ReservaCollection',
             ConsultarReservasModelView: './views/reservas/ConsultarReservasModelView',
             ConsultarReservasCollectionView: './views/reservas/ConsultarReservasCollectionView',
-            ReservaController: './ReservaController'
+            ReservaController: './ReservaController',
+            BibliotecaView: './views/reservas/biblioteca/BibliotecaView',
+            ComputadoresView: './views/reservas/biblioteca/ComputadoresView',
+            CubiculoEstudioView: './views/reservas/biblioteca/CubiculoEstudioView',
+            CubiculoVideoView: './views/reservas/biblioteca/CubiculoVideoView',
+            TenisView: './views/reservas/canchas/TenisView',
+            CanchasView: './views/reservas/canchas/CanchasView',
+            CanchaMultipleView: './views/reservas/canchas/CanchaMultipleView',
+            CanchaFutbolTenisView: './views/reservas/canchas/CanchaFutbolTenisView',
+            GimnasioView: './views/reservas/gimnasio/GimnasioView',
+            EspaciosDisponiblesView: './views/reservas/biblioteca/EspaciosDisponiblesView',
         }
     });
 

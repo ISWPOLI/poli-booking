@@ -4,7 +4,7 @@ define(['jquery', 'underscore', 'backbone', 'App',
                                                      UsuarioCollection, RolCollection) {
 
     var actualizarUsuarioView = Backbone.View.extend({
-            el: $("#page"),
+
 
             usuarioSeleccionado: null,
 

@@ -4,7 +4,6 @@ define(['jquery', 'underscore', 'backbone', 'App',
     function ($, _, Backbone, App, usuariosTemplate) {
 
         var usuariosView = Backbone.View.extend({
-            el: $("#page"),
 
             render: function () {
                 $('.menu li').removeClass('active');

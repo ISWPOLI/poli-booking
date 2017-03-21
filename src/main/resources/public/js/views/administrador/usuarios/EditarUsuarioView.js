@@ -3,7 +3,7 @@ define(['jquery', 'underscore', 'backbone', 'App',
     function ($, _, Backbone, App, editarUsuario) {
 
         var editarUsuarioView = Backbone.View.extend({
-            el: $("#page"),
+
 
             render: function () {
 

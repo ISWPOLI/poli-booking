@@ -4,7 +4,7 @@ define(['jquery', 'underscore', 'backbone', 'App',
                                     consultarUsuarioTemplate, UsuarioCollection) {
 
     var consultarUsuarioView = Backbone.View.extend({
-        el: $("#page"),
+
 
         events: {
             "click #sendConsultarDetalleUsuario": "consultarDetalleUsuario"

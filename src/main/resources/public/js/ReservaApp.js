@@ -31,6 +31,85 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                     reservasController.mostrarHome();
                 },
 
+                mostrarBiblioteca: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarBiblioteca();
+                },
+
+                mostrarComputadores: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarComputadores();
+                },
+
+                mostrarTenis: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarTenis();
+                },
+
+                mostrarGimnasioView: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarGimnasioView();
+                },
+
+                mostrarCanchasView: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCanchasView();
+                },
+
+                mostrarUsuarios: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarUsuarios();
+                },
+
+                mostrarConsultarUsuario: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarConsultarUsuario();
+                },
+
+                mostrarCrearUsuario: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCrearUsuario();
+                },
+
+                mostrarActualizarUsuario: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarActualizarUsuario();
+                },
+
+                mostrarEditarUsuario: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarEditarUsuario();
+                },
+
+                mostrarEliminarUsuario: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarEliminarUsuario();
+                },
+
+                mostrarEspaciosDisponibles: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarEspaciosDisponibles();
+                },
+                mostrarCanchaMultiple: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCanchaMultiple();
+                },
+
+                mostrarCanchaFutbolTenis: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCanchaFutbolTenis();
+                },
+
+                mostrarCubiculoEstudio: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCubiculoEstudio();
+                },
+
+                mostrarCubiculoVideo: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCubiculoVideo();
+                },
+
                 arrancarControlador: function (controlador) {
                     if (this.controladorActual &&
                         this.controladorActual instanceof controlador) {
