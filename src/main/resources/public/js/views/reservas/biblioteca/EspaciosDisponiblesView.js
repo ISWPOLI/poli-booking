@@ -1,6 +1,6 @@
 define(
-    ['jquery', 'underscore', 'backbone', 'App', 'text!EspaciosDisponiblesTemplate'],
-    function ($, _, Backbone, App, EspaciosDisponiblesTemplate) {
+    ['jquery', 'underscore', 'backbone', 'App', 'text!EspaciosDisponiblesTemplate', 'ReservaRouter'],
+    function ($, _, Backbone, App, EspaciosDisponiblesTemplate, ReservaRouter) {
 
         var EspaciosDisponiblesView = Backbone.View
             .extend({
@@ -140,7 +140,7 @@ define(
                                         .createElement("button");
                                     boton = this;
 
-                                    alert(boton.id);
+                                    ReservaRouter.navigate('/#/confirmar-reserva', true);
                                 });
 
                                 boton.appendChild(texto);
@@ -167,7 +167,7 @@ define(
                             "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp is-upgraded");
 
                     function alerta_function(n) {
-                        alert(n);
+                        ReservaRouter.navigate('/#/confirmar-reserva', true);
                     }
                 }
 

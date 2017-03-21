@@ -77,7 +77,7 @@ define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'FooterView', 'Con
                     var allMonth = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
                     var month = allMonth[date.getMonth()];
                     var year = date.getFullYear();
-                    espaciosDisponiblesView.buscarFechasDisponibles('' + year + '-' + month + '-' + day + '', "1");
+                    espaciosDisponiblesView.buscarFechasDisponibles('' + year + '-' + month + '-' + (day+1) + '', "1");
                 },
 
                 mostrarCanchaMultiple: function () {
@@ -96,7 +96,7 @@ define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'FooterView', 'Con
                     this.mostrarEnContent(new CubiculoVideoView());
                 },
 
-                showConfirmarReserva: function () {
+                mostrarConfirmarReserva: function () {
                     this.mostrarEnContent(new ConfirmarReservaView());
                 },
 

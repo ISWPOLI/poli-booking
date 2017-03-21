@@ -1,58 +1,67 @@
 <html>
 <style type="text/css">
-.demo-card-wide.mdl-card {
-  width: 65%;
-}
-.demo-card-wide > .mdl-card__title {
-  color: #fff;
-  height: 30%;
-  background: url('https://previews.123rf.com/images/toeytoey/toeytoey1601/toeytoey160100198/50281886-p-gina-del-calendario-borrosa-fondo-azul--Foto-de-archivo.jpg') center / cover;
-}
-.demo-card-wide > .mdl-card__menu {
-  color: #fff;
-}
-.columna {
-  width:33%;
-  float:left;
-}
-.mdl-button {
-    margin-top: 10px;
-  margin-bottom: 10px;
-  margin-right: 10px;
-}
-.mdl-data-table th {
-    text-align: center;
-}
-.mdl-data-table__cell--non-numeric.mdl-data-table__cell--non-numeric {
-    text-align: center;
-}
-@media (max-width: 500px) {
-  
-  .columna {
-    width:auto;
-    float:none;
-  }
-  
-}
-.mdl-button:hover {
-    background-color: rgba(116, 137, 236, 0.98);
-}
-table{
-  width: 70%;
-}
+    .demo-card-wide.mdl-card {
+        width: 65%;
+    }
 
-body {
-  padding: 10px;
-  background: #fafafa;
-  position: relative;
-}	
+    .demo-card-wide > .mdl-card__title {
+        color: #fff;
+        height: 30%;
+        background: url('https://previews.123rf.com/images/toeytoey/toeytoey1601/toeytoey160100198/50281886-p-gina-del-calendario-borrosa-fondo-azul--Foto-de-archivo.jpg') center / cover;
+    }
 
-.mdl-data-table__cell--non-numeric.mdl-data-table__cell--non-numeric {
-    text-align: center;
-}
+    .demo-card-wide > .mdl-card__menu {
+        color: #fff;
+    }
+
+    .columna {
+        width: 33%;
+        float: left;
+    }
+
+    .mdl-button {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+
+    .mdl-data-table th {
+        text-align: center;
+    }
+
+    .mdl-data-table__cell--non-numeric.mdl-data-table__cell--non-numeric {
+        text-align: center;
+    }
+
+    @media (max-width: 500px) {
+
+        .columna {
+            width: auto;
+            float: none;
+        }
+
+    }
+
+    .mdl-button:hover {
+        background-color: rgba(116, 137, 236, 0.98);
+    }
+
+    table {
+        width: 70%;
+    }
+
+    body {
+        padding: 10px;
+        background: #fafafa;
+        position: relative;
+    }
+
+    .mdl-data-table__cell--non-numeric.mdl-data-table__cell--non-numeric {
+        text-align: center;
+    }
 </style>
-  <head>
-  <title></title>
+<head>
+    <title></title>
     <!-- Material Design Lite -->
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
@@ -62,85 +71,85 @@ body {
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <!-- Material Design icon font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  </head>
-  <body >
-    <!-- Wide card with share menu button -->
-    <center  onclick="genera_tabla()">
+</head>
+<body>
+<!-- Wide card with share menu button -->
+<center onclick="genera_tabla()">
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-      <div class="mdl-card__title">
-        <h2 style="font-size:60px" class="mdl-card__title-text">Confirmar Reserva</h2>
-      </div>
-	<div class="mdl-card__supporting-text"></div>
-      <div class="mdl-card__supporting-text" id="uno"></div>
-	  <div class="mdl-card__actions mdl-card--border">
-				<br> <a
-				class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-				Confirmar tu reserva </a> <br>
-				<br> <a
-					class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-					Cancelar tu reserva </a> <br><br>	
-		</div>
-    </div>	
-    </center>
-    <script type="text/javascript">
-      
-      function genera_tabla() {
-  // Obtener la referencia del elemento body
-  var body = document.getElementById("uno");
-  var arr =['Espacio','Fecha',"Hora Inicio","Hora Fin"];
- 
-  // Crea un elemento <table> y un elemento <tbody>
-  var tabla   = document.createElement("table");
-  var tHead= document.createElement("thead");
-  var tblBody = document.createElement("tbody");
+        <div class="mdl-card__title">
+            <h2 style="font-size:60px" class="mdl-card__title-text">Confirmar Reserva</h2>
+        </div>
+        <div class="mdl-card__supporting-text"></div>
+        <div class="mdl-card__supporting-text" id="uno"></div>
+        <div class="mdl-card__actions mdl-card--border">
+            <br> <a
+                class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            Confirmar tu reserva </a> <br>
+            <br> <a
+                class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            Cancelar tu reserva </a> <br><br>
+        </div>
+    </div>
+</center>
+<script type="text/javascript">
 
-  for(var i=0;i<1;i++){
+    function genera_tabla() {
+        // Obtener la referencia del elemento body
+        var body = document.getElementById("uno");
+        var arr = ['Espacio', 'Fecha', "Hora Inicio", "Hora Fin"];
 
-    var hilera = document.createElement("tr");
+        // Crea un elemento <table> y un elemento <tbody>
+        var tabla = document.createElement("table");
+        var tHead = document.createElement("thead");
+        var tblBody = document.createElement("tbody");
 
-    for(var j=0;j<4;j++){
+        for (var i = 0; i < 1; i++) {
 
-      var celda= document.createElement("th");
-      celda.classList.add('mdl-data-table__cell--non-numeric');
-      var textoTitulo=document.createTextNode(arr[j]);
-      celda.appendChild(textoTitulo);
-      hilera.appendChild(celda);
+            var hilera = document.createElement("tr");
 
+            for (var j = 0; j < 4; j++) {
+
+                var celda = document.createElement("th");
+                celda.classList.add('mdl-data-table__cell--non-numeric');
+                var textoTitulo = document.createTextNode(arr[j]);
+                celda.appendChild(textoTitulo);
+                hilera.appendChild(celda);
+
+            }
+            tHead.appendChild(hilera);
+
+        }
+
+        // Crea las celdas
+        for (var i = 0; i < 1; i++) {
+            // Crea las hileras de la tabla
+            var hilera = document.createElement("tr");
+
+            for (var j = 0; j < 4; j++) {
+                // Crea un elemento <td> y un nodo de texto, haz que el nodo de
+                // texto sea el contenido de <td>, ubica el elemento <td> al final
+                // de la hilera de la tabla
+                var celda = document.createElement("td");
+                celda.classList.add('mdl-data-table__cell--non-numeric');
+                var textoCelda = document.createTextNode("Informacion");
+                celda.appendChild(textoCelda);
+                hilera.appendChild(celda);
+            }
+
+            // agrega la hilera al final de la tabla (al final del elemento tblbody)
+            tblBody.appendChild(hilera);
+        }
+
+        // posiciona el <tbody> debajo del elemento <table>
+        tabla.appendChild(tHead);
+        tabla.appendChild(tblBody);
+        // appends <table> into <body>
+        body.appendChild(tabla);
+        // modifica el atributo "border" de la tabla y lo fija a "2";
+        tabla.setAttribute("class", "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp is-upgraded")
     }
-    tHead.appendChild(hilera);
+    //document.body.get.classList.add('mdl-data-table__cell--non-numeric');
 
-  }
- 
-  // Crea las celdas
-  for (var i = 0; i < 1; i++) {
-    // Crea las hileras de la tabla
-    var hilera = document.createElement("tr");
- 
-    for (var j = 0; j < 4; j++) {
-      // Crea un elemento <td> y un nodo de texto, haz que el nodo de
-      // texto sea el contenido de <td>, ubica el elemento <td> al final
-      // de la hilera de la tabla
-      var celda = document.createElement("td");
-      celda.classList.add('mdl-data-table__cell--non-numeric');      
-      var textoCelda = document.createTextNode("Informacion");
-      celda.appendChild(textoCelda);
-      hilera.appendChild(celda);             
-    }
- 
-    // agrega la hilera al final de la tabla (al final del elemento tblbody)
-    tblBody.appendChild(hilera);
-  }
- 
-  // posiciona el <tbody> debajo del elemento <table>
-  tabla.appendChild(tHead);
-  tabla.appendChild(tblBody);
-  // appends <table> into <body>
-  body.appendChild(tabla);
-  // modifica el atributo "border" de la tabla y lo fija a "2";
-  tabla.setAttribute("class","mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp is-upgraded")
-}
-//document.body.get.classList.add('mdl-data-table__cell--non-numeric');
-
-    </script>
-  </body>
+</script>
+</body>
 </html>
