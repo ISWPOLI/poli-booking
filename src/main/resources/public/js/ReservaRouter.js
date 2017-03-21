@@ -20,7 +20,7 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
                 'cancha-futbolTenis': 'mostrarCanchaFutbolTenis',
                 'cubiculo-estudio': 'mostrarCubiculoEstudio',
                 'cubiculo-video': 'mostrarCubiculoVideo',
-                'confirmar-reserva': 'mostrarConfirmarReserva',
+                'confirmar-reserva?fecha=:fecha&idBloque=:idBloque': 'mostrarConfirmarReserva',
                 'mis-reservas': 'mostrarMisReservas'
             },
 
@@ -109,9 +109,12 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
                 this.procesarRuta(reservasApp.mostrarCubiculoVideo, reservasApp);
             },
 
-            mostrarConfirmarReserva: function () {
+            mostrarConfirmarReserva: function (fecha, idBloque) {
                 var reservasApp = App.arrancarSubAplicacion(ReservasApp);
-                this.procesarRuta(reservasApp.mostrarConfirmarReserva, reservasApp);
+
+                if (App.verificarAutorizacion()) {
+                    reservasApp.mostrarConfirmarReserva(fecha, idBloque);
+                }
             },
 
             mostrarMisReservas: function () {

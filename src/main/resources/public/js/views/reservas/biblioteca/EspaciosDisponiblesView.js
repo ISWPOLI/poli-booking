@@ -37,6 +37,8 @@ define(
 
 
                 generarTabla: function genera_tabla(espacios) {
+                    var that = this;
+
                     // Obtener la referencia del elemento body
                     var body = document.getElementById("uno");
                     var arr = ['Espacio', 'Fecha', "Hora Inicio",
@@ -133,14 +135,15 @@ define(
                                 boton.classList.add('mdl-button');
                                 var texto = document
                                     .createTextNode("Reservar");
-                                var n = espacios[i]["id"];
-                                boton.setAttribute("id", "btn-reservar-" + n);
+                                var idBloque = espacios[i]["id"];
+                                boton.setAttribute("id", "btn-reservar-" + idBloque);
                                 $(boton).click(function () {
                                     var boton = document
                                         .createElement("button");
                                     boton = this;
 
-                                    ReservaRouter.navigate('/#/confirmar-reserva', true);
+                                    window.location.replace('/#/confirmar-reserva?fecha=' +
+                                        that.fechaSeleccionada + '&idBloque=' + idBloque);
                                 });
 
                                 boton.appendChild(texto);

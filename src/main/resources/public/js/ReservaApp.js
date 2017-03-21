@@ -110,9 +110,9 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                     reservasController.mostrarCubiculoVideo();
                 },
 
-                mostrarConfirmarReserva: function () {
+                mostrarConfirmarReserva: function (fecha, idBloque) {
                     var reservasController = this.arrancarControlador(ReservaController);
-                    reservasController.mostrarConfirmarReserva();
+                    reservasController.mostrarConfirmarReserva(fecha, idBloque);
                 },
 
                 arrancarControlador: function (controlador) {

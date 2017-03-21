@@ -73,11 +73,14 @@ define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'FooterView', 'Con
                     this.mostrarEnContent(espaciosDisponiblesView);
 
                     var date = new Date();
+
                     var day = date.getDate();
                     var allMonth = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
                     var month = allMonth[date.getMonth()];
                     var year = date.getFullYear();
-                    espaciosDisponiblesView.buscarFechasDisponibles('' + year + '-' + month + '-' + (day+1) + '', "1");
+                    var fechaFormateada = '' + year + '-' + month + '-' + (day + 1) + '';
+                    espaciosDisponiblesView.fechaSeleccionada = fechaFormateada;
+                    espaciosDisponiblesView.buscarFechasDisponibles(fechaFormateada, "1");
                 },
 
                 mostrarCanchaMultiple: function () {
@@ -96,8 +99,16 @@ define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'FooterView', 'Con
                     this.mostrarEnContent(new CubiculoVideoView());
                 },
 
-                mostrarConfirmarReserva: function () {
-                    this.mostrarEnContent(new ConfirmarReservaView());
+                mostrarConfirmarReserva: function (fecha, idBloque) {
+
+                    var vista = new ConfirmarReservaView();
+                    vista.fecha = fecha;
+                    vista.idBloque = idBloque;
+
+                    var layout = this.armarLayoutBasico();
+                    layout.getRegion('content').mostrar(vista);
+
+                    vista.mostrarResumenReserva();
                 },
 
                 armarLayoutBasico: function () {
