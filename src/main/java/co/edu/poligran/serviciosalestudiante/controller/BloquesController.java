@@ -26,7 +26,7 @@ public class BloquesController extends BaseController {
     }
 
     @RequestMapping(value = "/bloques/consultar-bloque", method = RequestMethod.GET)
-    public BloqueDTO consultarBloque(Long idBloque) {
+    public BloqueDTO consultarBloque(@RequestParam("idBloque")Long idBloque) {
         return bloquesService.consultarBloque(idBloque);
     }
 }

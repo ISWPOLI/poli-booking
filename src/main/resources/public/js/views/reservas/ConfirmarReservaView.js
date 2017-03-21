@@ -13,6 +13,33 @@ define(
 							this.$el.html(confirmarReserva);
 							App.lanzarEventoLoad();
 						},
+						 events: {
+		                "click #confirmar": "confirmarFuncion"
+		            },
+				
+				
+				confirmarFuncion : function() {
+					var idBloque = this.idBloque;
+					var that = this;
+
+					Backbone.$.ajax({
+						url : '/reservas/mis-reservas',
+						type : 'POST',
+						data : {
+							"idBloque" : idBloque,
+						},
+						success : function() {
+							window.location.replace('/#/mis-reservas');
+						},
+						error : function(jqxhr) {
+							if (jqxhr.status === 401) {
+								that.showError('no hay espacios');
+							} else {
+								that.showError('error general');
+							}
+						}
+					});
+				},
 
 						mostrarResumenReserva : function() {
 							var fecha = this.fecha;
@@ -24,7 +51,7 @@ define(
 								url : '/bloques/consultar-bloque',
 								type : 'GET',
 								data : {
-									"idBloque" : id,
+									"idBloque" : idBloque,
 								},
 								success : function(espacio) {
 									that.generarTabla(espacio);
@@ -87,10 +114,11 @@ define(
 											.add('mdl-data-table__cell--non-numeric');
 									var textoCelda;
 
-									celda.appendChild(textoCelda);
+									
 									if (j == 0) {
+										var nombre=espacio["nombre"];
 										textoCelda = document
-												.createTextNode(espacio["nombre"]);
+												.createTextNode(nombre);
 									}
 									if (j == 1) {
 										var date = new Date(espacio["dia"]);
@@ -99,12 +127,18 @@ define(
 														.toLocaleDateString());
 									}
 									if (j == 2) {
-										var date=new Date(espacio["tiempoInicio"]);
-										textoCelda=document.createTextNode(date.toLocaleTimeString());
+										var date = new Date(
+												espacio["tiempoInicio"]);
+										textoCelda = document
+												.createTextNode(date
+														.toLocaleTimeString());
 									}
 									if (j == 3) {
-										var date=new Date(espacio["tiempoFin"]);
-										textoCelda=document.createTextNode(date.toLocaleTimeString());
+										var date = new Date(
+												espacio["tiempoFin"]);
+										textoCelda = document
+												.createTextNode(date
+														.toLocaleTimeString());
 									}
 									celda.appendChild(textoCelda);
 									hilera.appendChild(celda);
@@ -127,7 +161,9 @@ define(
 									.setAttribute(
 											"class",
 											"mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp is-upgraded")
-						}
+						},
+						
+
 					});
 
 			return ConfirmarReservaView;

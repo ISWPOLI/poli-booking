@@ -1,12 +1,9 @@
 package co.edu.poligran.serviciosalestudiante.controller;
 
-import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
-import co.edu.poligran.serviciosalestudiante.service.MailSenderService;
-import co.edu.poligran.serviciosalestudiante.service.ReservaService;
-import co.edu.poligran.serviciosalestudiante.service.UsuarioService;
-import co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO;
-import co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO;
-import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
+import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
+import co.edu.poligran.serviciosalestudiante.service.BloqueService;
+import co.edu.poligran.serviciosalestudiante.service.MailSenderService;
+import co.edu.poligran.serviciosalestudiante.service.ReservaService;
+import co.edu.poligran.serviciosalestudiante.service.UsuarioService;
+import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 
 @RestController
 public class ReservaController extends BaseController {
@@ -31,6 +33,9 @@ public class ReservaController extends BaseController {
 
 	@Autowired
 	private MailSenderService mailSenderService;
+	
+	@Autowired
+	private BloqueService bloquesService;
 
 	@RequestMapping(value = RESERVAS_ROOT_URL, method = RequestMethod.GET)
 	public List<ReservaDTO> consultarMisReservas() throws UserNotFoundException {
@@ -54,13 +59,10 @@ public class ReservaController extends BaseController {
 	}
 
 	@RequestMapping(value = RESERVAS_ROOT_URL, method = RequestMethod.POST)
-	public void confirmarReserva(HttpServletRequest request, @RequestParam("idBloque") Long idBloque) {
+	public void confirmarReserva(HttpServletRequest request, @RequestParam("idBloque") Long idBloque) throws UserNotFoundException {
 		String username=getUsuarioEnSesion();
 		UsuarioDTO usuario=usuarioService.findByUsername(username);
-		
-		
+		BloqueDTO bloque=bloquesService.consultarBloque(idBloque);
 		reservaService.crearReserva(usuario, bloque);
-		
-		
 	}
 }
