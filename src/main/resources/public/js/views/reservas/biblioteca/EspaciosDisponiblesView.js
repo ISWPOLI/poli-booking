@@ -114,7 +114,7 @@ define(
                                 //hora fin
                                 t = espacios[i]["tiempoFin"];
                                 date = new Date(t);
-                         
+
                                 var n = date.toLocaleTimeString();
                                 var textoCelda = document
                                     .createTextNode(n);
@@ -131,13 +131,14 @@ define(
                                     .createTextNode("Reservar");
                                 var idBloque = espacios[i]["id"];
                                 boton.setAttribute("id", "btn-reservar-" + idBloque);
+                                boton.setAttribute("data-pb-id-bloque", idBloque);
                                 $(boton).click(function () {
                                     var boton = document
                                         .createElement("button");
                                     boton = this;
 
                                     window.location.replace('/#/confirmar-reserva?fecha=' +
-                                        that.fechaSeleccionada + '&idBloque=' + idBloque);
+                                        that.fechaSeleccionada + '&idBloque=' + this.getAttribute("data-pb-id-bloque"));
                                 });
 
                                 boton.appendChild(texto);

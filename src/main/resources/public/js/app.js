@@ -1,7 +1,7 @@
-define(['jquery', 'underscore', 'material', 'backbone', 'backboneValidation', 'sweetalert',
-        'noty', 'DefaultRouter', 'Region'],
-    function ($, _, material, Backbone, BackboneValidation, sweetAlert, Noty,
-              DefaultRouter, Region) {
+define(['jquery', 'underscore', 'material', 'backbone', 'backboneValidation', 'sweetalert', 'noty',
+        'mdlJqueryModalDialog', 'DefaultRouter', 'Region'],
+    function ($, _, material, Backbone, BackboneValidation, sweetAlert, Noty, mdlJqueryModalDialog, DefaultRouter,
+              Region) {
         var rutasPublicas = ['password-change'];
         var app = {
             Models: {},
@@ -19,6 +19,13 @@ define(['jquery', 'underscore', 'material', 'backbone', 'backboneValidation', 's
                 Backbone.history.start();
 
                 this.inicializarAutenticacion();
+
+                this.on('loading:start', function () {
+                    showLoading();
+                });
+                this.on('loading:stop', function () {
+                    hideLoading();
+                });
             },
 
             arrancarSubAplicacion: function (subAplicacion) {

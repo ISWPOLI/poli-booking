@@ -10,6 +10,7 @@ require
             material: '/bower_components/material-design-lite/material.min',
             sweetalert: '/bower_components/sweetalert/dist/sweetalert.min',
             noty: '/bower_components/noty/js/noty/packaged/jquery.noty.packaged',
+            mdlJqueryModalDialog: '/bower_components/mdl-jquery-modal-dialog/mdl-jquery-modal-dialog',
 
             // aplicación general
             App: './app',

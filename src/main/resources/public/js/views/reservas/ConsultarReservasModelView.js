@@ -19,11 +19,14 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ModelView',
             },
             cancelarReserva: function () {
                 var modeloActual = this.model;
+                App.notificarInicioCargue();
                 modeloActual.destroy({
                     success: function (model, response) {
+                        App.notificarFinCargue();
                         App.notificarExito('La reserva se ha eliminado correctamente');
                     },
                     error: function () {
+                        App.notificarFinCargue();
                         App.notificarError('Ha ocurrido un error cancelando la reserva');
                     }
                 });
