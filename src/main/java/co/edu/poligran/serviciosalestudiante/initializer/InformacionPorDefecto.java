@@ -87,30 +87,12 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 
 				crearCubiculosPorDefecto();
 				crearBloquesDeCubiculosPorDefecto();
-				crearReservasDePrueba();
 			}
 			logger.info("finalizó la inicialización de información por defecto");
 		} catch (Exception e) {
 			logger.error("error inicializando la información por defecto", e);
 		}
 
-	}
-
-	private void crearReservasDePrueba() throws UserNotFoundException {
-		logger.info("creando reservas de prueba");
-
-		UsuarioDTO estudiantePorDefecto = usuarioService.findByUsername(defaultEstudianteUsername);
-		List<BloqueDTO> bloques = bloqueService.consultarBloquesVigentes();
-
-		int totalBloques = bloques.size();
-		SecureRandom random = new SecureRandom();
-
-		for (int i = 0; i < 10; i++) {
-			int index = random.nextInt(totalBloques);
-			BloqueDTO bloque = bloques.get(index);
-
-			reservaService.crearReserva(estudiantePorDefecto, bloque);
-		}
 	}
 
 	private void crearCubiculosPorDefecto() {

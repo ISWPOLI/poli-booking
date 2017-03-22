@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.poligran.serviciosalestudiante.exception.InvalidPasswordResetTokenException;
 import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
-import co.edu.poligran.serviciosalestudiante.service.MailSenderService;
+import co.edu.poligran.serviciosalestudiante.service.NotificadorCorreosService;
 import co.edu.poligran.serviciosalestudiante.service.UsuarioService;
 import co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
@@ -26,7 +26,7 @@ public class UsuarioController extends BaseController {
 	private UsuarioService usuarioService;
 
 	@Autowired
-	private MailSenderService mailSenderService;
+	private NotificadorCorreosService notificadorCorreosService;
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public Principal user(Principal user) {
@@ -40,7 +40,7 @@ public class UsuarioController extends BaseController {
 
 		PasswordResetTokenDTO token = usuarioService.createPasswordResetTokenForUser(user);
 
-		mailSenderService.enviarTokenRestablecimientoContraseña(token, getFullAppUrl(request));
+		notificadorCorreosService.enviarTokenRestablecimientoContraseña(token, getFullAppUrl(request));
 
 		return "El enlace para cambiar la contraseña se ha enviado correctamente al correo suministrado";
 	}

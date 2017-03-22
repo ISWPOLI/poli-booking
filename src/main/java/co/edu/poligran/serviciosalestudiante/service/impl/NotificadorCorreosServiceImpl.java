@@ -11,7 +11,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.poligran.serviciosalestudiante.service.MailSenderService;
+import co.edu.poligran.serviciosalestudiante.service.NotificadorCorreosService;
 import co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 import org.thymeleaf.TemplateEngine;
@@ -22,7 +22,7 @@ import java.util.Locale;
 
 @Service
 @Transactional
-public class MailSenderServiceImpl extends BaseService implements MailSenderService {
+public class NotificadorCorreosServiceImpl extends BaseService implements NotificadorCorreosService {
 
     @Autowired
     private JavaMailSender mailSender;
@@ -75,6 +75,25 @@ public class MailSenderServiceImpl extends BaseService implements MailSenderServ
         }
     }
 
+    @Override
+    public void enviarNotificacionReservaConfirmada(ReservaDTO reserva) {
+        try {
+            MimeMessage correo = mailSender.createMimeMessage();
+
+            String email = reserva.getUsuario().getEmail();
+
+            MimeMessageHelper helper = new MimeMessageHelper(correo, true);
+            helper.setTo(email);
+            helper.setFrom(emailFrom);
+            helper.setSubject("Reserva confirmada en Politécnico Grancolombiano");
+            helper.setText(getTextoCorreoConfirmacionReserva(reserva), true);
+            mailSender.send(correo);
+
+        } catch (MessagingException e) {
+            logger.error("Error enviando correo de notificación de reserva confirmada");
+        }
+    }
+
     private String getTextoCorreoCancelacionReserva(ReservaDTO reserva) {
         Context context = new Context();
         context.setVariable("tipo", reserva.getBloque().getEspacio().getTipoEspacio());
@@ -86,5 +105,18 @@ public class MailSenderServiceImpl extends BaseService implements MailSenderServ
         context.setVariable("fin", DateUtils.format(reserva.getBloque().getTiempoFin(), "HH:mm:ss",
                 new Locale("es", "co")));
         return templateEngine.process("cancelacion-reserva", context);
+    }
+
+    private String getTextoCorreoConfirmacionReserva(ReservaDTO reserva) {
+        Context context = new Context();
+        context.setVariable("tipo", reserva.getBloque().getEspacio().getTipoEspacio());
+        context.setVariable("nombre", reserva.getBloque().getEspacio().getNombre());
+        context.setVariable("dia", DateUtils.format(reserva.getBloque().getDia(), "yyyy-MM-dd",
+                new Locale("es", "co")));
+        context.setVariable("inicio", DateUtils.format(reserva.getBloque().getTiempoInicio(), "HH:mm:SS",
+                new Locale("es", "co")));
+        context.setVariable("fin", DateUtils.format(reserva.getBloque().getTiempoFin(), "HH:mm:ss",
+                new Locale("es", "co")));
+        return templateEngine.process("confirmacion-reserva", context);
     }
 }
