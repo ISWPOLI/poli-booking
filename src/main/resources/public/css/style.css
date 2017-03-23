@@ -354,3 +354,8 @@ material.indigo-pink.min.css:8
 .poli-booking-reserva-event > .mdl-card__menu {
     color: #fff;
 }
+@media screen and (max-width: 1024px)
+material.indigo-pink.min.css:8
+.mdl-layout__header {
+    display: block;
+}
