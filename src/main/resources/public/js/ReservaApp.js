@@ -115,6 +115,11 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                     reservasController.mostrarConfirmarReserva(fecha, idBloque);
                 },
 
+                mostrarCalendarioEspacio: function (idEspacio) {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.mostrarCalendarioEspacio(idEspacio);
+                },
+
                 arrancarControlador: function (controlador) {
                     if (this.controladorActual &&
                         this.controladorActual instanceof controlador) {

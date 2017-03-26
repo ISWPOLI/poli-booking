@@ -2,13 +2,13 @@ define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'FooterView', 'Con
         'LoginView', 'PasswordRecoveryView', 'PasswordChangeView', 'BibliotecaView', 'ComputadoresView', 'TenisView',
         'UsuariosView', 'ConsultarUsuarioView', 'CrearUsuarioView', 'ActualizarUsuarioView', 'EditarUsuarioView',
         'EliminarUsuarioView', 'EspaciosDisponiblesView', 'CanchasView', 'GimnasioView', 'CanchaMultipleView',
-        'CanchaFutbolTenisView', 'CubiculoEstudioView', 'CubiculoVideoView', 'ConfirmarReservaView'],
+        'CanchaFutbolTenisView', 'CubiculoEstudioView', 'CubiculoVideoView', 'ConfirmarReservaView', 'CalendarioEspacioView'],
     function (_, Backbone, MainLayout, HeaderView, FooterView, ConsultarReservasCollectionView, HomeView, LoginView, PasswordRecoveryView,
               PasswordChangeView, BibliotecaView, ComputadoresView, TenisView,
               UsuariosView, ConsultarUsuarioView, CrearUsuarioView,
               ActualizarUsuarioView, EditarUsuarioView, EliminarUsuarioView,
               EspaciosDisponiblesView, CanchasView, GimnasioView, CanchaMultipleView,
-              CanchaFutbolTenisView, CubiculoEstudioView, CubiculoVideoView, ConfirmarReservaView) {
+              CanchaFutbolTenisView, CubiculoEstudioView, CubiculoVideoView, ConfirmarReservaView, CalendarioEspacioView) {
         var misReservasController = function (options) {
             var controlador = {
                 region: options.region,
@@ -106,8 +106,15 @@ define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'FooterView', 'Con
 
                     var layout = this.armarLayoutBasico();
                     layout.getRegion('content').mostrar(vista);
-                    
+
                     vista.mostrarResumenReserva();
+                },
+
+                mostrarCalendarioEspacio: function (idEspacio) {
+                    var vista = new CalendarioEspacioView();
+
+                    var layout = this.armarLayoutBasico();
+                    layout.getRegion('content').mostrar(vista);
                 },
 
                 armarLayoutBasico: function () {

@@ -1,0 +1,192 @@
+.pb-calendar {
+    margin: 30px auto;
+    max-width: 600px;
+    font-size: 14px;
+}
+
+.pb-calendar .clndr .clndr-controls {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.pb-calendar .clndr .clndr-controls .month {
+    float: left;
+    width: 33%;
+    text-align: center;
+}
+
+.pb-calendar .clndr .clndr-controls .clndr-control-button {
+    float: left;
+    width: 33%;
+}
+
+.pb-calendar .clndr .clndr-controls .clndr-control-button.rightalign {
+    text-align: right;
+    width: 34%;
+}
+
+.pb-calendar .clndr .clndr-controls .clndr-control-button .clndr-next-button {
+    cursor: pointer;
+    -webkit-user-select: none;
+    /* Chrome/Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE10+ */
+}
+
+.pb-calendar .clndr .clndr-controls .clndr-control-button .clndr-next-button:hover {
+    background: #ddd;
+}
+
+.pb-calendar .clndr .clndr-controls .clndr-control-button .clndr-next-button.inactive {
+    opacity: 0.5;
+}
+
+.pb-calendar .clndr .clndr-controls .clndr-control-button .clndr-next-button.inactive:hover {
+    background: none;
+    cursor: default;
+}
+
+.pb-calendar .clndr .clndr-controls .clndr-control-button .clndr-previous-button {
+    cursor: pointer;
+    -webkit-user-select: none;
+    /* Chrome/Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE10+ */
+}
+
+.pb-calendar .clndr .clndr-controls .clndr-control-button .clndr-previous-button:hover {
+    background: #ddd;
+}
+
+.pb-calendar .clndr .clndr-controls .clndr-control-button .clndr-previous-button.inactive {
+    opacity: 0.5;
+}
+
+.pb-calendar .clndr .clndr-controls .clndr-control-button .clndr-previous-button.inactive:hover {
+    background: none;
+    cursor: default;
+}
+
+.pb-calendar .clndr .clndr-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.pb-calendar .clndr .clndr-table .header-days {
+    height: 30px;
+    font-size: 10px;
+    background: #0D70A6;
+}
+
+.pb-calendar .clndr .clndr-table .header-days .header-day {
+    vertical-align: middle;
+    text-align: center;
+    border-left: 1px solid #000000;
+    border-top: 1px solid #000000;
+    color: #fff;
+}
+
+.pb-calendar .clndr .clndr-table .header-days .header-day:last-child {
+    border-right: 1px solid #000000;
+}
+
+.pb-calendar .clndr .clndr-table tr {
+    height: 85px;
+}
+
+.pb-calendar .clndr .clndr-table tr td {
+    vertical-align: top;
+}
+
+.pb-calendar .clndr .clndr-table tr .day {
+    border-left: 1px solid #000000;
+    border-top: 1px solid #000000;
+    width: 100%;
+    height: inherit;
+}
+
+.pb-calendar .clndr .clndr-table tr .day:hover {
+    background: #eee;
+}
+
+.pb-calendar .clndr .clndr-table tr .day.today,
+.pb-calendar .clndr .clndr-table tr .day.my-today {
+    background: #9AD6E3;
+}
+
+.pb-calendar .clndr .clndr-table tr .day.today:hover,
+.pb-calendar .clndr .clndr-table tr .day.my-today:hover {
+    background: #72c6d8;
+}
+
+.pb-calendar .clndr .clndr-table tr .day.today.event,
+.pb-calendar .clndr .clndr-table tr .day.my-today.event {
+    background: #a7dbc1;
+}
+
+.pb-calendar .clndr .clndr-table tr .day.event,
+.pb-calendar .clndr .clndr-table tr .day.my-event {
+    background: #B4E09F;
+}
+
+.pb-calendar .clndr .clndr-table tr .day.event:hover,
+.pb-calendar .clndr .clndr-table tr .day.my-event:hover {
+    background: #96d478;
+}
+
+.pb-calendar .clndr .clndr-table tr .day.inactive,
+.pb-calendar .clndr .clndr-table tr .day.my-inactive {
+    background: #ddd;
+}
+
+.pb-calendar .clndr .clndr-table tr .day:last-child {
+    border-right: 1px solid #000000;
+}
+
+.pb-calendar .clndr .clndr-table tr .day .day-contents {
+    box-sizing: border-box;
+    padding: 8px;
+    font-size: 12px;
+    text-align: right;
+}
+
+.pb-calendar .clndr .clndr-table tr .empty,
+.pb-calendar .clndr .clndr-table tr .adjacent-month,
+.pb-calendar .clndr .clndr-table tr .my-empty,
+.pb-calendar .clndr .clndr-table tr .my-adjacent-month {
+    border-left: 1px solid #000000;
+    border-top: 1px solid #000000;
+    width: 100%;
+    height: inherit;
+    background: #eee;
+}
+
+.pb-calendar .clndr .clndr-table tr .empty:hover,
+.pb-calendar .clndr .clndr-table tr .adjacent-month:hover,
+.pb-calendar .clndr .clndr-table tr .my-empty:hover,
+.pb-calendar .clndr .clndr-table tr .my-adjacent-month:hover {
+    background: #ddd;
+}
+
+.pb-calendar .clndr .clndr-table tr .empty:last-child,
+.pb-calendar .clndr .clndr-table tr .adjacent-month:last-child,
+.pb-calendar .clndr .clndr-table tr .my-empty:last-child,
+.pb-calendar .clndr .clndr-table tr .my-adjacent-month:last-child {
+    border-right: 1px solid #000000;
+}
+
+.pb-calendar .clndr .clndr-table tr:last-child .day,
+.pb-calendar .clndr .clndr-table tr:last-child .my-day {
+    border-bottom: 1px solid #000000;
+}
+
+.pb-calendar .clndr .clndr-table tr:last-child .empty,
+.pb-calendar .clndr .clndr-table tr:last-child .my-empty {
+    border-bottom: 1px solid #000000;
+}

@@ -5,12 +5,14 @@ require
             text: '../bower_components/requirejs-text/text',
             jquery: '../bower_components/jquery/dist/jquery.min',
             underscore: '../bower_components/underscore/underscore-min',
-            backbone: '../bower_components/backbone/backbone',
+            backbone: '../bower_components/backbone/backbone-min',
             backboneValidation: '/bower_components/backbone.validation/dist/backbone-validation-amd-min',
             material: '/bower_components/material-design-lite/material.min',
             sweetalert: '/bower_components/sweetalert/dist/sweetalert.min',
             noty: '/bower_components/noty/js/noty/packaged/jquery.noty.packaged',
             mdlJqueryModalDialog: '/bower_components/mdl-jquery-modal-dialog/mdl-jquery-modal-dialog',
+            moment: '/bower_components/moment/min/moment-with-locales.min',
+            clndr: '/bower_components/clndr/clndr.min',
 
             // aplicación general
             App: './app',
@@ -66,10 +68,14 @@ require
             GimnasioView: './views/reservas/gimnasio/GimnasioView',
             EspaciosDisponiblesView: './views/reservas/biblioteca/EspaciosDisponiblesView',
             ConfirmarReservaView: './views/reservas/ConfirmarReservaView',
-            EspaciosDisponiblesTemplate: '../templates/reservas/biblioteca/EspaciosDisponibles.html'
+            EspaciosDisponiblesTemplate: '../templates/reservas/biblioteca/EspaciosDisponibles.html',
+
+            //calendario
+            CalendarioTemplate: '../templates/calendario/calendario.html',
+            CalendarioEspacioView: './views/reservas/CalendarioEspacioView'
         }
     });
 
-require(['App', 'ReservaRouter', 'PublicRouter'], function (App, ReservasRouter, PublicRouter) {
+require(['App', 'ReservaRouter', 'PublicRouter', 'text!CalendarioTemplate'], function (App, ReservasRouter, PublicRouter, CalendarioTemplate) {
     App.iniciar();
 });
