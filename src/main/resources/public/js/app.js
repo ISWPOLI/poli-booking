@@ -1,7 +1,7 @@
 define(['jquery', 'underscore', 'material', 'backbone', 'backboneValidation', 'sweetalert', 'noty',
-        'mdlJqueryModalDialog', 'DefaultRouter', 'Region'],
-    function ($, _, material, Backbone, BackboneValidation, sweetAlert, Noty, mdlJqueryModalDialog, DefaultRouter,
-              Region) {
+        'mdlJqueryModalDialog', 'moment', 'clndr', 'DefaultRouter', 'Region'],
+    function ($, _, material, Backbone, BackboneValidation, sweetAlert, Noty, mdlJqueryModalDialog, moment, clndr,
+              DefaultRouter, Region) {
         var rutasPublicas = ['password-change'];
         var app = {
             Models: {},

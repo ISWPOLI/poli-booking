@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import co.edu.poligran.serviciosalestudiante.entities.TipoEspacio;
 import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
@@ -89,16 +90,15 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
     }
 
     @Override
-    public List<BloqueDTO> consultarBloquesVigentesPorDiaYEspacio(Date dia, Long idEspacio) {
-        List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentesPorDiaYEspacio(dia, idEspacio);
+    public List<BloqueDTO> consultarBloquesVigentesPorDiaYTipoEspacio(Date dia, TipoEspacio tipoEspacio) {
+        List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentesPorDiaYTipoEspacio(dia, tipoEspacio);
 
         return DozerUtils.mapCollection(bloques, BloqueDTO.class, mapper);
     }
 
     @Override
-    public List<BloqueDTO> consultarBloquesVigentes() {
-        List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentes();
-
+    public List<BloqueDTO> consultarBloquesVigentesPorTipoEspacio(TipoEspacio tipoEspacio) {
+        List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentesPorTipoEspacio(tipoEspacio);
         return DozerUtils.mapCollection(bloques, BloqueDTO.class, mapper);
     }
 
