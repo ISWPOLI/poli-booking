@@ -66,7 +66,7 @@ require
             CanchaMultipleView: './views/reservas/canchas/CanchaMultipleView',
             CanchaFutbolTenisView: './views/reservas/canchas/CanchaFutbolTenisView',
             GimnasioView: './views/reservas/gimnasio/GimnasioView',
-            EspaciosDisponiblesView: './views/reservas/biblioteca/EspaciosDisponiblesView',
+            BloquesDisponiblesView: './views/reservas/biblioteca/BloquesDisponiblesView',
             ConfirmarReservaView: './views/reservas/ConfirmarReservaView',
             EspaciosDisponiblesTemplate: '../templates/reservas/biblioteca/EspaciosDisponibles.html',
 

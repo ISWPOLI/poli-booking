@@ -15,14 +15,14 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
                 'actualizar-usuario': 'mostrarActualizarUsuario',
                 'editar-usuario': 'mostrarEditarUsuario',
                 'eliminar-usuario': 'mostrarEliminarUsuario',
-                'espacios-disponibles': 'mostrarEspaciosDisponibles',
+                'bloques-disponibles?fecha=:fecha&tipoEspacio=:tipoEspacio': 'mostrarBloquesDisponibles',
                 'cancha-multiple': 'mostrarCanchaMultiple',
                 'cancha-futbolTenis': 'mostrarCanchaFutbolTenis',
                 'cubiculo-estudio': 'mostrarCubiculoEstudio',
                 'cubiculo-video': 'mostrarCubiculoVideo',
                 'confirmar-reserva?fecha=:fecha&idBloque=:idBloque': 'mostrarConfirmarReserva',
                 'mis-reservas': 'mostrarMisReservas',
-                'calendario-espacio?idEspacio=:idEspacio': 'mostrarCalendarioEspacio'
+                'calendario-espacio?tipo-espacio=:tipoEspacio': 'mostrarCalendarioEspacio'
             },
 
             mostrarHome: function () {
@@ -85,9 +85,9 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
                 this.procesarRuta(reservasApp.mostrarEliminarUsuario, reservasApp);
             },
 
-            mostrarEspaciosDisponibles: function () {
+            mostrarBloquesDisponibles: function (fecha, tipoEspacio) {
                 var reservasApp = App.arrancarSubAplicacion(ReservasApp);
-                this.procesarRuta(reservasApp.mostrarEspaciosDisponibles, reservasApp);
+                this.procesarRuta(reservasApp.mostrarBloquesDisponibles, reservasApp, [fecha, tipoEspacio]);
             },
 
             mostrarCanchaMultiple: function () {
@@ -123,9 +123,9 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
                 this.procesarRuta(reservasApp.mostrarMisReservas, reservasApp);
             },
 
-            mostrarCalendarioEspacio: function (idEspacio) {
+            mostrarCalendarioEspacio: function (tipoEspacio) {
                 var reservasApp = App.arrancarSubAplicacion(ReservasApp);
-                this.procesarRuta(reservasApp.mostrarCalendarioEspacio, reservasApp, [idEspacio]);
+                this.procesarRuta(reservasApp.mostrarCalendarioEspacio, reservasApp, [tipoEspacio]);
             },
 
             procesarRuta: function (funcion, contexto, argumentos) {

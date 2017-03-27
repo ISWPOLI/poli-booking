@@ -16,20 +16,20 @@ define(
 
                     Backbone.$
                         .ajax({
-                            url: '/bloques/consultar-bloques-vigentes',
+                            url: '/bloques/bloques-vigentes-por-dia-y-tipo-espacio',
                             type: 'GET',
                             data: {
                                 "dia": fecha,
-                                "id-espacio": id,
+                                "tipo-espacio": id,
                             },
                             success: function (espacios) {
                                 that.generarTabla(espacios);
                             },
                             error: function (jqxhr) {
                                 if (jqxhr.status === 401) {
-                                    that.showError('no hay espacios');
+                                    App.notificarError('no hay espacios');
                                 } else {
-                                    that.showError('error general');
+                                    App.notificarError('error general');
                                 }
                             }
                         });

@@ -86,9 +86,9 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                     reservasController.mostrarEliminarUsuario();
                 },
 
-                mostrarEspaciosDisponibles: function () {
+                mostrarBloquesDisponibles: function (fecha, idBloque) {
                     var reservasController = this.arrancarControlador(ReservaController);
-                    reservasController.mostrarEspaciosDisponibles();
+                    reservasController.mostrarBloquesDisponibles(fecha, idBloque);
                 },
                 mostrarCanchaMultiple: function () {
                     var reservasController = this.arrancarControlador(ReservaController);
@@ -115,9 +115,9 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                     reservasController.mostrarConfirmarReserva(fecha, idBloque);
                 },
 
-                mostrarCalendarioEspacio: function (idEspacio) {
+                mostrarCalendarioEspacio: function (tipoEspacio) {
                     var reservasController = this.arrancarControlador(ReservaController);
-                    reservasController.mostrarCalendarioEspacio(idEspacio);
+                    reservasController.mostrarCalendarioEspacio(tipoEspacio);
                 },
 
                 arrancarControlador: function (controlador) {

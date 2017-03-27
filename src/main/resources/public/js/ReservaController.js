@@ -1,14 +1,15 @@
-define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'FooterView', 'ConsultarReservasCollectionView', 'HomeView',
-        'LoginView', 'PasswordRecoveryView', 'PasswordChangeView', 'BibliotecaView', 'ComputadoresView', 'TenisView',
-        'UsuariosView', 'ConsultarUsuarioView', 'CrearUsuarioView', 'ActualizarUsuarioView', 'EditarUsuarioView',
-        'EliminarUsuarioView', 'EspaciosDisponiblesView', 'CanchasView', 'GimnasioView', 'CanchaMultipleView',
-        'CanchaFutbolTenisView', 'CubiculoEstudioView', 'CubiculoVideoView', 'ConfirmarReservaView', 'CalendarioEspacioView'],
-    function (_, Backbone, MainLayout, HeaderView, FooterView, ConsultarReservasCollectionView, HomeView, LoginView, PasswordRecoveryView,
-              PasswordChangeView, BibliotecaView, ComputadoresView, TenisView,
-              UsuariosView, ConsultarUsuarioView, CrearUsuarioView,
-              ActualizarUsuarioView, EditarUsuarioView, EliminarUsuarioView,
-              EspaciosDisponiblesView, CanchasView, GimnasioView, CanchaMultipleView,
-              CanchaFutbolTenisView, CubiculoEstudioView, CubiculoVideoView, ConfirmarReservaView, CalendarioEspacioView) {
+define(['underscore', 'backbone', 'moment', 'App', 'MainLayout', 'HeaderView', 'FooterView',
+        'ConsultarReservasCollectionView', 'HomeView', 'LoginView', 'PasswordRecoveryView', 'PasswordChangeView',
+        'BibliotecaView', 'ComputadoresView', 'TenisView', 'UsuariosView', 'ConsultarUsuarioView', 'CrearUsuarioView',
+        'ActualizarUsuarioView', 'EditarUsuarioView', 'EliminarUsuarioView', 'BloquesDisponiblesView', 'CanchasView',
+        'GimnasioView', 'CanchaMultipleView', 'CanchaFutbolTenisView', 'CubiculoEstudioView', 'CubiculoVideoView',
+        'ConfirmarReservaView', 'CalendarioEspacioView'],
+    function (_, Backbone, moment, App, MainLayout, HeaderView, FooterView, ConsultarReservasCollectionView, HomeView,
+              LoginView, PasswordRecoveryView, PasswordChangeView, BibliotecaView, ComputadoresView, TenisView,
+              UsuariosView, ConsultarUsuarioView, CrearUsuarioView, ActualizarUsuarioView, EditarUsuarioView,
+              EliminarUsuarioView, BloquesDisponiblesView, CanchasView, GimnasioView, CanchaMultipleView,
+              CanchaFutbolTenisView, CubiculoEstudioView, CubiculoVideoView, ConfirmarReservaView,
+              CalendarioEspacioView) {
         var misReservasController = function (options) {
             var controlador = {
                 region: options.region,
@@ -68,19 +69,11 @@ define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'FooterView', 'Con
                     this.mostrarEnContent(new EliminarUsuarioView());
                 },
 
-                mostrarEspaciosDisponibles: function () {
-                    var espaciosDisponiblesView = new EspaciosDisponiblesView();
-                    this.mostrarEnContent(espaciosDisponiblesView);
-
-                    var date = new Date();
-
-                    var day = date.getDate();
-                    var allMonth = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-                    var month = allMonth[date.getMonth()];
-                    var year = date.getFullYear();
-                    var fechaFormateada = '' + year + '-' + month + '-' + (day + 1) + '';
-                    espaciosDisponiblesView.fechaSeleccionada = fechaFormateada;
-                    espaciosDisponiblesView.buscarFechasDisponibles(fechaFormateada, "1");
+                mostrarBloquesDisponibles: function (fecha, idBloque) {
+                    var bloquesDisponiblesView = new BloquesDisponiblesView();
+                    this.mostrarEnContent(bloquesDisponiblesView);
+                    bloquesDisponiblesView.fechaSeleccionada = fecha;
+                    bloquesDisponiblesView.buscarFechasDisponibles(fecha, idBloque);
                 },
 
                 mostrarCanchaMultiple: function () {
@@ -110,11 +103,34 @@ define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'FooterView', 'Con
                     vista.mostrarResumenReserva();
                 },
 
-                mostrarCalendarioEspacio: function (idEspacio) {
-                    var vista = new CalendarioEspacioView();
+                mostrarCalendarioEspacio: function (tipoEspacio) {
+                    var that = this;
+                    App.notificarInicioCargue();
+                    Backbone.$.ajax({
+                        url: '/bloques/bloques-vigentes-por-tipo-espacio',
+                        method: 'GET',
+                        data: {
+                            "tipo-espacio": tipoEspacio
+                        },
+                        success: function (data) {
+                            App.notificarFinCargue();
 
-                    var layout = this.armarLayoutBasico();
-                    layout.getRegion('content').mostrar(vista);
+                            _.each(data, function (bloque) {
+                                bloque.date = moment(bloque.dia).format("YYYY-MM-DD")
+                            });
+
+                            var vista = new CalendarioEspacioView();
+                            vista.eventos = data;
+                            vista.tipoEspacio = tipoEspacio;
+
+                            var layout = that.armarLayoutBasico();
+                            layout.getRegion('content').mostrar(vista);
+                        },
+                        error: function (jqxhr) {
+                            App.notificarFinCargue();
+                            App.mensajeError('Ocurrió un error cargando los bloques horarios disponibles');
+                        }
+                    });
                 },
 
                 armarLayoutBasico: function () {

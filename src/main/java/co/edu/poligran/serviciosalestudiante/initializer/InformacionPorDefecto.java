@@ -31,7 +31,7 @@ import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 public class InformacionPorDefecto implements ApplicationListener<ContextRefreshedEvent> {
 
 	private static final boolean INSERTAR_INFO_POR_DEFECTO = true;
-	private static final long DIAS_BLOQUES_POR_DEFECTO = 30;
+	private static final long DIAS_BLOQUES_POR_DEFECTO = 15;
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -100,9 +100,6 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 
 		crearCubiculo("cubiculo1");
 		crearCubiculo("cubiculo2");
-		crearCubiculo("cubiculo3");
-		crearCubiculo("cubiculo4");
-		crearCubiculo("cubiculo5");
 	}
 
 	private void crearCubiculo(String nombre) {
