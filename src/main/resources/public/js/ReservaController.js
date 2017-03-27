@@ -68,17 +68,24 @@ define(['underscore', 'backbone', 'MainLayout', 'HeaderView', 'FooterView', 'Con
                     this.mostrarEnContent(new EliminarUsuarioView());
                 },
 
-                mostrarEspaciosDisponibles: function () {
-                    var espaciosDisponiblesView = new EspaciosDisponiblesView();
+                mostrarEspaciosDisponibles: function (fecha, tipoEspacio) {
+                	var espaciosDisponiblesView = new EspaciosDisponiblesView();
+                	espaciosDisponiblesView.fecha = fecha;
+                	espaciosDisponiblesView.tipoEspacio = tipoEspacio;
+
+//                    var layout = this.armarLayoutBasico();
+//                    layout.getRegion('content').mostrar(vista);
+                    
+            	
+         
+                    //var espaciosDisponiblesView = new EspaciosDisponiblesView();
                     this.mostrarEnContent(espaciosDisponiblesView);
-
                     var date = new Date();
-
                     var day = date.getDate();
                     var allMonth = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
                     var month = allMonth[date.getMonth()];
                     var year = date.getFullYear();
-                    var fechaFormateada = '' + year + '-' + month + '-' + (day + 1) + '';
+                    var fechaFormateada = '' + year + '-' + month + '-' + (day+1) + '';
                     espaciosDisponiblesView.fechaSeleccionada = fechaFormateada;
                     espaciosDisponiblesView.buscarFechasDisponibles(fechaFormateada, "1");
                 },

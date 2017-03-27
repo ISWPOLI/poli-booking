@@ -86,9 +86,9 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                     reservasController.mostrarEliminarUsuario();
                 },
 
-                mostrarEspaciosDisponibles: function () {
+                mostrarEspaciosDisponibles: function (fecha, tipoEspacio) {
                     var reservasController = this.arrancarControlador(ReservaController);
-                    reservasController.mostrarEspaciosDisponibles();
+                    reservasController.mostrarEspaciosDisponibles(fecha, tipoEspacio);
                 },
                 mostrarCanchaMultiple: function () {
                     var reservasController = this.arrancarControlador(ReservaController);

@@ -84,7 +84,7 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
                 this.procesarRuta(reservasApp.mostrarEliminarUsuario, reservasApp);
             },
 
-            mostrarEspaciosDisponibles: function () {
+            mostrarEspaciosDisponibles: function (fecha, tipoEspacio) {
                 var reservasApp = App.arrancarSubAplicacion(ReservasApp);
                 this.procesarRuta(reservasApp.mostrarEspaciosDisponibles, reservasApp);
             },

@@ -13,6 +13,7 @@ define(
 
                 buscarFechasDisponibles: function (fecha, id) {
                     var that = this;
+                   // fecha=this.dia;
 
                     Backbone.$
                         .ajax({

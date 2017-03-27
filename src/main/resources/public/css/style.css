@@ -359,3 +359,9 @@ material.indigo-pink.min.css:8
 .mdl-layout__header {
     display: block;
 }
+@media screen and (max-width: 1024px)
+material.indigo-pink.min.css:8
+.mdl-layout__drawer-button {
+    margin: 4px;
+    color: #f9f9f9;
+}
