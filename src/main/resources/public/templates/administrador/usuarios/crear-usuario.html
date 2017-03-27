@@ -22,7 +22,7 @@
 	<!-- Wide card with share menu button -->
 	<style>
 .demo-card-wide.mdl-card {
-	width: 512px;
+	width: 90%;
 }
 
 .mdl-shadow--2dp {
@@ -54,69 +54,71 @@ h4 {
 	color: #3f51b5;
 }
 
+.mdl-textfield {
+	width: 80%
+}
 </style>
 	<br>
 	<br>
 	<!--formulario LOGUEO-->
 	<center>
+		<!-- username -->
 		<div class="demo-card-wide mdl-card mdl-shadow--2dp">
 			<center>
 				<!-- username -->
-				<div class="demo-card-wide mdl-card mdl-shadow--2dp">
-					<center>
-						<!-- username -->
-						<div class="mdl-card__actions mdl-card--border">
-							<br>
-							<h4>Crear nuevo usuario</h4>
+				<div class="mdl-card__actions mdl-card--border">
+					<br>
+					<h4>Crear nuevo usuario</h4>
 
-						</div>
-						<div
-							class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				</div>
+				<div
+					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 
-							<input class="mdl-textfield__input" type="text" id="username">
-							<label class="mdl-textfield__label" for="sample3">Usuario</label>
-						</div>
-						<br> <br>
-						<div
-							class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="text" id="username">
+					<label class="mdl-textfield__label" for="sample3">Usuario</label>
+				</div>
+				<br> <br>
+				<div
+					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 
-							<input class="mdl-textfield__input" type="password" id="password">
-							<label class="mdl-textfield__label" for="sample3">Password</label>
-						</div>
-						<div
-							class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="password" id="password">
+					<label class="mdl-textfield__label" for="sample3">Password</label>
+				</div>
+				<div
+					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 
-							<input class="mdl-textfield__input" type="text" id="first-names">
-							<label class="mdl-textfield__label" for="sample3">Nombres</label>
-						</div>
-						<br>
-						<!-- Password -->
-						<div
-							class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="text" id="first-names">
+					<label class="mdl-textfield__label" for="sample3">Nombres</label>
+				</div>
+				<br>
+				<!-- Password -->
+				<div
+					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 
-							<input class="mdl-textfield__input" type="text" id="last-names">
-							<label class="mdl-textfield__label" for="sample3">Apellidos</label>
-						</div>
+					<input class="mdl-textfield__input" type="text" id="last-names">
+					<label class="mdl-textfield__label" for="sample3">Apellidos</label>
+				</div>
 
-						<div
-							class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<div
+					class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 
-							<input class="mdl-textfield__input" type="text" id="email">
-							<label class="mdl-textfield__label" for="sample3">Correo
-								Electrónico</label>
-						</div>
-
-						<select name="role" id="role">
-							<option value="STUDENT">Estudiante</option>
-							<option value="ADMIN">Administrador</option>
-							<option value="FACULTY_OR_STAFF">Profesores o Staff</option>
-						</select>
-						<div class="mdl-card__actions mdl-card--border">
-							<button id="send" href="marca/Marca.html"
-								class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-								href="crearUsuario.html">Enviar</button>
-						</div>
-					</center>
+					<input class="mdl-textfield__input" type="text" id="email">
+					<label class="mdl-textfield__label" for="sample3">Correo
+						Electrónico</label>
+				</div>
+				<div Style="padding:2%">
+				<select name="role" id="role">
+					<option value="STUDENT">Estudiante</option>
+					<option value="ADMIN">Administrador</option>
+					<option value="FACULTY_OR_STAFF">Profesores o Staff</option>
+				</select>
+				</div>
+				<div class="mdl-card__actions mdl-card--border">
+					<button id="send" href="marca/Marca.html"
+						class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+						href="crearUsuario.html">Enviar</button>
+				</div>
 			</center>
+	</center>
 </body>
 </html>
