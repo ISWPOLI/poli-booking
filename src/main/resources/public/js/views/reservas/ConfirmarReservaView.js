@@ -119,7 +119,7 @@ define(
 
 
                             if (j == 0) {
-                                var nombre = espacio.nombre;
+                                var nombre = espacio.espacio.nombre;
                                 textoCelda = document
                                     .createTextNode(nombre);
                             }

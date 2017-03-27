@@ -42,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.and()
 
 				.authorizeRequests().antMatchers("/", "/index.html", "/bower_components/**", "/templates/**",
-						"/user/reset-password", "/user/change-password")
+						"/user/reset-password", "/user/change-password", "/h2-console")
 				.permitAll()
 
 				.antMatchers("/user/save-password").hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
