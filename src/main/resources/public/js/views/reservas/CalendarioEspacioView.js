@@ -17,20 +17,6 @@ define(['backbone', 'App', 'clndr', 'text!CalendarioTemplate'],
                 moment.locale('es');
                 var mesActual = moment().format('YYYY-MM');
 
-                var eventos = [
-                    {
-                        title: 'Multi-Day Event',
-                        date: mesActual + '-14'
-                    }, {
-                        endDate: mesActual + '-23',
-                        date: mesActual + '-21'
-                    }, {
-                        date: mesActual + '-27',
-                        title: 'Single Day Event'
-                    }
-                ];
-
-
                 var calendario = calendarioElement.clndr({
                     template: CalendarioTemplate,
                     events: this.eventos,
