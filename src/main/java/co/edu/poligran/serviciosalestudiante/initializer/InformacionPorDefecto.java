@@ -1,10 +1,19 @@
 package co.edu.poligran.serviciosalestudiante.initializer;
 
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TimeZone;
-
+import co.edu.poligran.serviciosalestudiante.entities.RoleEntity;
+import co.edu.poligran.serviciosalestudiante.entities.RoleTypeEnum;
+import co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity;
+import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
+import co.edu.poligran.serviciosalestudiante.exception.UsernameIsNotUniqueException;
+import co.edu.poligran.serviciosalestudiante.repository.RoleRepository;
+import co.edu.poligran.serviciosalestudiante.repository.TipoEspacioRepository;
+import co.edu.poligran.serviciosalestudiante.service.*;
+import co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
+import org.dozer.Mapper;
+import org.joda.time.LocalTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,26 +23,34 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import co.edu.poligran.serviciosalestudiante.entities.RoleEntity;
-import co.edu.poligran.serviciosalestudiante.entities.RoleTypeEnum;
-import co.edu.poligran.serviciosalestudiante.entities.TipoEspacio;
-import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
-import co.edu.poligran.serviciosalestudiante.exception.UsernameIsNotUniqueException;
-import co.edu.poligran.serviciosalestudiante.repository.RoleRepository;
-import co.edu.poligran.serviciosalestudiante.service.BloqueService;
-import co.edu.poligran.serviciosalestudiante.service.EspacioService;
-import co.edu.poligran.serviciosalestudiante.service.ReservaService;
-import co.edu.poligran.serviciosalestudiante.service.UsuarioService;
-import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
-import co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO;
-import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
+import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TimeZone;
 
 @Component
 public class InformacionPorDefecto implements ApplicationListener<ContextRefreshedEvent> {
 
+    public static final LocalTime BLOQUE1_INICIO = new LocalTime(7, 0);
+    public static final LocalTime BLOQUE1_FIN = new LocalTime(8, 30);
+    public static final LocalTime BLOQUE2_INICIO = new LocalTime(8, 40);
+    public static final LocalTime BLOQUE2_FIN = new LocalTime(10, 10);
+    public static final LocalTime BLOQUE3_INICIO = new LocalTime(10, 20);
+    public static final LocalTime BLOQUE3_FIN = new LocalTime(11, 50);
+    public static final LocalTime BLOQUE4_INICIO = new LocalTime(12, 0);
+    public static final LocalTime BLOQUE4_FIN = new LocalTime(13, 30);
+    public static final LocalTime BLOQUE5_INICIO = new LocalTime(13, 40);
+    public static final LocalTime BLOQUE5_FIN = new LocalTime(15, 10);
+    public static final LocalTime BLOQUE6_INICIO = new LocalTime(15, 20);
+    public static final LocalTime BLOQUE6_FIN = new LocalTime(16, 50);
+    public static final LocalTime BLOQUE7_INICIO = new LocalTime(17, 0);
+    public static final LocalTime BLOQUE7_FIN = new LocalTime(18, 30);
+    public static final LocalTime BLOQUE8_INICIO = new LocalTime(18, 40);
+    public static final LocalTime BLOQUE8_FIN = new LocalTime(20, 10);
+    public static final LocalTime BLOQUE9_INICIO = new LocalTime(20, 20);
+    public static final LocalTime BLOQUE9_FIN = new LocalTime(21, 50);
     private static final boolean INSERTAR_INFO_POR_DEFECTO = true;
     private static final long DIAS_BLOQUES_POR_DEFECTO = 15;
-
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -49,10 +66,22 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
     private EspacioService cubiculoService;
 
     @Autowired
+    private TipoEspacioRepository tipoEspacioRepository;
+
+    @Autowired
+    private TipoEspacioService tipoEspacioService;
+
+    @Autowired
+    private BloquePlantillaService bloquePlantillaService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     private ReservaService reservaService;
+
+    @Autowired
+    private Mapper mapper;
 
     @Value("${app.default.admin.email}")
     private String defaultAdminEmail;
@@ -84,6 +113,8 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
             logger.info("inicializando información por defecto");
             settearTimeZone();
             inicializarRolesDeUsuario();
+            crearTiposEspacio();
+            crearBloquesPlantillaCubiculoEstudio();
             if (INSERTAR_INFO_POR_DEFECTO) {
                 crearUsuariosPorDefecto();
 
@@ -97,6 +128,51 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 
     }
 
+    private void crearTiposEspacio() {
+        crearTipoEspacio(TipoEspacioDTO.CUBICULO_ESTUDIO);
+        crearTipoEspacio(TipoEspacioDTO.CUBICULO_VIDEO);
+    }
+
+    private void crearTipoEspacio(String nombre) {
+        if (tipoEspacioRepository.findByNombre(nombre) == null) {
+            TipoEspacioEntity tipoEspacioEntity = new TipoEspacioEntity();
+            tipoEspacioEntity.setNombre(nombre);
+            tipoEspacioRepository.saveAndFlush(tipoEspacioEntity);
+        }
+    }
+
+    private void crearBloquesPlantillaCubiculoEstudio() {
+        DayOfWeek[] dias = DayOfWeek.values();
+        TipoEspacioDTO tipoEspacio = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.CUBICULO_ESTUDIO);
+
+        for (DayOfWeek dia : dias) {
+            if (!dia.equals(DayOfWeek.SUNDAY)) {
+                crearBloquePlantilla(dia, BLOQUE1_INICIO, BLOQUE1_FIN, tipoEspacio);
+                crearBloquePlantilla(dia, BLOQUE2_INICIO, BLOQUE2_FIN, tipoEspacio);
+                crearBloquePlantilla(dia, BLOQUE3_INICIO, BLOQUE3_FIN, tipoEspacio);
+                crearBloquePlantilla(dia, BLOQUE4_INICIO, BLOQUE4_FIN, tipoEspacio);
+                crearBloquePlantilla(dia, BLOQUE5_INICIO, BLOQUE5_FIN, tipoEspacio);
+                crearBloquePlantilla(dia, BLOQUE6_INICIO, BLOQUE6_FIN, tipoEspacio);
+
+                if (!dia.equals(DayOfWeek.SATURDAY)) {
+                    crearBloquePlantilla(dia, BLOQUE7_INICIO, BLOQUE7_FIN, tipoEspacio);
+                    crearBloquePlantilla(dia, BLOQUE8_INICIO, BLOQUE8_FIN, tipoEspacio);
+                    crearBloquePlantilla(dia, BLOQUE9_INICIO, BLOQUE9_FIN, tipoEspacio);
+                }
+            }
+        }
+    }
+
+    private void crearBloquePlantilla(DayOfWeek dia, LocalTime inicio, LocalTime fin, TipoEspacioDTO tipoEspacio) {
+        BloquePlantillaDTO bloquePlantilla = new BloquePlantillaDTO();
+        bloquePlantilla.setDia(dia);
+        bloquePlantilla.setTipoEspacio(tipoEspacio);
+        bloquePlantilla.setHoraInicio(inicio.toDateTimeToday().toDate());
+        bloquePlantilla.setHoraFin(fin.toDateTimeToday().toDate());
+
+        bloquePlantillaService.crearBloquePlantilla(bloquePlantilla);
+    }
+
     private void settearTimeZone() {
         TimeZone.setDefault(TimeZone.getTimeZone("GMT-5:00"));
     }
@@ -104,21 +180,23 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
     private void crearCubiculosPorDefecto() {
         logger.info("creando cubiculos por defecto");
 
-        crearCubiculo("cubiculo1");
-        crearCubiculo("cubiculo2");
+        TipoEspacioDTO tipoEspacioDTO = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.CUBICULO_ESTUDIO);
+
+        crearCubiculo("cubiculo1", tipoEspacioDTO);
+        crearCubiculo("cubiculo2", tipoEspacioDTO);
     }
 
-    private void crearCubiculo(String nombre) {
+    private void crearCubiculo(String nombre, TipoEspacioDTO tipoEspacioDTO) {
         EspacioDTO cubiculo = new EspacioDTO();
         cubiculo.setNombre(nombre);
-        cubiculo.setTipoEspacio(TipoEspacio.CUBICULO);
+        cubiculo.setTipoEspacio(tipoEspacioDTO);
         cubiculoService.crearEspacio(cubiculo);
     }
 
     private void crearBloquesDeCubiculosPorDefecto() {
         logger.info("creando bloques de cubiculos por defecto");
 
-        List<EspacioDTO> cubiculos = cubiculoService.getCubiculos();
+        List<EspacioDTO> cubiculos = cubiculoService.getCubiculosEstudio();
         for (EspacioDTO cubiculo : cubiculos) {
             bloqueService.generarBloques(cubiculo, DIAS_BLOQUES_POR_DEFECTO);
         }

@@ -1,70 +1,68 @@
 package co.edu.poligran.serviciosalestudiante.entities;
 
-import java.util.Date;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "BLOQUES")
 public class BloqueEntity extends BaseEntity {
 
-	private static final long serialVersionUID = -4569912661223921729L;
+    private static final long serialVersionUID = -4569912661223921729L;
 
-	private Date tiempoInicio;
-	private Date tiempoFin;
-	private Date dia;
+    private Date tiempoInicio;
+    private Date tiempoFin;
+    private Date dia;
 
-	@ManyToOne
-	private EspacioEntity espacio;
+    @ManyToOne
+    private EspacioEntity espacio;
 
-	@OneToMany(mappedBy = "bloque")
-	@JsonIgnore
-	private List<ReservaEntity> reservas;
+    @OneToMany(mappedBy = "bloque")
+    @JsonIgnore
+    private List<ReservaEntity> reservas;
 
-	public Date getTiempoInicio() {
-		return tiempoInicio;
-	}
+    public Date getTiempoInicio() {
+        return tiempoInicio;
+    }
 
-	public void setTiempoInicio(Date tiempoInicio) {
-		this.tiempoInicio = tiempoInicio;
-	}
+    public void setTiempoInicio(Date tiempoInicio) {
+        this.tiempoInicio = tiempoInicio;
+    }
 
-	public Date getTiempoFin() {
-		return tiempoFin;
-	}
+    public Date getTiempoFin() {
+        return tiempoFin;
+    }
 
-	public void setTiempoFin(Date tiempoFin) {
-		this.tiempoFin = tiempoFin;
-	}
+    public void setTiempoFin(Date tiempoFin) {
+        this.tiempoFin = tiempoFin;
+    }
 
-	public EspacioEntity getEspacio() {
-		return espacio;
-	}
+    public EspacioEntity getEspacio() {
+        return espacio;
+    }
 
-	public void setEspacio(EspacioEntity espacio) {
-		this.espacio = espacio;
-	}
+    public void setEspacio(EspacioEntity espacio) {
+        this.espacio = espacio;
+    }
 
-	public Date getDia() {
-		return dia;
-	}
+    public Date getDia() {
+        return dia;
+    }
 
-	public void setDia(Date dia) {
-		this.dia = dia;
-	}
+    public void setDia(Date dia) {
+        this.dia = dia;
+    }
 
-	public List<ReservaEntity> getReservas() {
-		return reservas;
-	}
+    public List<ReservaEntity> getReservas() {
+        return reservas;
+    }
 
-	public void setReservas(List<ReservaEntity> reservas) {
-		this.reservas = reservas;
-	}
-
+    public void setReservas(List<ReservaEntity> reservas) {
+        this.reservas = reservas;
+    }
 }

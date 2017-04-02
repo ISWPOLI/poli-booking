@@ -1,40 +1,38 @@
 package co.edu.poligran.serviciosalestudiante.service.dto;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import co.edu.poligran.serviciosalestudiante.entities.TipoEspacio;
+import java.util.List;
 
 public class EspacioDTO extends BaseDTO {
-	private TipoEspacio tipoEspacio;
-	private String nombre;
+    private TipoEspacioDTO tipoEspacio;
+    private String nombre;
 
-	@JsonIgnore
-	private List<BloqueDTO> bloques;
+    @JsonIgnore
+    private List<BloqueDTO> bloques;
 
-	public String getNombre() {
-		return nombre;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public List<BloqueDTO> getBloques() {
-		return bloques;
-	}
+    public List<BloqueDTO> getBloques() {
+        return bloques;
+    }
 
-	public void setBloques(List<BloqueDTO> bloques) {
-		this.bloques = bloques;
-	}
+    public void setBloques(List<BloqueDTO> bloques) {
+        this.bloques = bloques;
+    }
 
-	public TipoEspacio getTipoEspacio() {
-		return tipoEspacio;
-	}
+    public TipoEspacioDTO getTipoEspacio() {
+        return tipoEspacio;
+    }
 
-	public void setTipoEspacio(TipoEspacio tipoEspacio) {
-		this.tipoEspacio = tipoEspacio;
-	}
+    public void setTipoEspacio(TipoEspacioDTO tipoEspacio) {
+        this.tipoEspacio = tipoEspacio;
+    }
 
 }

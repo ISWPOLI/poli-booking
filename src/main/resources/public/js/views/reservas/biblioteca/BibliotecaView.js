@@ -18,7 +18,7 @@ define(['jquery', 'underscore', 'moment', 'backbone', 'App',
 
             mostrarCubiculosEstudioHoy: function () {
                 var hoy = moment(new Date()).format("YYYY-MM-DD");
-                App.router.navigate('bloques-disponibles?fecha=' + hoy + '&tipoEspacio=CUBICULO', true);
+                App.router.navigate('bloques-disponibles?fecha=' + hoy + '&tipoEspacio=CUBICULO_ESTUDIO', true);
             }
 
         });

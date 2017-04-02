@@ -1,12 +1,11 @@
 package co.edu.poligran.serviciosalestudiante.repository;
 
-import java.util.List;
-
+import co.edu.poligran.serviciosalestudiante.entities.EspacioEntity;
+import co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import co.edu.poligran.serviciosalestudiante.entities.EspacioEntity;
-import co.edu.poligran.serviciosalestudiante.entities.TipoEspacio;
+import java.util.List;
 
 public interface EspacioRepository extends JpaRepository<EspacioEntity, Long> {
-	List<EspacioEntity> findByTipoEspacio(TipoEspacio tipoEspacio);
+    List<EspacioEntity> findByTipoEspacio(TipoEspacioEntity tipoEspacio);
 }

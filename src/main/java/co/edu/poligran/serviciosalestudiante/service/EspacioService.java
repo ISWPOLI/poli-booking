@@ -1,11 +1,11 @@
 package co.edu.poligran.serviciosalestudiante.service;
 
-import java.util.List;
-
 import co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO;
 
+import java.util.List;
+
 public interface EspacioService {
-	List<EspacioDTO> getCubiculos();
+    List<EspacioDTO> getCubiculosEstudio();
 
 	EspacioDTO crearEspacio(EspacioDTO cubiculo);
 }

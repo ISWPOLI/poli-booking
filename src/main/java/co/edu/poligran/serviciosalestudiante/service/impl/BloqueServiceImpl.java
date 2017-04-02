@@ -1,10 +1,14 @@
 package co.edu.poligran.serviciosalestudiante.service.impl;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import co.edu.poligran.serviciosalestudiante.entities.TipoEspacio;
+import co.edu.poligran.serviciosalestudiante.entities.BloqueEntity;
+import co.edu.poligran.serviciosalestudiante.entities.EspacioEntity;
+import co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity;
+import co.edu.poligran.serviciosalestudiante.repository.BloqueRepository;
+import co.edu.poligran.serviciosalestudiante.service.BloqueService;
+import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO;
+import co.edu.poligran.serviciosalestudiante.utils.DozerUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
@@ -13,13 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.poligran.serviciosalestudiante.entities.BloqueEntity;
-import co.edu.poligran.serviciosalestudiante.entities.EspacioEntity;
-import co.edu.poligran.serviciosalestudiante.repository.BloqueRepository;
-import co.edu.poligran.serviciosalestudiante.service.BloqueService;
-import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
-import co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO;
-import co.edu.poligran.serviciosalestudiante.utils.DozerUtils;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -90,15 +90,17 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
     }
 
     @Override
-    public List<BloqueDTO> consultarBloquesVigentesPorDiaYTipoEspacio(Date dia, TipoEspacio tipoEspacio) {
-        List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentesPorDiaYTipoEspacio(dia, tipoEspacio);
+    public List<BloqueDTO> consultarBloquesVigentesPorDiaYTipoEspacio(Date dia, TipoEspacioDTO tipoEspacio) {
+        TipoEspacioEntity tipoEspacioEntity = mapper.map(tipoEspacio, TipoEspacioEntity.class);
+        List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentesPorDiaYTipoEspacio(dia, tipoEspacioEntity);
 
         return DozerUtils.mapCollection(bloques, BloqueDTO.class, mapper);
     }
 
     @Override
-    public List<BloqueDTO> consultarBloquesVigentesPorTipoEspacio(TipoEspacio tipoEspacio) {
-        List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentesPorTipoEspacio(tipoEspacio);
+    public List<BloqueDTO> consultarBloquesVigentesPorTipoEspacio(TipoEspacioDTO tipoEspacio) {
+        TipoEspacioEntity tipoEspacioEntity = mapper.map(tipoEspacio, TipoEspacioEntity.class);
+        List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentesPorTipoEspacio(tipoEspacioEntity);
         return DozerUtils.mapCollection(bloques, BloqueDTO.class, mapper);
     }
 

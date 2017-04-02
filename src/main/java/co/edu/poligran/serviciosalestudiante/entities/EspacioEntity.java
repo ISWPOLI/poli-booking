@@ -1,15 +1,12 @@
 package co.edu.poligran.serviciosalestudiante.entities;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 
 @Entity
 @Table(name = "ESPACIOS")
@@ -17,10 +14,9 @@ public class EspacioEntity extends BaseEntity {
 
 	private static final long serialVersionUID = -3685813705664830546L;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "TIPO_ESPACIO")
-	private TipoEspacio tipoEspacio;
-	private String nombre;
+    @ManyToOne
+    private TipoEspacioEntity tipoEspacio;
+    private String nombre;
 
 	@OneToMany(mappedBy = "espacio")
 	@JsonIgnore
@@ -42,12 +38,12 @@ public class EspacioEntity extends BaseEntity {
 		this.bloques = bloques;
 	}
 
-	public TipoEspacio getTipoEspacio() {
-		return tipoEspacio;
-	}
+    public TipoEspacioEntity getTipoEspacio() {
+        return tipoEspacio;
+    }
 
-	public void setTipoEspacio(TipoEspacio tipoEspacio) {
-		this.tipoEspacio = tipoEspacio;
-	}
+    public void setTipoEspacio(TipoEspacioEntity tipoEspacio) {
+        this.tipoEspacio = tipoEspacio;
+    }
 
 }
