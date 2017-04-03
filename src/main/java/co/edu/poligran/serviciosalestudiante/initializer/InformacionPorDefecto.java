@@ -89,6 +89,7 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 
                 crearCubiculosPorDefecto();
                 crearBloquesDeCubiculosPorDefecto();
+                
             }
             logger.info("finalizó la inicialización de información por defecto");
         } catch (Exception e) {
@@ -106,6 +107,10 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 
         crearCubiculo("cubiculo1");
         crearCubiculo("cubiculo2");
+        crearCubiculoVideo("cubiculoVideo1");
+        crearCubiculoVideo("cubiculoVideo2");
+        
+        
     }
 
     private void crearCubiculo(String nombre) {
@@ -113,6 +118,12 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
         cubiculo.setNombre(nombre);
         cubiculo.setTipoEspacio(TipoEspacio.CUBICULO);
         cubiculoService.crearEspacio(cubiculo);
+    }
+    private void crearCubiculoVideo(String nombre){
+    	EspacioDTO cubiculo=new EspacioDTO();
+    	cubiculo.setNombre(nombre);
+    	cubiculo.setTipoEspacio(TipoEspacio.CUBICULOVIDEO);
+    	cubiculoService.crearEspacio(cubiculo);
     }
 
     private void crearBloquesDeCubiculosPorDefecto() {

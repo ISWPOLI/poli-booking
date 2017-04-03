@@ -23,8 +23,12 @@ public class EspacioServiceImpl extends BaseService implements EspacioService {
 	@Override
 	public List<EspacioDTO> getCubiculos() {
 		List<EspacioEntity> cubiculos = espacioRepository.findByTipoEspacio(TipoEspacio.CUBICULO);
+		List<EspacioEntity> cubiculos2 = espacioRepository.findByTipoEspacio(TipoEspacio.CUBICULOVIDEO);
+		cubiculos.addAll(cubiculos2);
 		return DozerUtils.mapCollection(cubiculos, EspacioDTO.class, mapper);
+		
 	}
+	
 
 	@Override
 	public EspacioDTO crearEspacio(EspacioDTO espacio) {
