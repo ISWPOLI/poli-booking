@@ -131,6 +131,10 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
     private void crearTiposEspacio() {
         crearTipoEspacio(TipoEspacioDTO.CUBICULO_ESTUDIO);
         crearTipoEspacio(TipoEspacioDTO.CUBICULO_VIDEO);
+        crearTipoEspacio(TipoEspacioDTO.GIMNASIO);
+        crearTipoEspacio(TipoEspacioDTO.CANCHA_TENIS);
+        crearTipoEspacio(TipoEspacioDTO.CANCHA_MULTIPLE);
+        crearTipoEspacio(TipoEspacioDTO.CANCHA_FUTBOL);
     }
 
     private void crearTipoEspacio(String nombre) {
@@ -180,10 +184,13 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
     private void crearCubiculosPorDefecto() {
         logger.info("creando cubiculos por defecto");
 
-        TipoEspacioDTO tipoEspacioDTO = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.CUBICULO_ESTUDIO);
+        TipoEspacioDTO tipoCubiculoEstudio = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.CUBICULO_ESTUDIO);
+        crearCubiculo("cubiculo1", tipoCubiculoEstudio);
+        crearCubiculo("cubiculo2", tipoCubiculoEstudio);
 
-        crearCubiculo("cubiculo1", tipoEspacioDTO);
-        crearCubiculo("cubiculo2", tipoEspacioDTO);
+        TipoEspacioDTO tipoCubiculoVideo = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.CUBICULO_VIDEO);
+        crearCubiculo("cubiculoVideo1", tipoCubiculoVideo);
+        crearCubiculo("cubiculoVideo2", tipoCubiculoVideo);
     }
 
     private void crearCubiculo(String nombre, TipoEspacioDTO tipoEspacioDTO) {

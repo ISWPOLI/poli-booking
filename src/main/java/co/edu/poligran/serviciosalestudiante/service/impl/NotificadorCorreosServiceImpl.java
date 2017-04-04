@@ -1,23 +1,21 @@
 package co.edu.poligran.serviciosalestudiante.service.impl;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
+import co.edu.poligran.serviciosalestudiante.service.NotificadorCorreosService;
+import co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import co.edu.poligran.serviciosalestudiante.service.NotificadorCorreosService;
-import co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO;
-import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.util.DateUtils;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.Locale;
 
 @Service
@@ -96,7 +94,7 @@ public class NotificadorCorreosServiceImpl extends BaseService implements Notifi
 
     private String getTextoCorreoCancelacionReserva(ReservaDTO reserva) {
         Context context = new Context();
-        context.setVariable("tipo", reserva.getBloque().getEspacio().getTipoEspacio());
+        context.setVariable("tipo", reserva.getBloque().getEspacio().getTipoEspacio().getNombre());
         context.setVariable("nombre", reserva.getBloque().getEspacio().getNombre());
         context.setVariable("dia", DateUtils.format(reserva.getBloque().getDia(), "yyyy-MM-dd",
                 new Locale("es", "co")));
@@ -109,7 +107,7 @@ public class NotificadorCorreosServiceImpl extends BaseService implements Notifi
 
     private String getTextoCorreoConfirmacionReserva(ReservaDTO reserva) {
         Context context = new Context();
-        context.setVariable("tipo", reserva.getBloque().getEspacio().getTipoEspacio());
+        context.setVariable("tipo", reserva.getBloque().getEspacio().getTipoEspacio().getNombre());
         context.setVariable("nombre", reserva.getBloque().getEspacio().getNombre());
         context.setVariable("dia", DateUtils.format(reserva.getBloque().getDia(), "yyyy-MM-dd",
                 new Locale("es", "co")));

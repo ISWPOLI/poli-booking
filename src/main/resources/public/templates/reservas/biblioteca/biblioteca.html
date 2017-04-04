@@ -58,10 +58,11 @@
                 <h1 style="align:center">HOY</h1>
                 <div class="columna">
                     <h5>Salas de video</h5>
-                    <button id="demo-show-snackbar" class="mdl-button mdl-js-button mdl-button--raised" type="button">
+                    <button id="pb-biblioteca-reservar-cubiculo-video"
+                            class="mdl-button mdl-js-button mdl-button--raised" type="button">
                         Reservar
                     </button>
-                    <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
+                    <div class="mdl-js-snackbar mdl-snackbar">
                         <div class="mdl-snackbar__text"></div>
                         <button class="mdl-snackbar__action" type="button"></button>
                     </div>
@@ -78,7 +79,7 @@
                 </div>
                 <div class="columna">
                     <h5>Computadores</h5>
-                    <button id="demo-show-snackbar" class="mdl-button mdl-js-button mdl-button--raised" type="button">
+                    <button id="n" class="mdl-button mdl-js-button mdl-button--raised" type="button">
                         Reservar
                     </button>
                     <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
@@ -108,7 +109,7 @@
                         </center>
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
-                        <a href="#/cubiculo-video"
+                        <a href="#/calendario-espacio?tipo-espacio=CUBICULO_VIDEO"
                            class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
                            data-upgraded=",MaterialButton,MaterialRipple">Ver<span class="mdl-button__ripple-container"><span
                                 class="mdl-ripple"></span></span></a>
@@ -182,27 +183,6 @@
         </div>
     </div>
 </center>
-<script type="text/javascript">
-    (function () {
-        'use strict';
-        var snackbarContainer = document.querySelector('#demo-snackbar-example');
-        var showSnackbarButton = document.querySelector('#demo-show-snackbar');
-        var handler = function (event) {
-            showSnackbarButton.style.backgroundColor = '';
-        };
-        showSnackbarButton.addEventListener('click', function () {
-            'use strict';
-            // showSnackbarButton.style.backgroundColor = '#' +
-            //   Math.floor(Math.random() * 0xFFFFFF).toString(16);
-            var data = {
-                message: 'Reserva hecha',
-                timeout: 2000,
-                actionHandler: handler,
-                actionText: 'Undo'
-            };
-            snackbarContainer.MaterialSnackbar.showSnackbar(data);
-        });
-    }());
-</script>
+
 </body>
 </html>
