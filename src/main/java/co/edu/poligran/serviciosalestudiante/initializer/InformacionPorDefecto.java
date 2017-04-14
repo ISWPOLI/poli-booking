@@ -13,6 +13,7 @@ import co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
 import org.dozer.Mapper;
+import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,8 +50,6 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
     public static final LocalTime BLOQUE8_FIN = new LocalTime(20, 10);
     public static final LocalTime BLOQUE9_INICIO = new LocalTime(20, 20);
     public static final LocalTime BLOQUE9_FIN = new LocalTime(21, 50);
-    private static final boolean INSERTAR_INFO_POR_DEFECTO = true;
-    private static final long DIAS_BLOQUES_POR_DEFECTO = 15;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -107,6 +106,9 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
     @Value("${app.default.estudiante.password}")
     private String defaultEstudiantePassword;
 
+    @Value("${app.default.generar_datos_de_prueba}")
+    private boolean isGenerarDatosDePrueba;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent cre) {
         try {
@@ -115,7 +117,7 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
             inicializarRolesDeUsuario();
             crearTiposEspacio();
             crearBloquesPlantillaCubiculoEstudio();
-            if (INSERTAR_INFO_POR_DEFECTO) {
+            if (isGenerarDatosDePrueba) {
                 crearUsuariosPorDefecto();
 
                 crearCubiculosPorDefecto();
@@ -184,7 +186,8 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
     private void crearCubiculosPorDefecto() {
         logger.info("creando cubiculos por defecto");
 
-        TipoEspacioDTO tipoCubiculoEstudio = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.CUBICULO_ESTUDIO);
+        TipoEspacioDTO tipoCubiculoEstudio = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO
+                .CUBICULO_ESTUDIO);
         crearCubiculo("cubiculo1", tipoCubiculoEstudio);
         crearCubiculo("cubiculo2", tipoCubiculoEstudio);
 
@@ -201,13 +204,10 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
     }
 
     private void crearBloquesDeCubiculosPorDefecto() {
-        logger.info("creando bloques de cubiculos por defecto");
+        LocalDate hoy = new LocalDate();
+        TipoEspacioDTO tipoEspacioDTO = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.CUBICULO_ESTUDIO);
 
-        List<EspacioDTO> cubiculos = cubiculoService.getCubiculosEstudio();
-        for (EspacioDTO cubiculo : cubiculos) {
-            bloqueService.generarBloques(cubiculo, DIAS_BLOQUES_POR_DEFECTO);
-        }
-
+        bloqueService.generarBloquesMasivamente(tipoEspacioDTO, hoy.toDate(), hoy.plusWeeks(1).toDate());
     }
 
     private void inicializarRolesDeUsuario() {

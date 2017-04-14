@@ -15,4 +15,6 @@ public interface BloqueService {
     List<BloqueDTO> consultarBloquesVigentesPorTipoEspacio(TipoEspacioDTO tipoEspacio);
 
     BloqueDTO consultarBloque(Long idBloque);
+
+    List<BloqueDTO> generarBloquesMasivamente(TipoEspacioDTO tipoEspacioDTO, Date fechaInicio, Date fechaFin);
 }

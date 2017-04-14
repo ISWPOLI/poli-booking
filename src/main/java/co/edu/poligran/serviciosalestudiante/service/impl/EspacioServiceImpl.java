@@ -39,4 +39,10 @@ public class EspacioServiceImpl extends BaseService implements EspacioService {
         return mapper.map(cubiculoEntity, EspacioDTO.class);
     }
 
+    @Override
+    public List<EspacioDTO> getEspaciosPorTipoEspacio(TipoEspacioDTO tipoEspacioDTO) {
+        TipoEspacioEntity tipoEspacio = mapper.map(tipoEspacioDTO, TipoEspacioEntity.class);
+        return DozerUtils.mapCollection(espacioRepository.findByTipoEspacio(tipoEspacio), EspacioDTO.class, mapper);
+    }
+
 }
