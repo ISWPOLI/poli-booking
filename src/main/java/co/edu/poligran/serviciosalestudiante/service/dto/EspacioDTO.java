@@ -7,9 +7,19 @@ import java.util.List;
 public class EspacioDTO extends BaseDTO {
     private TipoEspacioDTO tipoEspacio;
     private String nombre;
+    private int cupos;
 
     @JsonIgnore
     private List<BloqueDTO> bloques;
+
+    public int getCupos() {
+        return cupos;
+    }
+
+    public void setCupos(int cupos) {
+        this.cupos = cupos;
+    }
+    
 
     public String getNombre() {
         return nombre;

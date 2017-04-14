@@ -12,7 +12,6 @@ import co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
-import org.dozer.Mapper;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.slf4j.Logger;
@@ -65,6 +64,12 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
     private EspacioService cubiculoService;
 
     @Autowired
+    private EspacioService canchaService;
+
+    @Autowired
+    private EspacioService gimnasioService;
+
+    @Autowired
     private TipoEspacioRepository tipoEspacioRepository;
 
     @Autowired
@@ -75,12 +80,6 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private ReservaService reservaService;
-
-    @Autowired
-    private Mapper mapper;
 
     @Value("${app.default.admin.email}")
     private String defaultAdminEmail;
@@ -116,12 +115,15 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
             settearTimeZone();
             inicializarRolesDeUsuario();
             crearTiposEspacio();
-            crearBloquesPlantillaCubiculoEstudio();
+            crearBloquesPlantillas();
             if (isGenerarDatosDePrueba) {
                 crearUsuariosPorDefecto();
 
                 crearCubiculosPorDefecto();
-                crearBloquesDeCubiculosPorDefecto();
+                crearCanchasPorDefecto();
+                crearGimnasioPorDefecto();
+
+                crearBloquesPorDefecto();
             }
             logger.info("finalizó la inicialización de información por defecto");
         } catch (Exception e) {
@@ -147,23 +149,32 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
         }
     }
 
-    private void crearBloquesPlantillaCubiculoEstudio() {
+    private void crearBloquesPlantillas() {
+        crearBloquesPlantillaEspacio(TipoEspacioDTO.CUBICULO_ESTUDIO);
+        crearBloquesPlantillaEspacio(TipoEspacioDTO.CUBICULO_VIDEO);
+        crearBloquesPlantillaEspacio(TipoEspacioDTO.CANCHA_FUTBOL);
+        crearBloquesPlantillaEspacio(TipoEspacioDTO.CANCHA_TENIS);
+        crearBloquesPlantillaEspacio(TipoEspacioDTO.CANCHA_MULTIPLE);
+        crearBloquesPlantillaEspacio(TipoEspacioDTO.GIMNASIO);
+    }
+
+    private void crearBloquesPlantillaEspacio(String tipoEspacio) {
         DayOfWeek[] dias = DayOfWeek.values();
-        TipoEspacioDTO tipoEspacio = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.CUBICULO_ESTUDIO);
+        TipoEspacioDTO tipoEspacioDTO = tipoEspacioService.buscarTipoEspacioPorNombre(tipoEspacio);
 
         for (DayOfWeek dia : dias) {
             if (!dia.equals(DayOfWeek.SUNDAY)) {
-                crearBloquePlantilla(dia, BLOQUE1_INICIO, BLOQUE1_FIN, tipoEspacio);
-                crearBloquePlantilla(dia, BLOQUE2_INICIO, BLOQUE2_FIN, tipoEspacio);
-                crearBloquePlantilla(dia, BLOQUE3_INICIO, BLOQUE3_FIN, tipoEspacio);
-                crearBloquePlantilla(dia, BLOQUE4_INICIO, BLOQUE4_FIN, tipoEspacio);
-                crearBloquePlantilla(dia, BLOQUE5_INICIO, BLOQUE5_FIN, tipoEspacio);
-                crearBloquePlantilla(dia, BLOQUE6_INICIO, BLOQUE6_FIN, tipoEspacio);
+                crearBloquePlantilla(dia, BLOQUE1_INICIO, BLOQUE1_FIN, tipoEspacioDTO);
+                crearBloquePlantilla(dia, BLOQUE2_INICIO, BLOQUE2_FIN, tipoEspacioDTO);
+                crearBloquePlantilla(dia, BLOQUE3_INICIO, BLOQUE3_FIN, tipoEspacioDTO);
+                crearBloquePlantilla(dia, BLOQUE4_INICIO, BLOQUE4_FIN, tipoEspacioDTO);
+                crearBloquePlantilla(dia, BLOQUE5_INICIO, BLOQUE5_FIN, tipoEspacioDTO);
+                crearBloquePlantilla(dia, BLOQUE6_INICIO, BLOQUE6_FIN, tipoEspacioDTO);
 
                 if (!dia.equals(DayOfWeek.SATURDAY)) {
-                    crearBloquePlantilla(dia, BLOQUE7_INICIO, BLOQUE7_FIN, tipoEspacio);
-                    crearBloquePlantilla(dia, BLOQUE8_INICIO, BLOQUE8_FIN, tipoEspacio);
-                    crearBloquePlantilla(dia, BLOQUE9_INICIO, BLOQUE9_FIN, tipoEspacio);
+                    crearBloquePlantilla(dia, BLOQUE7_INICIO, BLOQUE7_FIN, tipoEspacioDTO);
+                    crearBloquePlantilla(dia, BLOQUE8_INICIO, BLOQUE8_FIN, tipoEspacioDTO);
+                    crearBloquePlantilla(dia, BLOQUE9_INICIO, BLOQUE9_FIN, tipoEspacioDTO);
                 }
             }
         }
@@ -196,6 +207,27 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
         crearCubiculo("cubiculoVideo2", tipoCubiculoVideo);
     }
 
+    private void crearCanchasPorDefecto() {
+        logger.info("creando canchas por defecto");
+
+        TipoEspacioDTO tipoCanchaFutbol = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.CANCHA_FUTBOL);
+        crearCancha("canchaFutbolTenis1", tipoCanchaFutbol);
+        crearCancha("canchaFutbolTenis2", tipoCanchaFutbol);
+
+        TipoEspacioDTO tipoCanchaTenis = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.CANCHA_TENIS);
+        crearCancha("canchaTenis", tipoCanchaTenis);
+
+        TipoEspacioDTO tipoCanchaMultiple = tipoEspacioService
+                .buscarTipoEspacioPorNombre(TipoEspacioDTO.CANCHA_MULTIPLE);
+        crearCancha("canchaMultiple", tipoCanchaMultiple);
+    }
+
+    private void crearGimnasioPorDefecto() {
+        logger.info("creando gimnasio por defecto");
+        TipoEspacioDTO tipoGimnasio = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.GIMNASIO);
+        crearGimansio("cupoGimnasio", tipoGimnasio);
+    }
+
     private void crearCubiculo(String nombre, TipoEspacioDTO tipoEspacioDTO) {
         EspacioDTO cubiculo = new EspacioDTO();
         cubiculo.setNombre(nombre);
@@ -203,11 +235,36 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
         cubiculoService.crearEspacio(cubiculo);
     }
 
-    private void crearBloquesDeCubiculosPorDefecto() {
-        LocalDate hoy = new LocalDate();
-        TipoEspacioDTO tipoEspacioDTO = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.CUBICULO_ESTUDIO);
+    private void crearCancha(String nombre, TipoEspacioDTO tipoEspacioDTO) {
+        EspacioDTO cancha = new EspacioDTO();
+        cancha.setNombre(nombre);
+        cancha.setTipoEspacio(tipoEspacioDTO);
+        cancha.setCupos(1);
+        canchaService.crearEspacio(cancha);
+    }
 
-        bloqueService.generarBloquesMasivamente(tipoEspacioDTO, hoy.toDate(), hoy.plusWeeks(1).toDate());
+    private void crearGimansio(String nombre, TipoEspacioDTO tipoEspacioDTO) {
+        EspacioDTO gimnasio = new EspacioDTO();
+        gimnasio.setNombre(nombre);
+        gimnasio.setTipoEspacio(tipoEspacioDTO);
+        gimnasio.setCupos(15);
+        gimnasioService.crearEspacio(gimnasio);
+    }
+
+    private void crearBloquesPorDefecto() {
+        crearBloquesEspacioPorDefecto(TipoEspacioDTO.CUBICULO_ESTUDIO);
+        crearBloquesEspacioPorDefecto(TipoEspacioDTO.CUBICULO_VIDEO);
+        crearBloquesEspacioPorDefecto(TipoEspacioDTO.CANCHA_FUTBOL);
+        crearBloquesEspacioPorDefecto(TipoEspacioDTO.CANCHA_TENIS);
+        crearBloquesEspacioPorDefecto(TipoEspacioDTO.CANCHA_MULTIPLE);
+        crearBloquesEspacioPorDefecto(TipoEspacioDTO.GIMNASIO);
+
+    }
+
+    private void crearBloquesEspacioPorDefecto(String tipoEspacio) {
+        LocalDate hoy = new LocalDate();
+        TipoEspacioDTO espacio = tipoEspacioService.buscarTipoEspacioPorNombre(tipoEspacio);
+        bloqueService.generarBloquesMasivamente(espacio, hoy.toDate(), hoy.plusWeeks(1).toDate());
     }
 
     private void inicializarRolesDeUsuario() {

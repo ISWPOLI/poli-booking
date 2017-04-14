@@ -8,6 +8,16 @@ import java.util.List;
 public interface EspacioService {
     List<EspacioDTO> getCubiculosEstudio();
 
+	List<EspacioDTO> getCubiculosVideo();
+
+	List<EspacioDTO> getCanchaFutbol();
+
+	List<EspacioDTO> getCanchaTenis();
+
+	List<EspacioDTO> getCanchaMultiple();
+
+	List<EspacioDTO> getGimnasio();
+
 	EspacioDTO crearEspacio(EspacioDTO cubiculo);
 
 	List<EspacioDTO> getEspaciosPorTipoEspacio(TipoEspacioDTO tipoEspacioDTO);

@@ -19,16 +19,16 @@ define(['jquery', 'underscore', 'moment', 'backbone', 'App',
 
             mostrarCanchaTenisHoy: function () {
                 var hoy = moment().format("YYYY-MM-DD");
-                App.router.navigate('bloques-disponibles?fecha=' + hoy + '&tipoEspacio=CUBICULO', true);
+                App.router.navigate('bloques-disponibles?fecha=' + hoy + '&tipoEspacio=CANCHA_TENIS', true);
             },
 
             mostrarCanchaMultipleHoy: function () {
                 var hoy = moment(new Date()).format("YYYY-MM-DD");
-                App.router.navigate('bloques-disponibles?fecha=' + hoy + '&tipoEspacio=CUBICULO', true);
+                App.router.navigate('bloques-disponibles?fecha=' + hoy + '&tipoEspacio=CANCHA_MULTIPLE', true);
             },
             mostrarCanchasFutbolTenisHoy: function () {
                 var hoy = moment(new Date()).format("YYYY-MM-DD");
-                App.router.navigate('bloques-disponibles?fecha=' + hoy + '&tipoEspacio=CUBICULO', true);
+                App.router.navigate('bloques-disponibles?fecha=' + hoy + '&tipoEspacio=CANCHA_FUTBOL', true);
             }
 
         });

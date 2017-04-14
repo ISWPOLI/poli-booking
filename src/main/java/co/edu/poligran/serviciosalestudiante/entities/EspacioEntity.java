@@ -17,10 +17,19 @@ public class EspacioEntity extends BaseEntity {
     @ManyToOne
     private TipoEspacioEntity tipoEspacio;
     private String nombre;
+    private int cupos;
 
 	@OneToMany(mappedBy = "espacio")
 	@JsonIgnore
 	private List<BloqueEntity> bloques;
+
+    public int getCupos() {
+        return cupos;
+    }
+
+    public void setCupos(int cupos) {
+        this.cupos = cupos;
+    }
 
 	public String getNombre() {
 		return nombre;
