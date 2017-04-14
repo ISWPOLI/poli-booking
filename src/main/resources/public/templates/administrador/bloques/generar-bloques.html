@@ -1,0 +1,73 @@
+<style>
+    .pb-gb-main-card.mdl-card {
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    .pb-gb-main-card.mdl-card input, .pb-gb-main-card.mdl-card h4, .pb-gb-main-card.mdl-card select,
+    .pb-gb-main-card.mdl-card label {
+        text-align: center;
+        width: 100%;
+    }
+
+    .pb-gb-columna {
+        margin: 0 auto;
+        width: 70%;
+    }
+
+    .pb-gb-columna div, .pb-gb-columna button {
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .mdl-shadow--2dp {
+        box-shadow: 0 2px 2px 0 rgb(63, 81, 181), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgb(63, 81, 181);
+    }
+
+    h4 {
+        color: #3f51b5;
+    }
+
+    @media screen and (min-width: 480px) {
+        .pb-gb-columna {
+            margin: 0 auto;
+            width: 230px;
+        }
+    }
+</style>
+<div class="pb-gb-main-card mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__actions mdl-card--border">
+        <h4>Generación Masiva de Bloques Horarios</h4>
+    </div>
+    <div class="pb-gb-columna">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label for="pg-gb-tipo-espacio">Tipo Espacio</label>
+            <select name="tipo-espacio" id="pg-gb-tipo-espacio">
+                <option value="CUBICULO_ESTUDIO">Cubículo Estudio</option>
+                <option value="CUBICULO_VIDEO">Cubículo Video</option>
+                <option value="CANCHA_FUTBOL">Cancha Fútbol</option>
+                <option value="CANCHA_TENIS">Cancha Tenis</option>
+                <option value="CANCHA_MULTIPLE">Cancha Múltiple</option>
+                <option value="GIMNASIO">Gimnasio</option>
+            </select>
+        </div>
+    </div>
+    <div class="pb-gb-columna">
+        <div
+                class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input id="pg-gb-fecha-inicial" type="date" name="fecha_inicial" placeholder="Fecha Inicial"/>
+        </div>
+    </div>
+    <div class="pb-gb-columna">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input id="pg-gb-fecha-final" type="date" name="fecha_inicial" placeholder="Fecha Final"/>
+        </div>
+    </div>
+
+    <div class="pb-gb-columna mdl-card__actions mdl-card--border">
+        <button id="pb-gb-btn-generar-bloques"
+                class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            Generar Bloques
+        </button>
+    </div>
+</div>

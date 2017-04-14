@@ -14,6 +14,10 @@ define(['jquery', 'underscore', 'App', 'ModelView', 'text!HeaderTemplate'],
                 valor: 'Usuarios',
                 rol: 'ROLE_ADMIN'
             }, {
+                href: '#/generar-bloques',
+                valor: 'Generar Bloques',
+                rol: 'ROLE_ADMIN'
+            }, {
                 href: '#/mis-reservas',
                 valor: 'Mis Reservas',
                 rol: 'ROLE_STUDENT'

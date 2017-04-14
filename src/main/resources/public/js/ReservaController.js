@@ -3,13 +3,13 @@ define(['underscore', 'backbone', 'moment', 'App', 'MainLayout', 'HeaderView', '
         'BibliotecaView', 'ComputadoresView', 'TenisView', 'UsuariosView', 'ConsultarUsuarioView', 'CrearUsuarioView',
         'ActualizarUsuarioView', 'EditarUsuarioView', 'EliminarUsuarioView', 'BloquesDisponiblesView', 'CanchasView',
         'GimnasioView', 'CanchaMultipleView', 'CanchaFutbolTenisView', 'CubiculoEstudioView', 'CubiculoVideoView',
-        'ConfirmarReservaView', 'CalendarioEspacioView'],
+        'ConfirmarReservaView', 'CalendarioEspacioView', 'GenerarBloquesView'],
     function (_, Backbone, moment, App, MainLayout, HeaderView, FooterView, ConsultarReservasCollectionView, HomeView,
               LoginView, PasswordRecoveryView, PasswordChangeView, BibliotecaView, ComputadoresView, TenisView,
               UsuariosView, ConsultarUsuarioView, CrearUsuarioView, ActualizarUsuarioView, EditarUsuarioView,
               EliminarUsuarioView, BloquesDisponiblesView, CanchasView, GimnasioView, CanchaMultipleView,
               CanchaFutbolTenisView, CubiculoEstudioView, CubiculoVideoView, ConfirmarReservaView,
-              CalendarioEspacioView) {
+              CalendarioEspacioView, GenerarBloquesView) {
         var misReservasController = function (options) {
             var controlador = {
                 region: options.region,
@@ -131,6 +131,10 @@ define(['underscore', 'backbone', 'moment', 'App', 'MainLayout', 'HeaderView', '
                             App.mensajeError('Ocurrió un error cargando los bloques horarios disponibles');
                         }
                     });
+                },
+
+                generarBloques: function () {
+                    this.mostrarEnContent(new GenerarBloquesView());
                 },
 
                 armarLayoutBasico: function () {

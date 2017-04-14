@@ -72,7 +72,10 @@ require
 
             //calendario
             CalendarioTemplate: '../templates/calendario/calendario.html',
-            CalendarioEspacioView: './views/reservas/CalendarioEspacioView'
+            CalendarioEspacioView: './views/reservas/CalendarioEspacioView',
+
+            // bloques
+            GenerarBloquesView: './views/administrador/bloques/GenerarBloquesView'
         }
     });
 

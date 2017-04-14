@@ -120,6 +120,11 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                     reservasController.mostrarCalendarioEspacio(tipoEspacio);
                 },
 
+                generarBloques: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.generarBloques();
+                },
+
                 arrancarControlador: function (controlador) {
                     if (this.controladorActual &&
                         this.controladorActual instanceof controlador) {
