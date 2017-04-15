@@ -48,6 +48,7 @@ require
             ActualizarUsuarioView: './views/administrador/usuarios/ActualizarUsuarioView',
             EditarUsuarioView: './views/administrador/usuarios/EditarUsuarioView',
             EliminarUsuarioView: './views/administrador/usuarios/EliminarUsuarioView',
+            PruebaGraficaView: './views/administrador/graficas/PruebaGraficaView',
 
             // reservas
             HomeView: './views/home/HomeView',
@@ -72,7 +73,10 @@ require
 
             //calendario
             CalendarioTemplate: '../templates/calendario/calendario.html',
-            CalendarioEspacioView: './views/reservas/CalendarioEspacioView'
+            CalendarioEspacioView: './views/reservas/CalendarioEspacioView',
+
+            // bloques
+            GenerarBloquesView: './views/administrador/bloques/GenerarBloquesView'
         }
     });
 

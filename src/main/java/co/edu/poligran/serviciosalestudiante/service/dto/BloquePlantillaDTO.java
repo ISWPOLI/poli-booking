@@ -13,6 +13,16 @@ public class BloquePlantillaDTO extends BaseDTO {
 
     private Date horaFin;
 
+    public BloqueDTO obtenerBloqueDTO(EspacioDTO espacioDTO, Date dia) {
+        BloqueDTO bloqueDTO = new BloqueDTO();
+        bloqueDTO.setEspacio(espacioDTO);
+        bloqueDTO.setDia(dia);
+        bloqueDTO.setTiempoInicio(new Date(dia.getTime() + getHoraInicio().getTime()));
+        bloqueDTO.setTiempoFin(new Date(dia.getTime() + getHoraFin().getTime()));
+
+        return bloqueDTO;
+    }
+
     public DayOfWeek getDia() {
         return dia;
     }

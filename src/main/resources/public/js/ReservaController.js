@@ -3,13 +3,21 @@ define(['underscore', 'backbone', 'moment', 'App', 'MainLayout', 'HeaderView', '
         'BibliotecaView', 'ComputadoresView', 'TenisView', 'UsuariosView', 'ConsultarUsuarioView', 'CrearUsuarioView',
         'ActualizarUsuarioView', 'EditarUsuarioView', 'EliminarUsuarioView', 'BloquesDisponiblesView', 'CanchasView',
         'GimnasioView', 'CanchaMultipleView', 'CanchaFutbolTenisView', 'CubiculoEstudioView', 'CubiculoVideoView',
-        'ConfirmarReservaView', 'CalendarioEspacioView'],
+<<<<<<< HEAD
+        'ConfirmarReservaView', 'CalendarioEspacioView','PruebaGraficaView'],
+=======
+        'ConfirmarReservaView', 'CalendarioEspacioView', 'GenerarBloquesView'],
+>>>>>>> origin/master
     function (_, Backbone, moment, App, MainLayout, HeaderView, FooterView, ConsultarReservasCollectionView, HomeView,
               LoginView, PasswordRecoveryView, PasswordChangeView, BibliotecaView, ComputadoresView, TenisView,
               UsuariosView, ConsultarUsuarioView, CrearUsuarioView, ActualizarUsuarioView, EditarUsuarioView,
               EliminarUsuarioView, BloquesDisponiblesView, CanchasView, GimnasioView, CanchaMultipleView,
               CanchaFutbolTenisView, CubiculoEstudioView, CubiculoVideoView, ConfirmarReservaView,
-              CalendarioEspacioView) {
+<<<<<<< HEAD
+              CalendarioEspacioView, PruebaGraficaView) {
+=======
+              CalendarioEspacioView, GenerarBloquesView) {
+>>>>>>> origin/master
         var misReservasController = function (options) {
             var controlador = {
                 region: options.region,
@@ -132,7 +140,18 @@ define(['underscore', 'backbone', 'moment', 'App', 'MainLayout', 'HeaderView', '
                         }
                     });
                 },
+<<<<<<< HEAD
+                mostrarPruebaGrafica: function(){
+                	this.mostrarEnContent(new PruebaGraficaView());
+                },
+                
+=======
 
+                generarBloques: function () {
+                    this.mostrarEnContent(new GenerarBloquesView());
+                },
+
+>>>>>>> origin/master
                 armarLayoutBasico: function () {
                     var layout = new MainLayout();
                     var headerView = new HeaderView();

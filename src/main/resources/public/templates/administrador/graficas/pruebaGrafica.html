@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Prueba Grafica</title>
+
+	<style >
+		.demo-card-wide.mdl-card {
+  width: 80%;
+}
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 176px;
+  background: url('https://previews.123rf.com/images/porstock/porstock1508/porstock150800027/44250378-Escritorio-de-un-artista-l-pices-de-colores-y-clips-en-el-blanco-de-madera-de-fondo-de-la-tabla-Foto-de-archivo.jpg') center / cover;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+
+body {
+  background: #fafafa;
+  position: relative;
+}
+	</style>
+	 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+<center  style="padding-top: 20px;">
+  <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Grafica Reservas</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+      <div id="linechart_material"></div>
+      
+      </div>
+    </div>
+    </center>
+
+  <script type="text/javascript">
+   google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Dia');
+      data.addColumn('number', 'Cubiculos Video');
+      data.addColumn('number', 'Cubiculos Estudio');
+      data.addColumn('number', 'Cancha multiple');
+
+      data.addRows([
+        ['13/04/2017',  37.8, 80.8, 41.8],
+        ['14/04/2017',  30.9, 69.5, 32.4],
+        ['15/04/2017',  25.4,   57, 25.7],
+        ['16/04/2017',  11.7, 18.8, 10.5],
+        ['17/04/2017',  11.9, 17.6, 10.4],
+        ['18/04/2017',   8.8, 13.6,  7.7],
+        ['19/04/2017',   7.6, 12.3,  9.6],
+        ['20/04/2017',  12.3, 29.2, 10.6],
+        ['21/04/2017',  16.9, 42.9, 14.8],
+        ['22/04/2017', 12.8, 30.9, 11.6],
+        ['23/04/2017',  5.3,  7.9,  4.7],
+        ['24/04/2017',  6.6,  8.4,  5.2],
+        ['25/04/2017',  4.8,  6.3,  3.6],
+        ['26/04/2017',  4.2,  6.2,  3.4]
+      ]);
+
+      var options = {
+        chart: {
+            title: 'Grafica de reservas',
+          subtitle: '#Reservas vs Dia'
+        },
+        width: 900,
+        height: 500
+      };
+
+      var chart = new google.charts.Line(document.getElementById('linechart_material'));
+
+      chart.draw(data, options);
+    }
+  </script>
+
+</body>
+</html>

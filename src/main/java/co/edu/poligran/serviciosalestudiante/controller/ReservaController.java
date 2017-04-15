@@ -43,6 +43,10 @@ public class ReservaController extends BaseController {
         UsuarioDTO usuarioDTO = usuarioService.findByUsername(usuarioEnSesion);
         return reservaService.consultarReservasVigentesPorUsuario(usuarioDTO);
     }
+    @RequestMapping(value=RESERVAS_ROOT_URL+"/reservas-grafica", method=RequestMethod.GET)
+    public List<ReservaDTO>consutarReservasGrafica() throws Exception{
+    	return reservaService.consultarReservasVigentesGrafica();
+    }
 
     @RequestMapping(value = RESERVAS_ROOT_URL + "/{id}", method = RequestMethod.DELETE)
     public ReservaDTO cancelarReserva(@PathVariable(name = "id") Long idReserva) {
@@ -67,4 +71,5 @@ public class ReservaController extends BaseController {
         ReservaDTO reserva = reservaService.crearReserva(usuario, bloque);
         notificadorCorreosService.enviarNotificacionReservaConfirmada(reserva);
     }
+    
 }

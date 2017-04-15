@@ -6,6 +6,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class BaseController {
+	public static final String FORMATO_FECHA_POR_DEFECTO = "yyyy-MM-dd";
+
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	protected String getUsuarioEnSesion() {

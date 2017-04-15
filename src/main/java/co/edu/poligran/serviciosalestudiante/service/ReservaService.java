@@ -12,6 +12,8 @@ public interface ReservaService {
     List<ReservaDTO> consultarReservasVigentesPorUsuario(UsuarioDTO usuario);
 
     ReservaDTO crearReserva(UsuarioDTO usuario, BloqueDTO bloque);
+    
+    List<ReservaDTO> consultarReservasVigentesGrafica();
 
     void cancelarReserva(Long idReserva);
 }

@@ -11,14 +11,14 @@ public class EspacioDTO extends BaseDTO {
 
     @JsonIgnore
     private List<BloqueDTO> bloques;
-    
-	public int getCupos() {
-		return cupos;
-	}
 
-	public void setCupos(int cupos) {
-		this.cupos = cupos;
-	}
+    public int getCupos() {
+        return cupos;
+    }
+
+    public void setCupos(int cupos) {
+        this.cupos = cupos;
+    }
     
 
     public String getNombre() {

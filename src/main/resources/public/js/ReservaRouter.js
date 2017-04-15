@@ -22,7 +22,12 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
                 'cubiculo-video': 'mostrarCubiculoVideo',
                 'confirmar-reserva?fecha=:fecha&idBloque=:idBloque': 'mostrarConfirmarReserva',
                 'mis-reservas': 'mostrarMisReservas',
-                'calendario-espacio?tipo-espacio=:tipoEspacio': 'mostrarCalendarioEspacio'
+                'calendario-espacio?tipo-espacio=:tipoEspacio': 'mostrarCalendarioEspacio',
+<<<<<<< HEAD
+                'prueba-grafica':'mostrarPruebaGrafica'	
+=======
+                'generar-bloques': 'generarBloques'
+>>>>>>> origin/master
             },
 
             mostrarHome: function () {
@@ -127,7 +132,21 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
                 var reservasApp = App.arrancarSubAplicacion(ReservasApp);
                 this.procesarRuta(reservasApp.mostrarCalendarioEspacio, reservasApp, [tipoEspacio]);
             },
+<<<<<<< HEAD
+            
+            mostrarPruebaGrafica: function(){
+            	var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarPruebaGrafica, reservasApp);
+            },
+            
+=======
 
+            generarBloques: function () {
+                var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.generarBloques, reservasApp);
+            },
+
+>>>>>>> origin/master
             procesarRuta: function (funcion, contexto, argumentos) {
                 if (App.verificarAutorizacion()) {
                     funcion.apply(contexto, argumentos);

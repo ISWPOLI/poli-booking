@@ -20,36 +20,41 @@ import java.util.List;
 @Transactional
 public class ReservaServiceImpl extends BaseService implements ReservaService {
 
-    @Autowired
-    private ReservaRepository reservaRepository;
+	@Autowired
+	private ReservaRepository reservaRepository;
 
-    @Override
-    public ReservaDTO consultarReserva(Long idReserva) {
-        ReservaEntity reservaEntity = reservaRepository.findOne(idReserva);
-        return mapper.map(reservaEntity, ReservaDTO.class);
-    }
+	@Override
+	public ReservaDTO consultarReserva(Long idReserva) {
+		ReservaEntity reservaEntity = reservaRepository.findOne(idReserva);
+		return mapper.map(reservaEntity, ReservaDTO.class);
+	}
 
-    @Override
-    public List<ReservaDTO> consultarReservasVigentesPorUsuario(UsuarioDTO usuario) {
-        List<ReservaEntity> reservas = reservaRepository
-                .consultarReservasVigentesPorUsuario(mapper.map(usuario, UsuarioEntity.class));
-        return DozerUtils.mapCollection(reservas, ReservaDTO.class, mapper);
-    }
+	@Override
+	public List<ReservaDTO> consultarReservasVigentesPorUsuario(UsuarioDTO usuario) {
+		List<ReservaEntity> reservas = reservaRepository
+				.consultarReservasVigentesPorUsuario(mapper.map(usuario, UsuarioEntity.class));
+		return DozerUtils.mapCollection(reservas, ReservaDTO.class, mapper);
+	}
 
-    @Override
-    public ReservaDTO crearReserva(UsuarioDTO usuario, BloqueDTO bloque) {
-        ReservaEntity reserva = new ReservaEntity();
-        reserva.setBloque(mapper.map(bloque, BloqueEntity.class));
-        reserva.setUsuario(mapper.map(usuario, UsuarioEntity.class));
-        reserva.setFechaReserva(new Date());
+	public List<ReservaDTO> consultarReservasVigentesGrafica() {
+		List<ReservaEntity> reservas = reservaRepository.consultarReservasVigentesGrafica();
+		return DozerUtils.mapCollection(reservas, ReservaDTO.class, mapper);
+	}
 
-        reserva = reservaRepository.saveAndFlush(reserva);
+	@Override
+	public ReservaDTO crearReserva(UsuarioDTO usuario, BloqueDTO bloque) {
+		ReservaEntity reserva = new ReservaEntity();
+		reserva.setBloque(mapper.map(bloque, BloqueEntity.class));
+		reserva.setUsuario(mapper.map(usuario, UsuarioEntity.class));
+		reserva.setFechaReserva(new Date());
 
-        return mapper.map(reserva, ReservaDTO.class);
-    }
+		reserva = reservaRepository.saveAndFlush(reserva);
 
-    @Override
-    public void cancelarReserva(Long idReserva) {
-        reservaRepository.delete(idReserva);
-    }
+		return mapper.map(reserva, ReservaDTO.class);
+	}
+
+	@Override
+	public void cancelarReserva(Long idReserva) {
+		reservaRepository.delete(idReserva);
+	}
 }

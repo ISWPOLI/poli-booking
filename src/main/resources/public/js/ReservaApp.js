@@ -70,6 +70,7 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                     var reservasController = this.arrancarControlador(ReservaController);
                     reservasController.mostrarCrearUsuario();
                 },
+                
 
                 mostrarActualizarUsuario: function () {
                     var reservasController = this.arrancarControlador(ReservaController);
@@ -118,6 +119,15 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                 mostrarCalendarioEspacio: function (tipoEspacio) {
                     var reservasController = this.arrancarControlador(ReservaController);
                     reservasController.mostrarCalendarioEspacio(tipoEspacio);
+                },
+                mostrarPruebaGrafica : function(){
+                	 var reservasController = this.arrancarControlador(ReservaController);
+                     reservasController.mostrarPruebaGrafica();
+                },
+
+                generarBloques: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.generarBloques();
                 },
 
                 arrancarControlador: function (controlador) {

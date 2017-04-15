@@ -4,8 +4,11 @@ import co.edu.poligran.serviciosalestudiante.entities.BloqueEntity;
 import co.edu.poligran.serviciosalestudiante.entities.EspacioEntity;
 import co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity;
 import co.edu.poligran.serviciosalestudiante.repository.BloqueRepository;
+import co.edu.poligran.serviciosalestudiante.service.BloquePlantillaService;
 import co.edu.poligran.serviciosalestudiante.service.BloqueService;
+import co.edu.poligran.serviciosalestudiante.service.EspacioService;
 import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
+import co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO;
 import co.edu.poligran.serviciosalestudiante.utils.DozerUtils;
@@ -17,9 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.time.DayOfWeek;
+import java.util.*;
 
 @Service
 @Transactional
@@ -54,6 +56,12 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
 
     @Autowired
     private BloqueRepository bloqueRepository;
+
+    @Autowired
+    private BloquePlantillaService bloquePlantillaService;
+
+    @Autowired
+    private EspacioService espacioService;
 
     @Override
     public void generarBloques(EspacioDTO espacio, long numeroDeDias) {
@@ -92,7 +100,8 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
     @Override
     public List<BloqueDTO> consultarBloquesVigentesPorDiaYTipoEspacio(Date dia, TipoEspacioDTO tipoEspacio) {
         TipoEspacioEntity tipoEspacioEntity = mapper.map(tipoEspacio, TipoEspacioEntity.class);
-        List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentesPorDiaYTipoEspacio(dia, tipoEspacioEntity);
+        List<BloqueEntity> bloques = bloqueRepository.consultarBloquesVigentesPorDiaYTipoEspacio(dia,
+                tipoEspacioEntity);
 
         return DozerUtils.mapCollection(bloques, BloqueDTO.class, mapper);
     }
@@ -107,5 +116,71 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
     @Override
     public BloqueDTO consultarBloque(Long idBloque) {
         return mapper.map(bloqueRepository.findOne(idBloque), BloqueDTO.class);
+    }
+
+    @Override
+    public List<BloqueDTO> generarBloquesMasivamente(TipoEspacioDTO tipoEspacio, Date fechaInicio, Date fechaFin) {
+
+        Map<DayOfWeek, List<BloquePlantillaDTO>> mapaBloquesPlantillaPorDia = armarMapaDeBloquesPlantillaPorDia
+                (tipoEspacio);
+        List<EspacioDTO> espacios = espacioService.getEspaciosPorTipoEspacio(tipoEspacio);
+        LocalDate fechaInicioJoda = new LocalDate(fechaInicio);
+        LocalDate fechaFinJoda = new LocalDate(fechaFin);
+
+        List<BloqueEntity> bloquesCreados = crearBloquesHorarios(mapaBloquesPlantillaPorDia, espacios, fechaInicioJoda,
+                fechaFinJoda);
+
+        return DozerUtils.mapCollection(bloquesCreados, BloqueDTO.class, mapper);
+    }
+
+    private List<BloqueEntity> crearBloquesHorarios(Map<DayOfWeek, List<BloquePlantillaDTO>> mapaBloquesPorDia,
+                                                    List<EspacioDTO> espacios, LocalDate fechaInicioJoda, LocalDate
+                                                            fechaFinJoda) {
+        LocalDate fechaActual = fechaInicioJoda;
+        List<BloqueDTO> bloquesParaCrearDTOs = new ArrayList<>();
+
+        while (fechaActual.compareTo(fechaFinJoda) <= 0) {
+
+            DayOfWeek diaDeLaSemana = DayOfWeek.of(fechaActual.getDayOfWeek());
+            List<BloquePlantillaDTO> bloquesDelDia = mapaBloquesPorDia.get(diaDeLaSemana);
+
+            if (bloquesDelDia != null && !bloquesDelDia.isEmpty()) {
+
+                for (BloquePlantillaDTO bloque : bloquesDelDia) {
+
+                    for (EspacioDTO espacio : espacios) {
+                        bloquesParaCrearDTOs.add(bloque.obtenerBloqueDTO(espacio, fechaActual.toDate()));
+                    }
+                }
+            }
+
+            fechaActual = fechaActual.plusDays(1);
+        }
+
+        List<BloqueEntity> bloquesParaCrearEntities = DozerUtils.mapCollection(bloquesParaCrearDTOs, BloqueEntity.class,
+                mapper);
+        bloquesParaCrearEntities = bloqueRepository.save(bloquesParaCrearEntities);
+
+        return bloquesParaCrearEntities;
+    }
+
+    private Map<DayOfWeek, List<BloquePlantillaDTO>> armarMapaDeBloquesPlantillaPorDia(TipoEspacioDTO tipoEspacioDTO) {
+
+        List<BloquePlantillaDTO> bloquesPlantilla = bloquePlantillaService.consultarBloquesPlantillaPorTipoEspacio
+                (tipoEspacioDTO);
+        Map<DayOfWeek, List<BloquePlantillaDTO>> mapaBloquesPorDia = new HashMap<>();
+
+        for (BloquePlantillaDTO bloquePlantilla : bloquesPlantilla) {
+            DayOfWeek dia = bloquePlantilla.getDia();
+            if (!mapaBloquesPorDia.containsKey(dia)) {
+                mapaBloquesPorDia.put(dia, new ArrayList<>());
+            }
+            List<BloquePlantillaDTO> bloquesDelDia = mapaBloquesPorDia.get(dia);
+            if (!bloquesDelDia.contains(bloquePlantilla)) {
+                bloquesDelDia.add(bloquePlantilla);
+            }
+        }
+
+        return mapaBloquesPorDia;
     }
 }
