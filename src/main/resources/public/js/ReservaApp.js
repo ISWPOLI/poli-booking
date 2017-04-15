@@ -130,6 +130,11 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                     reservasController.generarBloques();
                 },
 
+                generarBloques: function () {
+                    var reservasController = this.arrancarControlador(ReservaController);
+                    reservasController.generarBloques();
+                },
+
                 arrancarControlador: function (controlador) {
                     if (this.controladorActual &&
                         this.controladorActual instanceof controlador) {
