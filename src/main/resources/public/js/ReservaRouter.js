@@ -23,7 +23,7 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
                 'confirmar-reserva?fecha=:fecha&idBloque=:idBloque': 'mostrarConfirmarReserva',
                 'mis-reservas': 'mostrarMisReservas',
                 'calendario-espacio?tipo-espacio=:tipoEspacio': 'mostrarCalendarioEspacio',
-                'prueba-grafica':'mostrarPruebaGrafica'	
+                'prueba-grafica':'mostrarPruebaGrafica',
                 'generar-bloques': 'generarBloques'
             },
 
