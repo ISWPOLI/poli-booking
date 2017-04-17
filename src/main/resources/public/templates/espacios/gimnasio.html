@@ -12,8 +12,9 @@
   color: #fff;
 }
 .columna {
-  width:33%;
+  width:50%;
   float:left;
+  padding-bottom:15px;
 }
 
 @media (max-width: 500px) {
@@ -21,6 +22,7 @@
   .columna {
     width:auto;
     float:none;
+    padding-bottom:15px;
   }
   
 }
@@ -52,64 +54,27 @@ body {
       </div>
       <div class="mdl-card__supporting-text">
       <div class="columna">
-      <h5>20 cupos</h5>
-      <h5>10:00 am</h5>
-       <button id="demo-show-snackbar" class="mdl-button mdl-js-button mdl-button--raised" type="button">Reservar</button>
-    <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
-      <div class="mdl-snackbar__text"></div>
-      <button class="mdl-snackbar__action" type="button"></button>
-    </div>
-      </div>
-       <div class="columna">
-      <h5>20 cupos</h5>
-      <h5>10:00 am</h5>
-       <button id="demo-show-snackbar" class="mdl-button mdl-js-button mdl-button--raised" type="button">Reservar</button>
-    <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
-      <div class="mdl-snackbar__text"></div>
-      <button class="mdl-snackbar__action" type="button"></button>
-    </div>
-      </div>
-       <div class="columna">
-      <h5>20 cupos</h5>
-      <h5>10:00 am</h5>
-       <button id="demo-show-snackbar" class="mdl-button mdl-js-button mdl-button--raised" type="button">Reservar</button>
-    <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
-      <div class="mdl-snackbar__text"></div>
-      <button class="mdl-snackbar__action" type="button"></button>
-    </div>
-      </div>
-      </div>
-      <div class="mdl-card__actions mdl-card--border">
       <br>
-        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-          Haz tu reserva
-        </a>
-        <br>
-        <br>
+      <br>
+      <h3>Reserva Hoy</h3>
+       <button id="hoy" class="mdl-button mdl-js-button mdl-button--raised" type="button">Reservar</button>
+       <br>
+     <br>
       </div>
+       <div class="columna">
+       <br>
+       <br>
+      <h3>Planea Tu Semana</h3>
+      <a href="#/calendario-espacio?tipo-espacio=GIMNASIO">
+       <button id="plan" class="mdl-button mdl-js-button mdl-button--raised" type="button">Reservar</button>
+     </a>
+     <br>
+     <br>
+      </div>
+      </div>
+      
     </div>
     </center>
-    <script type="text/javascript">
-    	(function() {
-  'use strict';
-  var snackbarContainer = document.querySelector('#demo-snackbar-example');
-  var showSnackbarButton = document.querySelector('#demo-show-snackbar');
-  var handler = function(event) {
-    showSnackbarButton.style.backgroundColor = '';
-  };
-  showSnackbarButton.addEventListener('click', function() {
-    'use strict';
-   // showSnackbarButton.style.backgroundColor = '#' +
-     //   Math.floor(Math.random() * 0xFFFFFF).toString(16);
-    var data = {
-      message: 'Reserva hecha',
-      timeout: 2000,
-      actionHandler: handler,
-      actionText: 'Undo'
-    };
-    snackbarContainer.MaterialSnackbar.showSnackbar(data);
-  });
-}());
-    </script>
+   
   </body>
 </html>

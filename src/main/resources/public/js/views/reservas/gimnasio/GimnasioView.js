@@ -1,6 +1,6 @@
-define(['jquery', 'underscore', 'backbone', 'App',
+define(['jquery', 'underscore','moment', 'backbone', 'App',
         'text!templates/espacios/gimnasio.html'],
-    function ($, _, Backbone, App, gimnasio) {
+    function ($, _,moment, Backbone, App, gimnasio) {
 
         var gimnasioView = Backbone.View.extend({
 
@@ -10,7 +10,14 @@ define(['jquery', 'underscore', 'backbone', 'App',
                 $('.menu li a[href="#"]').parent().addClass('active');
                 this.$el.html(gimnasio);
                 App.lanzarEventoLoad();
-            }
+            },
+            events:{
+            	'click #hoy': 'mostrarCuposGimnasioHoy'
+            },
+            mostrarCuposGimnasioHoy: function () {
+                var hoy = moment(new Date()).format("YYYY-MM-DD");
+                App.router.navigate('bloques-disponibles?fecha=' + hoy + '&tipoEspacio=GIMNASIO', true);
+            },
 
         });
 
