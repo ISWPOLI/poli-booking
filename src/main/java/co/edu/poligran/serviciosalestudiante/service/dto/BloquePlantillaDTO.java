@@ -1,6 +1,8 @@
 package co.edu.poligran.serviciosalestudiante.service.dto;
 
 
+import org.joda.time.LocalDateTime;
+
 import java.time.DayOfWeek;
 import java.util.Date;
 
@@ -17,8 +19,14 @@ public class BloquePlantillaDTO extends BaseDTO {
         BloqueDTO bloqueDTO = new BloqueDTO();
         bloqueDTO.setEspacio(espacioDTO);
         bloqueDTO.setDia(dia);
-        bloqueDTO.setTiempoInicio(new Date(dia.getTime() + getHoraInicio().getTime()));
-        bloqueDTO.setTiempoFin(new Date(dia.getTime() + getHoraFin().getTime()));
+
+        LocalDateTime inicio = new LocalDateTime(horaInicio);
+        long inicioMillis = inicio.getMillisOfDay();
+        bloqueDTO.setTiempoInicio(new Date(dia.getTime() + inicioMillis));
+
+        LocalDateTime fin = new LocalDateTime(horaFin);
+        long finMillis = fin.getMillisOfDay();
+        bloqueDTO.setTiempoFin(new Date(dia.getTime() + finMillis));
 
         return bloqueDTO;
     }
