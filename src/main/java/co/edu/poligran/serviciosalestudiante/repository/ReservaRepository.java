@@ -21,5 +21,8 @@ public interface ReservaRepository extends JpaRepository<ReservaEntity, Long> {
     List<ReservaEntity> findByBloque(BloqueEntity bloque);
 
     void deleteByBloque(BloqueEntity bloque);
-
+    
+    @Query("select r from ReservaEntity r where  r.bloque.tiempoInicio < current_timestamp() order by r.bloque.tiempoInicio")
+    List<ReservaEntity> consultarHistorico();
+    
 }

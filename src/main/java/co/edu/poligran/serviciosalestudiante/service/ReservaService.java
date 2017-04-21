@@ -14,8 +14,12 @@ public interface ReservaService {
     ReservaDTO crearReserva(UsuarioDTO usuario, BloqueDTO bloque);
     
     List<ReservaDTO> consultarReservasVigentesGrafica();
+    
+    List<ReservaDTO> consultarHistorico();
 
     void eliminarReserva(Long idReserva);
 
     void eliminarReservasDelBloque(BloqueDTO bloque);
+    
+    
 }

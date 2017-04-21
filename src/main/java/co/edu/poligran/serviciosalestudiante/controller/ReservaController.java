@@ -42,6 +42,11 @@ public class ReservaController extends BaseController {
     	return reservaService.consultarReservasVigentesGrafica();
     }
 
+    @RequestMapping(value=RESERVAS_ROOT_URL+"/historico-grafica", method=RequestMethod.GET)
+    public List<ReservaDTO>consutarHistorico() throws Exception{
+    	return reservaService.consultarHistorico();
+    }
+    
     @RequestMapping(value = RESERVAS_ROOT_URL + "/{id}", method = RequestMethod.DELETE)
     public ReservaDTO cancelarReserva(@PathVariable(name = "id") Long idReserva) {
         ReservaDTO reserva = reservaService.consultarReserva(idReserva);
