@@ -69,4 +69,14 @@ public class BloquesController extends BaseController {
         }
         return new ArrayList<>(dias.values());
     }
+
+    @RequestMapping(value = "/bloques/eliminar-bloques-masivamente", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ADMIN')")
+    public void eliminarBloquesMasivamente(@RequestParam("tipo-espacio") String tipoEspacioString, @RequestParam
+            ("fecha-inicio") @DateTimeFormat(pattern = BaseController.FORMATO_FECHA_POR_DEFECTO) Date fechaInicio,
+                                           @RequestParam("fecha-fin") @DateTimeFormat(pattern = BaseController
+                                                   .FORMATO_FECHA_POR_DEFECTO) Date fechaFin) {
+        TipoEspacioDTO tipoEspacioDTO = tipoEspacioService.buscarTipoEspacioPorNombre(tipoEspacioString);
+        bloquesService.eliminarBloquesMasivamente(tipoEspacioDTO, fechaInicio, fechaFin);
+    }
 }

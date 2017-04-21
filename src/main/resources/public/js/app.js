@@ -60,19 +60,27 @@ define(['jquery', 'underscore', 'material', 'backbone', 'backboneValidation', 's
                 sweetAlert(opciones);
             },
 
-            pedirConfirmacion: function (mensaje, callback) {
-                var opciones = {
-                    title: '¿estás seguro?',
-                    type: 'warning',
-                    text: mensaje,
-                    showCancelButton: true,
-                    confirmButtonText: 'Sí',
-                    confirmButtonColor: '#5cb85c',
-                    cancelButtonText: 'No'
-                };
+            pedirConfirmacion: function (mensaje, callback, that, argumentos) {
 
-                sweetAlert(opciones, function (confirmacion) {
-                    callback(confirmacion);
+                var n = new Noty({
+                    text: mensaje,
+                    type: 'confirm',
+                    modal: true,
+                    layout: 'center',
+                    theme: 'defaultTheme',
+                    buttons: [{
+                        addClass: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent',
+                        text: 'ELIMINAR',
+                        onClick: function () {
+                            callback.apply(that, argumentos)
+                        }
+                    }, {
+                        addClass: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored',
+                        text: 'CANCELAR',
+                        onClick: function ($noty) {
+                            $noty.close();
+                        }
+                    }]
                 });
             },
 

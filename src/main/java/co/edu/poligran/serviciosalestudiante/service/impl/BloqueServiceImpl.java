@@ -7,6 +7,7 @@ import co.edu.poligran.serviciosalestudiante.repository.BloqueRepository;
 import co.edu.poligran.serviciosalestudiante.service.BloquePlantillaService;
 import co.edu.poligran.serviciosalestudiante.service.BloqueService;
 import co.edu.poligran.serviciosalestudiante.service.EspacioService;
+import co.edu.poligran.serviciosalestudiante.service.ReservaService;
 import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO;
@@ -62,6 +63,9 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
 
     @Autowired
     private EspacioService espacioService;
+
+    @Autowired
+    private ReservaService reservaService;
 
     @Override
     public void generarBloques(EspacioDTO espacio, long numeroDeDias) {
@@ -131,6 +135,20 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
                 fechaFinJoda);
 
         return DozerUtils.mapCollection(bloquesCreados, BloqueDTO.class, mapper);
+    }
+
+    @Override
+    public void eliminarBloquesMasivamente(TipoEspacioDTO tipoEspacioDTO, Date diaInicio, Date diaFin) {
+        TipoEspacioEntity tipoEspacioEntity = mapper.map(tipoEspacioDTO, TipoEspacioEntity.class);
+        List<BloqueEntity> bloquesParaEliminar = bloqueRepository.findByTipoEspacioAndDateInterval(tipoEspacioEntity,
+                diaInicio, diaFin);
+
+        for (BloqueEntity bloque : bloquesParaEliminar) {
+            BloqueDTO bloqueDTO = mapper.map(bloque, BloqueDTO.class);
+            reservaService.eliminarReservasDelBloque(bloqueDTO);
+        }
+
+        bloqueRepository.delete(bloquesParaEliminar);
     }
 
     private List<BloqueEntity> crearBloquesHorarios(Map<DayOfWeek, List<BloquePlantillaDTO>> mapaBloquesPorDia,

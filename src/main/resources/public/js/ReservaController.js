@@ -3,13 +3,13 @@ define(['underscore', 'backbone', 'moment', 'App', 'MainLayout', 'HeaderView', '
         'BibliotecaView', 'ComputadoresView', 'TenisView', 'UsuariosView', 'ConsultarUsuarioView', 'CrearUsuarioView',
         'ActualizarUsuarioView', 'EditarUsuarioView', 'EliminarUsuarioView', 'BloquesDisponiblesView', 'CanchasView',
         'GimnasioView', 'CanchaMultipleView', 'CanchaFutbolTenisView', 'CubiculoEstudioView', 'CubiculoVideoView',
-        'ConfirmarReservaView', 'CalendarioEspacioView','GenerarBloquesView','PruebaGraficaView'],
+        'ConfirmarReservaView', 'CalendarioEspacioView', 'GenerarBloquesView', 'EliminarBloquesView', 'PruebaGraficaView'],
     function (_, Backbone, moment, App, MainLayout, HeaderView, FooterView, ConsultarReservasCollectionView, HomeView,
               LoginView, PasswordRecoveryView, PasswordChangeView, BibliotecaView, ComputadoresView, TenisView,
               UsuariosView, ConsultarUsuarioView, CrearUsuarioView, ActualizarUsuarioView, EditarUsuarioView,
               EliminarUsuarioView, BloquesDisponiblesView, CanchasView, GimnasioView, CanchaMultipleView,
               CanchaFutbolTenisView, CubiculoEstudioView, CubiculoVideoView, ConfirmarReservaView,
-              CalendarioEspacioView, GenerarBloquesView, PruebaGraficaView) {
+              CalendarioEspacioView, GenerarBloquesView, EliminarBloquesView, PruebaGraficaView) {
 
         var misReservasController = function (options) {
             var controlador = {
@@ -140,6 +140,10 @@ define(['underscore', 'backbone', 'moment', 'App', 'MainLayout', 'HeaderView', '
           
                 generarBloques: function () {
                     this.mostrarEnContent(new GenerarBloquesView());
+                },
+
+                eliminarBloques: function () {
+                    this.mostrarEnContent(new EliminarBloquesView());
                 },
 
                 armarLayoutBasico: function () {

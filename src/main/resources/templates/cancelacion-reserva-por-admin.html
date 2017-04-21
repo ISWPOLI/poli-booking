@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head></head>
+<body>
+
+<h1>Tu reserva ha sido cancelada por el administrador del sistema</h1>
+
+<p>El administrador del sistema ha cancelado la siguiente reserva:</p>
+
+<ul>
+    <li>Tipo: <span th:text="${tipo}"></span></li>
+    <li>Nombre: <span th:text="${nombre}"></span></li>
+    <li>Dia: <span th:text="${dia}"></span></li>
+    <li>Inicio: <span th:text="${inicio}"></span></li>
+    <li>Fin: <span th:text="${fin}"></span></li>
+</ul>
+<p>Saludos</p>
+<p>Poli Booking</p>
+
+</body>
+</html>

@@ -76,7 +76,8 @@ require
             CalendarioEspacioView: './views/reservas/CalendarioEspacioView',
 
             // bloques
-            GenerarBloquesView: './views/administrador/bloques/GenerarBloquesView'
+            GenerarBloquesView: './views/administrador/bloques/GenerarBloquesView',
+            EliminarBloquesView: './views/administrador/bloques/EliminarBloquesView'
         }
     });
 

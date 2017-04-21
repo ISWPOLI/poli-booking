@@ -1,0 +1,133 @@
+create sequence hibernate_sequence
+;
+
+create table bloques
+(
+	id bigint not null
+		constraint bloques_pkey
+			primary key,
+	dia timestamp,
+	tiempo_fin timestamp,
+	tiempo_inicio timestamp,
+	espacio_id bigint
+)
+;
+
+create table bloques_plantilla
+(
+	id bigint not null
+		constraint bloques_plantilla_pkey
+			primary key,
+	dia varchar(255),
+	hora_fin time,
+	hora_inicio time,
+	tipo_espacio_id bigint
+)
+;
+
+create table espacios
+(
+	id bigint not null
+		constraint espacios_pkey
+			primary key,
+	cupos integer not null,
+	nombre varchar(255),
+	tipo_espacio_id bigint
+)
+;
+
+alter table bloques
+	add constraint fk7uepvqi2etxgs8fbbgwvcoj2h
+		foreign key (espacio_id) references espacios
+;
+
+create table password_reset_tokens
+(
+	id bigint not null
+		constraint password_reset_tokens_pkey
+			primary key,
+	expiration_date timestamp,
+	token varchar(255),
+	user_id bigint
+)
+;
+
+create table reservas
+(
+	id bigint not null
+		constraint reservas_pkey
+			primary key,
+	fecha_reserva timestamp,
+	bloque_id bigint
+		constraint fktpresaxet4pflqh58312u40qi
+			references bloques,
+	usuario_id bigint
+)
+;
+
+create table roles
+(
+	id bigint not null
+		constraint roles_pkey
+			primary key,
+	type varchar(30) not null
+		constraint uk_q9npl2ty4pngm2cussiul2qj5
+			unique
+)
+;
+
+create table tipo_espacio
+(
+	id bigint not null
+		constraint tipo_espacio_pkey
+			primary key,
+	nombre varchar(255)
+)
+;
+
+alter table bloques_plantilla
+	add constraint fkgieickreg7wjd63g39qt9ywv2
+		foreign key (tipo_espacio_id) references tipo_espacio
+;
+
+alter table espacios
+	add constraint fkpdti500l3er5t0hf7tfrv0hh9
+		foreign key (tipo_espacio_id) references tipo_espacio
+;
+
+create table usuarios
+(
+	id bigint not null
+		constraint usuarios_pkey
+			primary key,
+	active boolean not null,
+	email varchar(255),
+	full_name varchar(255),
+	password varchar(60) not null,
+	username varchar(255)
+		constraint uk_m2dvbwfge291euvmk6vkkocao
+			unique
+)
+;
+
+alter table password_reset_tokens
+	add constraint fkgdcgllaevbmc9wxqsvwj2684h
+		foreign key (user_id) references usuarios
+;
+
+alter table reservas
+	add constraint fkcfh7qcr7oxomqk5hhbxdg2m7p
+		foreign key (usuario_id) references usuarios
+;
+
+create table usuarios_roles
+(
+	user_id bigint not null
+		constraint fkisd054ko30hm3j6ljr90asype
+			references usuarios,
+	user_role_id bigint not null
+		constraint fkgv4rpqt7jolju5k8ons6bfs17
+			references roles
+)
+;
+

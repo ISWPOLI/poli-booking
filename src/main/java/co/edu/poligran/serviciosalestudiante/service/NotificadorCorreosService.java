@@ -9,5 +9,7 @@ public interface NotificadorCorreosService {
 
     void enviarNotificacionReservaCancelada(ReservaDTO reservaCancelada);
 
+    void enviarNotificacionReservaCanceladaPorAdmin(ReservaDTO reservaCancelada);
+
     void enviarNotificacionReservaConfirmada(ReservaDTO reserva);
 }

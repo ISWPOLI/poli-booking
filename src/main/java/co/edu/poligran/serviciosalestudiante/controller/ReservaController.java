@@ -1,16 +1,5 @@
 package co.edu.poligran.serviciosalestudiante.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
 import co.edu.poligran.serviciosalestudiante.service.BloqueService;
 import co.edu.poligran.serviciosalestudiante.service.NotificadorCorreosService;
@@ -19,6 +8,11 @@ import co.edu.poligran.serviciosalestudiante.service.UsuarioService;
 import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 public class ReservaController extends BaseController {
@@ -53,7 +47,7 @@ public class ReservaController extends BaseController {
         ReservaDTO reserva = reservaService.consultarReserva(idReserva);
 
         if (reserva.getUsuario().getUsername().equals(getUsuarioEnSesion())) {
-            reservaService.cancelarReserva(reserva.getId());
+            reservaService.eliminarReserva(reserva.getId());
             notificadorCorreosService.enviarNotificacionReservaCancelada(reserva);
         } else {
             logger.error("error de seguridad. se está intentando cancelar una reserva de un usuario diferente");

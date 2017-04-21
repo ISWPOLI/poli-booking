@@ -74,6 +74,26 @@ public class NotificadorCorreosServiceImpl extends BaseService implements Notifi
     }
 
     @Override
+    public void enviarNotificacionReservaCanceladaPorAdmin(ReservaDTO reservaCancelada) {
+        try {
+            MimeMessage correo = mailSender.createMimeMessage();
+
+            String email = reservaCancelada.getUsuario().getEmail();
+
+            MimeMessageHelper helper = new MimeMessageHelper(correo, true);
+            helper.setTo(email);
+            helper.setFrom(emailFrom);
+            helper.setSubject("Reserva cancelada en Politécnico Grancolombiano");
+            helper.setText(getTextoCorreoCancelacionReservaPorAdmin(reservaCancelada), true);
+
+            mailSender.send(correo);
+
+        } catch (MessagingException e) {
+            logger.error("Error enviando correo de notificación de reserva cancelada");
+        }
+    }
+
+    @Override
     public void enviarNotificacionReservaConfirmada(ReservaDTO reserva) {
         try {
             MimeMessage correo = mailSender.createMimeMessage();
@@ -103,6 +123,19 @@ public class NotificadorCorreosServiceImpl extends BaseService implements Notifi
         context.setVariable("fin", DateUtils.format(reserva.getBloque().getTiempoFin(), "HH:mm:ss",
                 new Locale("es", "co")));
         return templateEngine.process("cancelacion-reserva", context);
+    }
+
+    private String getTextoCorreoCancelacionReservaPorAdmin(ReservaDTO reserva) {
+        Context context = new Context();
+        context.setVariable("tipo", reserva.getBloque().getEspacio().getTipoEspacio().getNombre());
+        context.setVariable("nombre", reserva.getBloque().getEspacio().getNombre());
+        context.setVariable("dia", DateUtils.format(reserva.getBloque().getDia(), "yyyy-MM-dd",
+                new Locale("es", "co")));
+        context.setVariable("inicio", DateUtils.format(reserva.getBloque().getTiempoInicio(), "HH:mm:SS",
+                new Locale("es", "co")));
+        context.setVariable("fin", DateUtils.format(reserva.getBloque().getTiempoFin(), "HH:mm:ss",
+                new Locale("es", "co")));
+        return templateEngine.process("cancelacion-reserva-por-admin", context);
     }
 
     private String getTextoCorreoConfirmacionReserva(ReservaDTO reserva) {

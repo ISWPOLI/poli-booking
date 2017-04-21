@@ -17,14 +17,17 @@ public interface BloqueRepository extends JpaRepository<BloqueEntity, Long> {
 
     @Query("select b from BloqueEntity b where b.dia = :dia and b.espacio.tipoEspacio = :tipoEspacio "
             + "and b.tiempoInicio > current_timestamp() and b.reservas IS EMPTY order by b.tiempoInicio")
-    List<BloqueEntity> consultarBloquesVigentesPorDiaYTipoEspacio(@DateTimeFormat(iso = ISO.DATE) @Param("dia") Date dia,
+    List<BloqueEntity> consultarBloquesVigentesPorDiaYTipoEspacio(@DateTimeFormat(iso = ISO.DATE) @Param("dia") Date
+                                                                          dia,
                                                                   @Param("tipoEspacio") TipoEspacioEntity tipoEspacio);
 
     @Query("select b from BloqueEntity b where b.espacio.tipoEspacio = :tipoEspacio "
             + "and b.tiempoInicio > current_timestamp() and b.reservas IS EMPTY order by b.tiempoInicio")
     List<BloqueEntity> consultarBloquesVigentesPorTipoEspacio(@Param("tipoEspacio") TipoEspacioEntity tipoEspacio);
 
-    @Query("select b from BloqueEntity b where b.tiempoInicio > current_timestamp() and b.reservas IS EMPTY order by b.tiempoInicio")
-    List<BloqueEntity> consultarBloquesVigentes();
-
+    @Query("select b from BloqueEntity b where b.espacio.tipoEspacio = :tipoEspacio and b.dia >= :diaInicio " +
+            "and b.dia <= :diaFin")
+    List<BloqueEntity> findByTipoEspacioAndDateInterval(@Param("tipoEspacio") TipoEspacioEntity tipoEspacio,
+                                                        @Param("diaInicio") Date diaInicio, @Param("diaFin") Date
+                                                                diaFin);
 }

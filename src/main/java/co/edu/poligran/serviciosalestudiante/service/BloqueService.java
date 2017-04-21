@@ -17,4 +17,6 @@ public interface BloqueService {
     BloqueDTO consultarBloque(Long idBloque);
 
     List<BloqueDTO> generarBloquesMasivamente(TipoEspacioDTO tipoEspacioDTO, Date fechaInicio, Date fechaFin);
+
+    void eliminarBloquesMasivamente(TipoEspacioDTO tipoEspacioDTO, Date fechaInicio, Date fechaFin);
 }

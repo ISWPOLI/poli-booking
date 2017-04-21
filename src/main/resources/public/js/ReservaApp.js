@@ -130,9 +130,9 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                     reservasController.generarBloques();
                 },
 
-                generarBloques: function () {
+                eliminarBloques: function () {
                     var reservasController = this.arrancarControlador(ReservaController);
-                    reservasController.generarBloques();
+                    reservasController.eliminarBloques();
                 },
 
                 arrancarControlador: function (controlador) {
