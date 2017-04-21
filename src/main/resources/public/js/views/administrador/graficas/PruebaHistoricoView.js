@@ -34,7 +34,14 @@ define(
                                                     dataG.addColumn('number', 'Gimnasio');
                                                     dataG.addColumn('number', 'Cancha Futbol');
 
-											       
+											var torta=[['Tipo espacio','# reservas'],
+											['Cubiculos Video',0],
+											['Cubiculos Estudio',0],
+											['Cancha Multiple',0],
+											['Cancha de Tenis',0],
+											['Gimnasio',0],
+											['Cancha Futbol',0]];
+
 											var arr =[];
 											var nCubiculoVideo = 0;
 											var nCubiculoEstudio = 0;
@@ -80,26 +87,30 @@ define(
 												}
 												if (data[i]["bloque"]["espacio"]["tipoEspacio"]["nombre"] == "CUBICULO_VIDEO") {
 													nCubiculoVideo++;
+													torta[1][1]++;
 //													console.log(nCubiculoVideo);
 												} else if (data[i]["bloque"]["espacio"]["tipoEspacio"]["nombre"] == "CUBICULO_ESTUDIO") {
 													nCubiculoEstudio++;
+													torta[2][1]++;
 //													console
 //															.log(nCubiculoEstudio);
 												} else if (data[i]["bloque"]["espacio"]["tipoEspacio"]["nombre"] == "CANCHA_MULTIPLE") {
 													nCanchaMultiple++;
+													torta[3][1]++;
 //													console
 //															.log(nCanchaMultiple);
 												}else if(data[i]["bloque"]["espacio"]["tipoEspacio"]["nombre"]== "CANCHA_TENIS"){
                                                     nCanchaTenis++;
+                                                    torta[4][1]++;
                                                 }else if(data[i]["bloque"]["espacio"]["tipoEspacio"]["nombre"]== "GIMNASIO"){
                                                     nGimnasio++;
+                                                    torta[5][1]++;
                                                 }else if(data[i]["bloque"]["espacio"]["tipoEspacio"]["nombre"]== "CANCHA_FUTBOL"){
                                                     nCanchaFutbol++;
+                                                    torta[6][1]++;
                                                 }
 											}
 
-
-                                             //cont++;
                                              arr[cont]=new Array(7);
                                              date=new Date(diaActual);
                                             arr[cont][0]=date.toLocaleDateString();
@@ -111,6 +122,20 @@ define(
                                             arr[cont][6]=nCanchaFutbol;
                                              
                                              dataG.addRows(arr);
+
+
+                                             google.charts.load('current',{'packages':['corechart']});
+                                             google.charts.setOnLoadCallback(drawChart2);
+
+                                             function drawChart2(){
+                                             	var data = google.visualization.arrayToDataTable(torta);
+                                             	var options={
+                                             		title:'Torta'
+                                             	};                                             	
+                                             	var chart=new google.visualization.PieChart(document.getElementById('torta'));
+                                             	chart.draw(data,options);
+                                             }
+
 
 //											console.log(diaActual);
 //											console.log(nCubiculoVideo
