@@ -1,7 +1,7 @@
 define(
 		[ 'jquery', 'underscore', 'backbone', 'App',
 				'text!templates/administrador/graficas/pruebaHistorico.html' ],
-		function($, _, Backbone, App, pruebaGrafica) {
+		function($, _, Backbone, App, pruebaHistorico) {
 
 			var pruebaHistoricoView = Backbone.View
 					.extend({
@@ -17,7 +17,7 @@ define(
 						datosHistorico : function() {
 							Backbone.$
 									.ajax({
-										url : '/reservas/mis-reservas/reservas-Historico',
+										url : '/reservas/mis-reservas/historico-grafica',
 										type : 'GET',
 
 										success : function(data) {
