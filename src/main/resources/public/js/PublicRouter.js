@@ -6,7 +6,7 @@ define(['backbone', 'App', 'PublicApp'],
                 'login': 'mostrarLogin',
                 'logout': 'logout',
                 'password-recovery': 'mostrarRecuperacionCuenta',
-                'password-change': 'mostrarCambioPassword'
+                'password-change': 'mostrarCambioPassword'                	
             },
             mostrarLogin: function () {
                 var publicApp = this.getApp();

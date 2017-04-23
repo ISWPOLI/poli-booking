@@ -25,7 +25,8 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
                 'calendario-espacio?tipo-espacio=:tipoEspacio': 'mostrarCalendarioEspacio',
                 'prueba-grafica':'mostrarPruebaGrafica',
                 'generar-bloques': 'generarBloques',
-                'eliminar-bloques': 'eliminarBloques'
+                'eliminar-bloques': 'eliminarBloques',
+                'historico-grafica':'mostrarHistoricoGrafica'
             },
 
             mostrarHome: function () {
@@ -134,6 +135,10 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
             mostrarPruebaGrafica: function(){
             	var reservasApp = App.arrancarSubAplicacion(ReservasApp);
                 this.procesarRuta(reservasApp.mostrarPruebaGrafica, reservasApp);
+            },
+            mostrarHistoricoGrafica: function(){
+            	var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+                this.procesarRuta(reservasApp.mostrarHistoricoGrafica, reservasApp);
             },
 
             generarBloques: function () {

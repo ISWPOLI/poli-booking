@@ -44,6 +44,13 @@ public class ReservaServiceImpl extends BaseService implements ReservaService {
         List<ReservaEntity> reservas = reservaRepository.consultarReservasVigentesGrafica();
         return DozerUtils.mapCollection(reservas, ReservaDTO.class, mapper);
     }
+    
+    
+    @Override
+    public List<ReservaDTO> consultarHistorico() {
+    	List<ReservaEntity> reservas = reservaRepository.consultarHistorico();
+        return DozerUtils.mapCollection(reservas, ReservaDTO.class, mapper);
+    }
 
     @Override
     public ReservaDTO crearReserva(UsuarioDTO usuario, BloqueDTO bloque) {

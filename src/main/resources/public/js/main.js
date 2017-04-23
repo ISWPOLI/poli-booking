@@ -49,6 +49,7 @@ require
             EditarUsuarioView: './views/administrador/usuarios/EditarUsuarioView',
             EliminarUsuarioView: './views/administrador/usuarios/EliminarUsuarioView',
             PruebaGraficaView: './views/administrador/graficas/PruebaGraficaView',
+            PruebaHistoricoView: './views/administrador/graficas/PruebaHistoricoView',
 
             // reservas
             HomeView: './views/home/HomeView',
