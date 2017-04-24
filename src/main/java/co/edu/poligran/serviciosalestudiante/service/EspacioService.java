@@ -21,4 +21,6 @@ public interface EspacioService {
 	EspacioDTO crearEspacio(EspacioDTO cubiculo);
 
 	List<EspacioDTO> getEspaciosPorTipoEspacio(TipoEspacioDTO tipoEspacioDTO);
+
+    boolean existeEspacio(String nombre, TipoEspacioDTO tipoEspacio);
 }

@@ -167,7 +167,12 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
                 for (BloquePlantillaDTO bloque : bloquesDelDia) {
 
                     for (EspacioDTO espacio : espacios) {
-                        bloquesParaCrearDTOs.add(bloque.obtenerBloqueDTO(espacio, fechaActual.toDate()));
+                        BloqueDTO bloqueCandidato = bloque.obtenerBloqueDTO(espacio, fechaActual.toDate());
+                        EspacioEntity espacioEntity = mapper.map(espacio, EspacioEntity.class);
+                        if (bloqueRepository.countByEspacioAndTiempoInicio(espacioEntity, bloqueCandidato
+                                .getTiempoInicio()) == 0) {
+                            bloquesParaCrearDTOs.add(bloqueCandidato);
+                        }
                     }
                 }
             }

@@ -86,4 +86,11 @@ public class EspacioServiceImpl extends BaseService implements EspacioService {
         return DozerUtils.mapCollection(espacioRepository.findByTipoEspacio(tipoEspacio), EspacioDTO.class, mapper);
     }
 
+    @Override
+    public boolean existeEspacio(String nombre, TipoEspacioDTO tipoEspacio) {
+        TipoEspacioEntity tipoEspacioEntity = mapper.map(tipoEspacio, TipoEspacioEntity.class);
+        long conteo = espacioRepository.countByNombreAndTipoEspacio(nombre, tipoEspacioEntity);
+        return conteo > 0;
+    }
+
 }

@@ -61,13 +61,7 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
     private BloqueService bloqueService;
 
     @Autowired
-    private EspacioService cubiculoService;
-
-    @Autowired
-    private EspacioService canchaService;
-
-    @Autowired
-    private EspacioService gimnasioService;
+    private EspacioService espacioService;
 
     @Autowired
     private TipoEspacioRepository tipoEspacioRepository;
@@ -181,13 +175,17 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
     }
 
     private void crearBloquePlantilla(DayOfWeek dia, LocalTime inicio, LocalTime fin, TipoEspacioDTO tipoEspacio) {
-        BloquePlantillaDTO bloquePlantilla = new BloquePlantillaDTO();
-        bloquePlantilla.setDia(dia);
-        bloquePlantilla.setTipoEspacio(tipoEspacio);
-        bloquePlantilla.setHoraInicio(inicio.toDateTimeToday().toDate());
-        bloquePlantilla.setHoraFin(fin.toDateTimeToday().toDate());
+        if (!bloquePlantillaService.existePlantillaParaTipoEspacioYDia(tipoEspacio, dia, inicio
+                .toDateTimeToday().toDate()
+        )) {
+            BloquePlantillaDTO bloquePlantilla = new BloquePlantillaDTO();
+            bloquePlantilla.setDia(dia);
+            bloquePlantilla.setTipoEspacio(tipoEspacio);
+            bloquePlantilla.setHoraInicio(inicio.toDateTimeToday().toDate());
+            bloquePlantilla.setHoraFin(fin.toDateTimeToday().toDate());
 
-        bloquePlantillaService.crearBloquePlantilla(bloquePlantilla);
+            bloquePlantillaService.crearBloquePlantilla(bloquePlantilla);
+        }
     }
 
     private void settearTimeZone() {
@@ -229,26 +227,32 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
     }
 
     private void crearCubiculo(String nombre, TipoEspacioDTO tipoEspacioDTO) {
-        EspacioDTO cubiculo = new EspacioDTO();
-        cubiculo.setNombre(nombre);
-        cubiculo.setTipoEspacio(tipoEspacioDTO);
-        cubiculoService.crearEspacio(cubiculo);
+        if (!espacioService.existeEspacio(nombre, tipoEspacioDTO)) {
+            EspacioDTO cubiculo = new EspacioDTO();
+            cubiculo.setNombre(nombre);
+            cubiculo.setTipoEspacio(tipoEspacioDTO);
+            espacioService.crearEspacio(cubiculo);
+        }
     }
 
     private void crearCancha(String nombre, TipoEspacioDTO tipoEspacioDTO) {
-        EspacioDTO cancha = new EspacioDTO();
-        cancha.setNombre(nombre);
-        cancha.setTipoEspacio(tipoEspacioDTO);
-        cancha.setCupos(1);
-        canchaService.crearEspacio(cancha);
+        if (!espacioService.existeEspacio(nombre, tipoEspacioDTO)) {
+            EspacioDTO cancha = new EspacioDTO();
+            cancha.setNombre(nombre);
+            cancha.setTipoEspacio(tipoEspacioDTO);
+            cancha.setCupos(1);
+            espacioService.crearEspacio(cancha);
+        }
     }
 
     private void crearGimansio(String nombre, TipoEspacioDTO tipoEspacioDTO) {
-        EspacioDTO gimnasio = new EspacioDTO();
-        gimnasio.setNombre(nombre);
-        gimnasio.setTipoEspacio(tipoEspacioDTO);
-        gimnasio.setCupos(15);
-        gimnasioService.crearEspacio(gimnasio);
+        if (!espacioService.existeEspacio(nombre, tipoEspacioDTO)) {
+            EspacioDTO gimnasio = new EspacioDTO();
+            gimnasio.setNombre(nombre);
+            gimnasio.setTipoEspacio(tipoEspacioDTO);
+            gimnasio.setCupos(15);
+            espacioService.crearEspacio(gimnasio);
+        }
     }
 
     private void crearBloquesPorDefecto() {

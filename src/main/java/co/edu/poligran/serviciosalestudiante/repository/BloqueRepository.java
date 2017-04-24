@@ -1,6 +1,7 @@
 package co.edu.poligran.serviciosalestudiante.repository;
 
 import co.edu.poligran.serviciosalestudiante.entities.BloqueEntity;
+import co.edu.poligran.serviciosalestudiante.entities.EspacioEntity;
 import co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,4 +31,6 @@ public interface BloqueRepository extends JpaRepository<BloqueEntity, Long> {
     List<BloqueEntity> findByTipoEspacioAndDateInterval(@Param("tipoEspacio") TipoEspacioEntity tipoEspacio,
                                                         @Param("diaInicio") Date diaInicio, @Param("diaFin") Date
                                                                 diaFin);
+
+    long countByEspacioAndTiempoInicio(EspacioEntity espacio, Date tiempoInicio);
 }

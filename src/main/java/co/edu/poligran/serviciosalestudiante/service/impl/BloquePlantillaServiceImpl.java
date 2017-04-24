@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.DayOfWeek;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,7 +34,16 @@ public class BloquePlantillaServiceImpl extends BaseService implements BloquePla
     @Override
     public List<BloquePlantillaDTO> consultarBloquesPlantillaPorTipoEspacio(TipoEspacioDTO tipoEspacio) {
         TipoEspacioEntity tipoEspacioEntity = mapper.map(tipoEspacio, TipoEspacioEntity.class);
-        return DozerUtils.mapCollection(bloquePlantillaRepository.consultarBloquesPlantillaPorTipoEspacio(tipoEspacioEntity),
+        return DozerUtils.mapCollection(bloquePlantillaRepository.consultarBloquesPlantillaPorTipoEspacio
+                        (tipoEspacioEntity),
                 BloquePlantillaDTO.class, mapper);
+    }
+
+    @Override
+    public boolean existePlantillaParaTipoEspacioYDia(TipoEspacioDTO tipoEspacio, DayOfWeek dia, Date horaInicio) {
+        TipoEspacioEntity tipoEspacioEntity = mapper.map(tipoEspacio, TipoEspacioEntity.class);
+        long conteo = bloquePlantillaRepository.contarBloquesPlantillaPorTipoEspacioYDia(tipoEspacioEntity,
+                dia, horaInicio);
+        return conteo > 0;
     }
 }

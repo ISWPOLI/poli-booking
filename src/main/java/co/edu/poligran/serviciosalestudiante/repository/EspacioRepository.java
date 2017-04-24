@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface EspacioRepository extends JpaRepository<EspacioEntity, Long> {
     List<EspacioEntity> findByTipoEspacio(TipoEspacioEntity tipoEspacio);
+
+    long countByNombreAndTipoEspacio(String nombre, TipoEspacioEntity tipoEspacio);
 }
