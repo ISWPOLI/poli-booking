@@ -1,2 +1,3 @@
 INSERT INTO public.usuarios (id, active, email, full_name, password, username) VALUES (316, true, 'test2342342342432@gmail.com', 'Admin', '$2a$10$Fdb663ZXRsNAFJkhpg86mOsDOyKhOydnSDADT/VMYSXGDm4WRTkYa', 'admin');
 INSERT INTO public.usuarios (id, active, email, full_name, password, username) VALUES (317, true, 'estudiante.poli.booking@gmail.com', 'Estudiante por Defecto', '$2a$10$655CpJwocMHk2H9uLudnGuEg.xhB8h62x4KZ6iywmXrpS2m7WxDne', 'estudiante');
+INSERT INTO public.usuarios (id, active, email, full_name, password, username) VALUES (4704, true, 'acpaternina@poli.edu.co', 'Antonio Paternina', '$2a$10$6XJgqM7JtAL7LBnEys.9d.sZ884KbQdBrkNdey/Q0bjlUlLXu54Km', 'apaternina');
