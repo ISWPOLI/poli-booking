@@ -3,9 +3,11 @@ package co.edu.poligran.serviciosalestudiante.service.impl;
 import co.edu.poligran.serviciosalestudiante.entities.BloqueEntity;
 import co.edu.poligran.serviciosalestudiante.entities.ReservaEntity;
 import co.edu.poligran.serviciosalestudiante.entities.UsuarioEntity;
+import co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException;
 import co.edu.poligran.serviciosalestudiante.repository.ReservaRepository;
 import co.edu.poligran.serviciosalestudiante.service.NotificadorCorreosService;
 import co.edu.poligran.serviciosalestudiante.service.ReservaService;
+import co.edu.poligran.serviciosalestudiante.service.UsuarioService;
 import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
@@ -27,6 +29,9 @@ public class ReservaServiceImpl extends BaseService implements ReservaService {
     @Autowired
     private NotificadorCorreosService notificadorCorreosService;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     @Override
     public ReservaDTO consultarReserva(Long idReserva) {
         ReservaEntity reservaEntity = reservaRepository.findOne(idReserva);
@@ -34,21 +39,27 @@ public class ReservaServiceImpl extends BaseService implements ReservaService {
     }
 
     @Override
-    public List<ReservaDTO> consultarReservasVigentesPorUsuario(UsuarioDTO usuario) {
+    public List<ReservaDTO> consultarReservasVigentesPorUsuario(String usuario) throws UserNotFoundException {
+        UsuarioDTO usuarioDTO = usuarioService.buscarPorUsername(usuario);
         List<ReservaEntity> reservas = reservaRepository
-                .consultarReservasVigentesPorUsuario(mapper.map(usuario, UsuarioEntity.class));
+                .consultarReservasVigentesPorUsuario(mapper.map(usuarioDTO, UsuarioEntity.class));
         return DozerUtils.mapCollection(reservas, ReservaDTO.class, mapper);
+    }
+
+    @Override
+    public List<ReservaDTO> consultarReservasVigentesPorUsuario(UsuarioDTO usuario) throws UserNotFoundException {
+        return consultarReservasVigentesPorUsuario(usuario.getUsername());
     }
 
     public List<ReservaDTO> consultarReservasVigentesGrafica() {
         List<ReservaEntity> reservas = reservaRepository.consultarReservasVigentesGrafica();
         return DozerUtils.mapCollection(reservas, ReservaDTO.class, mapper);
     }
-    
-    
+
+
     @Override
     public List<ReservaDTO> consultarHistorico() {
-    	List<ReservaEntity> reservas = reservaRepository.consultarHistorico();
+        List<ReservaEntity> reservas = reservaRepository.consultarHistorico();
         return DozerUtils.mapCollection(reservas, ReservaDTO.class, mapper);
     }
 

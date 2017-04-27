@@ -293,10 +293,10 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
 
     private void crearUsuariosPorDefecto() throws UsernameIsNotUniqueException, UserNotFoundException {
         logger.info("creando usuarios por defecto");
-        if (!usuarioService.isUserCreated(defaultAdminUsername)) {
+        if (!usuarioService.existeUsuario(defaultAdminUsername)) {
             createDefaultAdmin();
         }
-        if (!usuarioService.isUserCreated(defaultEstudianteUsername)) {
+        if (!usuarioService.existeUsuario(defaultEstudianteUsername)) {
             createDefaultEstudiante();
         }
     }
@@ -308,7 +308,7 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
         admin.setActive(true);
         admin.setEmail(defaultAdminEmail);
         admin.setFullName(defaultAdminFullName);
-        usuarioService.create(admin, RoleTypeEnum.ADMIN);
+        usuarioService.crear(admin, RoleTypeEnum.ADMIN);
     }
 
     private void createDefaultEstudiante() throws UsernameIsNotUniqueException {
@@ -318,6 +318,6 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
         estudiante.setActive(true);
         estudiante.setEmail(defaultEstudianteEmail);
         estudiante.setFullName(defaultEstudianteFullName);
-        usuarioService.create(estudiante, RoleTypeEnum.STUDENT);
+        usuarioService.crear(estudiante, RoleTypeEnum.STUDENT);
     }
 }

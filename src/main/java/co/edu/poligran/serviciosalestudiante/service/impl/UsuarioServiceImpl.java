@@ -1,21 +1,5 @@
 package co.edu.poligran.serviciosalestudiante.service.impl;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity;
 import co.edu.poligran.serviciosalestudiante.entities.RoleTypeEnum;
 import co.edu.poligran.serviciosalestudiante.entities.UsuarioEntity;
@@ -29,6 +13,17 @@ import co.edu.poligran.serviciosalestudiante.service.UsuarioService;
 import co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.RoleDTO;
 import co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 @Service
 @Transactional
@@ -50,8 +45,8 @@ public class UsuarioServiceImpl extends BaseService implements UsuarioService {
 	private UserDetailsServiceImpl userDetailsService;
 
 	@Override
-	public UsuarioDTO findByUsername(String username) throws UserNotFoundException {
-		UsuarioEntity user = userRepository.findByUsername(username);
+    public UsuarioDTO buscarPorUsername(String username) throws UserNotFoundException {
+        UsuarioEntity user = userRepository.findByUsername(username);
 
 		if (user != null) {
 			return mapper.map(user, UsuarioDTO.class);
@@ -61,8 +56,8 @@ public class UsuarioServiceImpl extends BaseService implements UsuarioService {
 	}
 
 	@Override
-	public UsuarioDTO create(UsuarioDTO userDTO, RoleTypeEnum roleType) throws UsernameIsNotUniqueException {
-		processValidations(userDTO);
+    public UsuarioDTO crear(UsuarioDTO userDTO, RoleTypeEnum roleType) throws UsernameIsNotUniqueException {
+        processValidations(userDTO);
 
 		setUserRole(roleType, userDTO);
 
@@ -74,8 +69,8 @@ public class UsuarioServiceImpl extends BaseService implements UsuarioService {
 	}
 
 	private void processValidations(UsuarioDTO userBean) throws UsernameIsNotUniqueException {
-		if (!isUsernameUnique(userBean.getId(), userBean.getUsername())) {
-			throw new UsernameIsNotUniqueException();
+        if (!esUsernameUnico(userBean.getId(), userBean.getUsername())) {
+            throw new UsernameIsNotUniqueException();
 		}
 	}
 
@@ -85,23 +80,23 @@ public class UsuarioServiceImpl extends BaseService implements UsuarioService {
 	}
 
 	@Override
-	public boolean isUsernameUnique(Long idUsuario, String username) {
-		try {
-			UsuarioDTO persistedUser = findByUsername(username);
-			return persistedUser != null && persistedUser.getId().compareTo(idUsuario) != 0;
+    public boolean esUsernameUnico(Long idUsuario, String username) {
+        try {
+            UsuarioDTO persistedUser = buscarPorUsername(username);
+            return persistedUser != null && persistedUser.getId().compareTo(idUsuario) != 0;
 		} catch (UserNotFoundException e) {
 			return true;
 		}
 	}
 
 	@Override
-	public boolean isUserCreated(String username) {
-		return userRepository.isUserCreated(username);
+    public boolean existeUsuario(String username) {
+        return userRepository.isUserCreated(username);
 	}
 
 	@Override
-	public UsuarioDTO findByEmail(String email) throws UserNotFoundException {
-		UsuarioEntity user = userRepository.findByEmail(email);
+    public UsuarioDTO buscarPorCorreo(String email) throws UserNotFoundException {
+        UsuarioEntity user = userRepository.findByEmail(email);
 		if (user != null) {
 			return mapper.map(user, UsuarioDTO.class);
 		} else {
@@ -110,8 +105,8 @@ public class UsuarioServiceImpl extends BaseService implements UsuarioService {
 	}
 
 	@Override
-	public PasswordResetTokenDTO createPasswordResetTokenForUser(UsuarioDTO user) {
-		PasswordResetTokenEntity tokenEntity = passwordResetTokenRepository
+    public PasswordResetTokenDTO crearTokenRestablecerPassword(UsuarioDTO user) {
+        PasswordResetTokenEntity tokenEntity = passwordResetTokenRepository
 				.findByUser(mapper.map(user, UsuarioEntity.class));
 		if (tokenEntity != null) {
 			passwordResetTokenRepository.delete(tokenEntity.getId());
@@ -139,8 +134,8 @@ public class UsuarioServiceImpl extends BaseService implements UsuarioService {
 	}
 
 	@Override
-	public void authorizePasswordChange(long id, String token) throws InvalidPasswordResetTokenException {
-		PasswordResetTokenEntity passToken = passwordResetTokenRepository.findByToken(token);
+    public void autorizarCambioPassword(long id, String token) throws InvalidPasswordResetTokenException {
+        PasswordResetTokenEntity passToken = passwordResetTokenRepository.findByToken(token);
 		validateToken(id, passToken);
 
 		UsuarioEntity user = passToken.getUser();
@@ -151,8 +146,8 @@ public class UsuarioServiceImpl extends BaseService implements UsuarioService {
 	}
 
 	@Override
-	public void validatePasswordResetToken(long id, String token) throws InvalidPasswordResetTokenException {
-		PasswordResetTokenEntity passToken = passwordResetTokenRepository.findByToken(token);
+    public void validarTokenRestablecerPassword(long id, String token) throws InvalidPasswordResetTokenException {
+        PasswordResetTokenEntity passToken = passwordResetTokenRepository.findByToken(token);
 		validateToken(id, passToken);
 	}
 
@@ -171,20 +166,20 @@ public class UsuarioServiceImpl extends BaseService implements UsuarioService {
 	}
 
 	@Override
-	public void changeUserPassword(String newPassword) {
-		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public void cambiarPassword(String newPassword) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UsuarioEntity userEntity = userRepository.findByUsername(user.getUsername());
 
 		userEntity.setPassword(passwordEncoder.encode(newPassword));
 		userRepository.saveAndFlush(userEntity);
 
-		deletePasswordResetTokenForUser(mapper.map(userEntity, UsuarioDTO.class));
-		logger.info("password for user {} successfully changed", user.getUsername());
+        eliminarTokenRestablecerPassword(mapper.map(userEntity, UsuarioDTO.class));
+        logger.info("password for user {} successfully changed", user.getUsername());
 	}
 
 	@Override
-	public void deletePasswordResetTokenForUser(UsuarioDTO user) {
-		PasswordResetTokenEntity tokenEntity = passwordResetTokenRepository
+    public void eliminarTokenRestablecerPassword(UsuarioDTO user) {
+        PasswordResetTokenEntity tokenEntity = passwordResetTokenRepository
 				.findByUser(mapper.map(user, UsuarioEntity.class));
 		if (tokenEntity != null) {
 			passwordResetTokenRepository.delete(tokenEntity.getId());

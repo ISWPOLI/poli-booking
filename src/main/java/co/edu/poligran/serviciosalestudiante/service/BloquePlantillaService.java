@@ -11,6 +11,7 @@ public interface BloquePlantillaService {
 
     BloquePlantillaDTO crearBloquePlantilla(BloquePlantillaDTO bloquePlantillaDTO);
 
+    List<BloquePlantillaDTO> consultarBloquesPlantillaPorTipoEspacio(String tipoEspacio);
     List<BloquePlantillaDTO> consultarBloquesPlantillaPorTipoEspacio(TipoEspacioDTO tipoEspacio);
 
     boolean existePlantillaParaTipoEspacioYDia(TipoEspacioDTO tipoEspacio, DayOfWeek dia, Date horaInicio);
