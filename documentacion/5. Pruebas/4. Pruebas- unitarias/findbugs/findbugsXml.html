@@ -1,0 +1,2842 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>
+        FindBugs (3.0.1)
+        Analysis for
+        servicios-al-estudiante</title>
+    <style type="text/css">
+        html, body, div, form {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            padding: 3px;
+        }
+
+        a, a:link, a:active, a:visited, a:hover {
+            text-decoration: none;
+            color: black;
+        }
+
+        #navlist {
+            padding: 3px 0;
+            margin-left: 0;
+            border-bottom: 1px solid #778;
+            font: bold 12px Verdana, sans-serif;
+        }
+
+        #navlist li {
+            list-style: none;
+            margin: 0;
+            display: inline;
+        }
+
+        #navlist li a {
+            padding: 3px 0.5em;
+            margin-left: 3px;
+            border: 1px solid #778;
+            border-bottom: none;
+            background: #DDE;
+            text-decoration: none;
+        }
+
+        #navlist li a:link {
+            color: #448;
+        }
+
+        #navlist li a:visited {
+            color: #667;
+        }
+
+        #navlist li a:hover {
+            color: #000;
+            background: #AAE;
+            border-color: #227;
+        }
+
+        #navlist li a.current {
+            background: white;
+            border-bottom: 1px solid white;
+        }
+
+        #filterWrapper {
+            margin-bottom: 5px;
+        }
+
+        #displayWrapper {
+            margin-top: 5px;
+        }
+
+        .message {
+            background: #BBBBBB;
+            border: 1px solid #778;
+        }
+
+        .displayContainer {
+            border: 1px solid #555555;
+            margin-top: 3px;
+            padding: 3px;
+            display: none;
+        }
+
+        #summaryContainer table,
+        #historyContainer table {
+            border: 1px solid black;
+        }
+
+        #summaryContainer th,
+        #historyContainer th {
+            background: #aaaaaa;
+            color: white;
+        }
+
+        #summaryContainer th, #summaryContainer td,
+        #historyContainer th, #historyContainer td {
+            padding: 2px 4px 2px 4px;
+        }
+
+        .summary-name {
+            background: #eeeeee;
+            text-align: left;
+        }
+
+        .summary-size {
+            background: #eeeeee;
+            text-align: center;
+        }
+
+        .summary-priority-all {
+            background: #dddddd;
+            text-align: center;
+        }
+
+        .summary-priority-1 {
+            background: red;
+            text-align: center;
+        }
+
+        .summary-priority-2 {
+            background: orange;
+            text-align: center;
+        }
+
+        .summary-priority-3 {
+            background: green;
+            text-align: center;
+        }
+
+        .summary-priority-4 {
+            background: blue;
+            text-align: center;
+        }
+
+        .bugList-level1 {
+            margin-bottom: 5px;
+        }
+
+        .bugList-level1, .bugList-level2, .bugList-level3, .bugList-level4 {
+            background-color: #ffffff;
+            margin-left: 15px;
+            padding-left: 10px;
+        }
+
+        .bugList-level1-label, .bugList-level2-label, .bugList-level3-label, .bugList-level4-label {
+            background-color: #bbbbbb;
+            border: 1px solid black;
+            padding: 1px 3px 1px 3px;;
+        }
+
+        .bugList-level2-label, .bugList-level3-label, .bugList-level4-label {
+            border-width: 0px 1px 1px 1px;
+        }
+
+        .bugList-level4-label {
+            background-color: #ffffff;
+            border: 0px 0px 1px 0px;
+        }
+
+        .bugList-level4 {
+            border: 0px 1px 1px 1px;
+        }
+
+        .bugList-level4-inner {
+            border-style: solid;
+            border-color: black;
+            border-width: 0px 1px 1px 1px;
+        }
+
+        .b-r {
+            font-size: 10pt;
+            font-weight: bold;
+            padding: 0 0 0 60px;
+        }
+
+        .b-d {
+            font-weight: normal;
+            background: #ccccc0;
+            padding: 0 5px 0 5px;
+            margin: 0px;
+        }
+
+        .b-1 {
+            background: red;
+            height: 0.5em;
+            width: 1em;
+            margin-right: 0.5em;
+        }
+
+        .b-2 {
+            background: orange;
+            height: 0.5em;
+            width: 1em;
+            margin-right: 0.5em;
+        }
+
+        .b-3 {
+            background: green;
+            height: 0.5em;
+            width: 1em;
+            margin-right: 0.5em;
+        }
+
+        .b-4 {
+            background: blue;
+            height: 0.5em;
+            width: 1em;
+            margin-right: 0.5em;
+        }
+
+    </style>
+    <script type="text/javascript">
+        var menus = new Array('summary', 'info', 'history', 'listByCategories', 'listByPackages');
+        var selectedMenuId = "summary";
+        var selectedVersion = -1;
+        var selectedPriority = 4;
+        var lastVersion = 0;
+        var includeFixedIntroducedBugs;
+
+        var bPackageNamesPopulated = false;
+
+        var filterContainerId = "filterWrapper";
+        var historyControlContainerId = "historyControlWrapper";
+        var messageContainerId = "messageContainer";
+        var summaryContainerId = "summaryContainer";
+        var infoContainerId = "infoContainer";
+        var historyContainerId = "historyContainer";
+        var listByCategoriesContainerId = "listByCategoriesContainer";
+        var listByPackagesContainerId = "listByPackagesContainer";
+
+        var idxCatKey = 0;
+        var idxCatDescr = 1;
+        var idxBugCat = 1;
+        var idxCodeKey = 0;
+        var idxCodeDescr = 1;
+        var idxBugCode = 2;
+        var idxPatternKey = 2;
+        var idxPatternDescr = 3;
+        var idxBugPattern = 3;
+        var idxBugKey = 0;
+        var idxBugDescr = 6;
+        var idxBugClass = 6, idxBugPackage = 7;
+
+        // main init function
+        function init() {
+            loadFilter();
+            selectMenu(selectedMenuId);
+            lastVersion = versions.length - 1;
+        }
+
+        // menu callback function
+        function selectMenu(menuId) {
+            document.getElementById(selectedMenuId).className = "none";
+            document.getElementById(menuId).className = "current";
+            if (menuId != selectedMenuId) {
+                hideMenu(selectedMenuId);
+                selectedMenuId = menuId;
+            }
+            if (menuId == "summary") displaySummary();
+            if (menuId == "info") displayInfo();
+            if (menuId == "history") displayHistory();
+            if (menuId == "listByCategories") displayListByCategories();
+            if (menuId == "listByPackages") displayListByPackages();
+        }
+
+        // display filter
+        function loadFilter() {
+            var versionsBox = document.findbugsForm.versions.options;
+            versionsBox[0] = new Option(" -- All Versions -- ", "-1");
+            versionsBox.selectedIndex = 0;
+            if (versions.length >= 1) {
+                for (x = 0; versions.length > 1 && x < versions.length; x++) {
+                    versionsBox[x + 1] = new Option(" Bugs at release: " + versions[versions.length - x - 1][1], versions[versions.length - x - 1][0]);
+                }
+            }
+
+            var prioritiesBox = document.findbugsForm.priorities.options;
+            prioritiesBox[0] = new Option(" -- All priorities -- ", "4");
+            prioritiesBox[1] = new Option(" P1 bugs ", "1");
+            prioritiesBox[2] = new Option(" P1 and P2 bugs ", "2");
+            prioritiesBox[3] = new Option(" P1, P2 and P3 bugs ", "3");
+        }
+
+        // display a message
+        function displayMessage(msg) {
+            var container = document.getElementById(messageContainerId);
+            container.innerHTML = "<div class='message'>" + msg + "</div>";
+        }
+
+        // reset displayed message
+        function resetMessage() {
+            var container = document.getElementById(messageContainerId);
+            container.innerHTML = "";
+        }
+
+        function hideMenu(menuId) {
+            var container = menuId + "Container";
+            document.getElementById(container).style.display = "none";
+        }
+
+        // filter callback function
+        function filter() {
+            var versionsBox = document.findbugsForm.versions.options;
+            selectedVersion = versionsBox[versionsBox.selectedIndex].value;
+
+            var prioritiesBox = document.findbugsForm.priorities.options;
+            selectedPriority = prioritiesBox[prioritiesBox.selectedIndex].value;
+
+            selectMenu(selectedMenuId);
+        }
+
+        // includeFixedBugs callback function
+        function includeFixedIntroducedBugsInHistory() {
+            includeFixedIntroducedBugs =
+                document.findbugsHistoryControlForm.includeFixedIntroducedBugs.checked;
+
+            selectMenu(selectedMenuId);
+        }
+
+        // display summary tab
+        function displaySummary() {
+            resetMessage();
+            hide(filterContainerId);
+            hide(historyControlContainerId);
+            var container = document.getElementById(summaryContainerId);
+            container.style.display = "block";
+        }
+
+        // display info tab
+        function displayInfo() {
+            resetMessage();
+            hide(filterContainerId);
+            hide(historyControlContainerId);
+            var container = document.getElementById(infoContainerId);
+            container.style.display = "block";
+        }
+
+        // display history tab
+        function displayHistory() {
+            displayMessage("Loading history...");
+            hide(filterContainerId);
+            show(historyControlContainerId);
+            var container = document.getElementById(historyContainerId);
+            var content = "";
+            var i = 0;
+            var p = [0, 0, 0, 0, 0];
+            var f = [0, 0, 0, 0, 0];
+
+            content += "<table><tr><th>Release</th><th>Bugs</th><th>Bugs p1</th><th>Bugs p2</th><th>Bugs p3</th><th>Bugs Exp.</th></tr>";
+
+            var aSpan = "<span title='Bugs introduced in this release that have not been fixed.'>";
+            var fSpan = "<span title='Bugs fixed in this release.'>";
+            var fiSpan = "<span title='Bugs introduced in this release that were fixed in later releases.'>";
+            var afiSpan = "<span title='Total number of bugs introduced in this release.'>";
+            var eSpan = "</span>";
+
+            if (includeFixedIntroducedBugs) {
+                for (i = (versions.length - 1); i > 0; i--) {
+                    v = countBugsVersion(i, 4);
+                    t = countTotalBugsVersion(i);
+                    o = countFixedButActiveBugsVersion(i);
+                    f = countFixedBugsInVersion(i);
+                    fi = countFixedBugsIntroducedInVersion(i);
+                    content += "<tr>";
+                    content += "<td class='summary-name'>" + versions[i][1] + "</td>";
+                    content += "<td class='summary-priority-all'> " + (t[0] + o[0]) + " (+" + afiSpan + (v[0] + fi[0]) + eSpan +
+                        " [" + aSpan + v[0] + eSpan + " / " + fiSpan + fi[0] + eSpan + "] " + eSpan + " / -" + fSpan + f[0] + eSpan + ") </td>";
+                    content += "<td class='summary-priority-1'> " + (t[1] + o[1]) + " (+" + afiSpan + (v[1] + fi[1]) + eSpan +
+                        " [" + aSpan + v[1] + eSpan + " / " + fiSpan + fi[1] + eSpan + "] " + eSpan + " / -" + fSpan + f[1] + eSpan + ") </td>";
+                    content += "<td class='summary-priority-2'> " + (t[2] + o[2]) + " (+" + afiSpan + (v[2] + fi[2]) + eSpan +
+                        " [" + aSpan + v[2] + eSpan + " / " + fiSpan + fi[2] + eSpan + "] " + eSpan + " / -" + fSpan + f[2] + eSpan + ") </td>";
+                    content += "<td class='summary-priority-3'> " + (t[3] + o[3]) + " (+" + afiSpan + (v[3] + fi[3]) + eSpan +
+                        " [" + aSpan + v[3] + eSpan + " / " + fiSpan + fi[3] + eSpan + "] " + eSpan + " / -" + fSpan + f[3] + eSpan + ") </td>";
+                    content += "<td class='summary-priority-4'> " + (t[4] + o[4]) + " (+" + afiSpan + (v[4] + fi[4]) + eSpan +
+                        " [" + aSpan + v[4] + eSpan + " / " + fiSpan + fi[4] + eSpan + "] " + eSpan + " / -" + fSpan + f[4] + eSpan + ") </td>";
+                    content += "</tr>";
+                }
+            } else {
+                for (i = (versions.length - 1); i > 0; i--) {
+                    v = countBugsVersion(i, 4);
+                    t = countTotalBugsVersion(i);
+                    o = countFixedButActiveBugsVersion(i);
+                    f = countFixedBugsInVersion(i);
+                    content += "<tr>";
+                    content += "<td class='summary-name'>" + versions[i][1] + "</td>";
+                    content += "<td class='summary-priority-all'> " + (t[0] + o[0]) + " (+" + aSpan + v[0] + eSpan + " / -" + fSpan + f[0] + eSpan + ") </td>";
+                    content += "<td class='summary-priority-1'  > " + (t[1] + o[1]) + " (+" + aSpan + v[1] + eSpan + " / -" + fSpan + f[1] + eSpan + ") </td>";
+                    content += "<td class='summary-priority-2'  > " + (t[2] + o[2]) + " (+" + aSpan + v[2] + eSpan + " / -" + fSpan + f[2] + eSpan + ") </td>";
+                    content += "<td class='summary-priority-3'  > " + (t[3] + o[3]) + " (+" + aSpan + v[3] + eSpan + " / -" + fSpan + f[3] + eSpan + ") </td>";
+                    content += "<td class='summary-priority-4'  > " + (t[4] + o[4]) + " (+" + aSpan + v[4] + eSpan + " / -" + fSpan + f[4] + eSpan + ") </td>";
+                    content += "</tr>";
+                }
+            }
+
+            t = countTotalBugsVersion(0);
+            o = countFixedButActiveBugsVersion(0);
+            content += "<tr>";
+            content += "<td class='summary-name'>" + versions[0][1] + "</td>";
+            content += "<td class='summary-priority-all'> " + (t[0] + o[0]) + " </td>";
+            content += "<td class='summary-priority-1'  > " + (t[1] + o[1]) + " </td>";
+            content += "<td class='summary-priority-2'  > " + (t[2] + o[2]) + " </td>";
+            content += "<td class='summary-priority-3'  > " + (t[3] + o[3]) + " </td>";
+            content += "<td class='summary-priority-4'  > " + (t[4] + o[4]) + " </td>";
+            content += "</tr>";
+
+            content += "</table>";
+            container.innerHTML = content;
+            container.style.display = "block";
+            resetMessage();
+        }
+
+        // display list by cat tab
+        function displayListByCategories() {
+            hide(historyControlContainerId);
+            show(filterContainerId);
+            var container = document.getElementById(listByCategoriesContainerId);
+            container.innerHTML = "";
+            container.style.display = "block";
+            displayMessage("Loading stats (categories)...");
+            container.innerHTML = displayLevel1("lbc", "Stats by Bug Categories");
+            resetMessage();
+        }
+
+        // display list by package tab
+        function displayListByPackages() {
+            hide(historyControlContainerId);
+            show(filterContainerId);
+            var container = document.getElementById(listByPackagesContainerId);
+            container.style.display = "block";
+            if (!bPackageNamesPopulated) {
+                displayMessage("Initializing...");
+                populatePackageNames();
+            }
+            displayMessage("Loading stats (packages)...");
+            container.innerHTML = displayLevel1("lbp", "Stats by Bug Package");
+            resetMessage();
+        }
+
+        // callback function for list item click
+        function toggleList(listType, containerId, id1, id2, id3) {
+            var container = document.getElementById(containerId);
+            if (container.style.display == "block") {
+                container.style.display = "none";
+            } else {
+                if (listType == "lbc") {
+                    if (id1.length > 0 && id2.length == 0 && id3.length == 0) {
+                        displayCategoriesCodes(containerId, id1);
+                    } else if (id1.length > 0 && id2.length > 0 && id3.length == 0) {
+                        displayCategoriesCodesPatterns(containerId, id1, id2);
+                    } else if (id1.length > 0 && id2.length > 0 && id3.length > 0) {
+                        displayCategoriesCodesPatternsBugs(containerId, id1, id2, id3);
+                    } else {
+                        // ???
+                    }
+                } else if (listType == "lbp") {
+                    if (id1.length > 0 && id2.length == 0 && id3.length == 0) {
+                        displayPackageCodes(containerId, id1);
+                    } else if (id1.length > 0 && id2.length > 0 && id3.length == 0) {
+                        displayPackageClassPatterns(containerId, id1, id2);
+                    } else if (id1.length > 0 && id2.length > 0 && id3.length > 0) {
+                        displayPackageClassPatternsBugs(containerId, id1, id2, id3);
+                    } else {
+                        // ???
+                    }
+                } else {
+                    // ????
+                }
+            }
+        }
+
+        // list by categories, display bug cat>codes
+        function displayCategoriesCodes(containerId, catId) {
+            displayMessage("Loading stats (codes)...");
+            var container = document.getElementById(containerId);
+            container.style.display = "block";
+            if (container.innerHTML == "Loading..." || container.innerHTML == "") {
+                container.innerHTML = displayLevel2("lbc", catId);
+            }
+            resetMessage();
+        }
+
+        // list by categories, display bug package>codes
+        function displayPackageCodes(containerId, packageId) {
+            displayMessage("Loading stats (codes)...");
+            var container = document.getElementById(containerId);
+            container.style.display = "block";
+            if (container.innerHTML == "Loading..." || container.innerHTML == "") {
+                container.innerHTML = displayLevel2("lbp", packageId);
+            }
+            resetMessage();
+        }
+
+        // list by categories, display bug cat>codes>patterns
+        function displayCategoriesCodesPatterns(containerId, catId, codeId) {
+            displayMessage("Loading stats (patterns)...");
+            var container = document.getElementById(containerId);
+            container.style.display = "block";
+            if (container.innerHTML == "Loading..." || container.innerHTML == "")
+                container.innerHTML = displayLevel3("lbc", catId, codeId);
+            resetMessage();
+        }
+
+        // list by package, display bug package>class>patterns
+        function displayPackageClassPatterns(containerId, packageId, classId) {
+            displayMessage("Loading stats (patterns)...");
+            var container = document.getElementById(containerId);
+            container.style.display = "block";
+            if (container.innerHTML == "Loading..." || container.innerHTML == "")
+                container.innerHTML = displayLevel3("lbp", packageId, classId);
+            resetMessage();
+        }
+
+        // list by categories, display bug cat>codes>patterns>bugs
+        function displayCategoriesCodesPatternsBugs(containerId, catId, codeId, patternId) {
+            displayMessage("Loading stats (bugs)...");
+            var container = document.getElementById(containerId);
+            container.style.display = "block";
+            if (container.innerHTML == "Loading..." || container.innerHTML == "")
+                container.innerHTML = displayLevel4("lbc", catId, codeId, patternId);
+            resetMessage();
+        }
+
+        // list by package, display bug package>class>patterns>bugs
+        function displayPackageClassPatternsBugs(containerId, packageId, classId, patternId) {
+            displayMessage("Loading stats (bugs)...");
+            var container = document.getElementById(containerId);
+            container.style.display = "block";
+            if (container.innerHTML == "Loading..." || container.innerHTML == "")
+                container.innerHTML = displayLevel4("lbp", packageId, classId, patternId);
+            resetMessage();
+        }
+
+        // generate level 1 list
+        function displayLevel1(list, title) {
+            var content = "";
+            var content2 = "";
+
+            content += "<h3>" + title + "</h3>";
+            content += getPriorityLegend();
+            content2 += "<div class='bugList'>";
+
+            var id = "";
+            var containerId = "";
+            var subContainerId = "";
+            var prefixSub = "";
+            var prefixId = "";
+            var p = [0, 0, 0, 0, 0];
+            var numberOfBugs = 0;
+            var label = "";
+            var max = 0;
+            if (list == "lbc") {
+                max = categories.length;
+            } else if (list == "lbp") {
+                max = packageStats.length;
+            }
+
+            for (var x = 0; x < max - 1; x++) {
+                if (list == "lbp" && packageStats[x][1] == "0") continue;
+
+                if (list == "lbc") {
+                    id = categories[x][idxCatKey];
+                    label = categories[x][idxCatDescr];
+                    containerId = "categories-" + id;
+                    subContainerId = "cat-" + id;
+                    p = countBugsCat(selectedVersion, selectedPriority, id, idxBugCat);
+                }
+                if (list == "lbp") {
+                    id = packageStats[x][0];
+                    label = packageStats[x][0];
+                    containerId = "packages-" + id;
+                    subContainerId = "package-" + id;
+                    p = countBugsPackage(selectedVersion, selectedPriority, id, idxBugPackage);
+                }
+
+                subContainerId = prefixSub + id;
+
+                var total = p[1] + p[2] + p[3] + p[4];
+                if (total > 0) {
+                    content2 += addListItem(1, containerId, label, total, p, subContainerId,
+                        "toggleList('" + list + "', '" + subContainerId + "', '" + id + "', '', '')"
+                    );
+                }
+                numberOfBugs += total;
+            }
+            content2 += "</div>";
+            content += "<h4>Total number of bugs";
+            if (selectedVersion != -1) {
+                content += " (introduced in release " + versions[selectedVersion][1] + ")";
+            }
+            content += ": " + numberOfBugs + "</h4>";
+            return content + content2;
+        }
+
+        // generate level 2 list
+        function displayLevel2(list, id1) {
+            var content = "";
+            var code = "";
+            var containerId = "";
+            var subContainerId = "";
+            var p = [0, 0, 0, 0, 0];
+            var max = 0;
+            var id2 = "";
+            if (list == "lbc") {
+                max = codes.length;
+            } else if (list == "lbp") {
+                max = classStats.length;
+            }
+
+            for (var x = 0; x < max - 1; x++) {
+                if (list == "lbp" && classStats[x][3] == "0") continue;
+
+                if (list == "lbc") {
+                    id2 = codes[x][idxCodeKey];
+                    label = codes[x][idxCodeDescr];
+                    containerId = "codes-" + id1;
+                    subContainerId = "cat-" + id1 + "-code-" + id2;
+                    p = countBugsCode(selectedVersion, selectedPriority, id1, idxBugCat, id2, idxBugCode);
+                }
+                if (list == "lbp") {
+                    id2 = classStats[x][0];
+                    label = classStats[x][0];
+                    containerId = "packages-" + id1;
+                    subContainerId = "package-" + id1 + "-class-" + id2;
+                    p = countBugsClass(selectedVersion, selectedPriority, id1, idxBugPackage, id2, idxBugClass);
+                }
+
+                var total = p[1] + p[2] + p[3] + p[4];
+                if (total > 0) {
+                    content += addListItem(2, containerId, label, total, p, subContainerId,
+                        "toggleList('" + list + "', '" + subContainerId + "', '" + id1 + "', '" + id2 + "', '')"
+                    );
+                }
+            }
+            return content;
+        }
+
+        // generate level 3 list
+        function displayLevel3(list, id1, id2) {
+            var content = "";
+            var containerId = "";
+            var subContainerId = "";
+            var p = [0, 0, 0, 0, 0];
+            var max = 0;
+            var label = "";
+            var id3 = "";
+
+            if (list == "lbc") {
+                max = patterns.length;
+            } else if (list == "lbp") {
+                max = patterns.length;
+            }
+
+            for (var x = 0; x < max - 1; x++) {
+                //if (list=="lbp" && (patterns[x][0]!=id1 || patterns[x][1]!=id2)) continue;
+                //if (list=="lbp" && classStats[x][3]=="0") continue;
+
+                if (list == "lbc") {
+                    id3 = patterns[x][idxPatternKey];
+                    ;
+                    label = patterns[x][idxPatternDescr];
+                    containerId = "patterns-" + id1;
+                    subContainerId = "cat-" + id1 + "-code-" + id2 + "-pattern-" + id3;
+                    p = countBugsPattern(selectedVersion, selectedPriority, id1, idxBugCat, id2, idxBugCode, id3, idxBugPattern);
+                }
+                if (list == "lbp") {
+                    id3 = patterns[x][idxPatternKey];
+                    ;
+                    label = patterns[x][idxPatternDescr];
+                    containerId = "classpatterns-" + id1;
+                    subContainerId = "package-" + id1 + "-class-" + id2 + "-pattern-" + id3;
+                    p = countBugsClassPattern(selectedVersion, selectedPriority, id2, idxBugClass, id3, idxBugPattern);
+                }
+
+                var total = p[1] + p[2] + p[3] + p[4];
+                if (total > 0) {
+                    content += addListItem(3, containerId, label, total, p, subContainerId,
+                        "toggleList('" + list + "', '" + subContainerId + "', '" + id1 + "', '" + id2 + "', '" + id3 + "')"
+                    );
+                }
+            }
+            return content;
+        }
+
+        // generate level 4 list
+        function displayLevel4(list, id1, id2, id3) {
+            var content = "";
+            var bug = "";
+            var bugP = 0;
+            var containerId = "";
+            var subContainerId = "";
+            var bugId = "";
+            var label = "";
+            var p = [0, 0, 0, 0, 0];
+            for (var x = 0; x < bugs.length - 1; x++) {
+                bug = bugs[x];
+                if (list == "lbc") {
+                    if (bug[1] != id1 || bug[2] != id2 || bug[3] != id3) continue;
+                    if (selectedVersion != -1
+                        && selectedVersion != bug[5]) continue;
+                    if (selectedPriority != 4
+                        && selectedPriority < bug[4]) continue;
+
+                    subContainerId = "cat-" + id1 + "-code-" + id2 + "-pattern-" + id3 + "-bug-" + bug[0];
+                }
+                if (list == "lbp") {
+                    if (bug[7] != id1 || bug[6] != id2 || bug[3] != id3) continue;
+                    if (selectedVersion != -1
+                        && selectedVersion != bug[5]) continue;
+                    if (selectedPriority != 4
+                        && selectedPriority < bug[4]) continue;
+
+                    subContainerId = "package-" + id1 + "-class-" + id2 + "-pattern-" + id3 + "-bug-" + bug[0];
+                }
+
+                bugId = "b-uid-" + bug[0];
+                label = bug[idxBugDescr];
+                containerId = "bugs-" + bugId;
+                bugP = bug[4];
+                p[bugP]++;
+                var total = p[1] + p[2] + p[3] + p[4];
+                if (total > 0) {
+                    content += addBug(4, containerId, label, bugP, bug[5], subContainerId,
+                        "showbug('" + bugId + "', '" + subContainerId + "', '" + id3 + "')");
+                }
+            }
+            return content;
+        }
+
+
+        function addListItem(level, id, label, total, p, subId, onclick) {
+            var content = "";
+
+            content += "<div class='bugList-level" + level + "' >";
+            content += "<div class='bugList-level" + level + "-label' id='" + id + "' >";
+            content += "<a href='' onclick=\"" + onclick + ";return false;\" ";
+            content += ">";
+            content += "<strong>" + label + "</strong>";
+            content += " " + total + " bugs";
+            if (selectedPriority > 1)
+                content += " <em>(" + p[1];
+            if (selectedPriority >= 2)
+                content += "/" + p[2];
+            if (selectedPriority >= 3)
+                content += "/" + p[3];
+            if (selectedPriority >= 4)
+                content += "/" + p[4];
+            if (selectedPriority > 1)
+                content += ")</em>";
+            content += "</a>";
+            content += "</div>";
+            content += "<div class='bugList-level" + level + "-inner' id='" + subId + "' style='display:none;'>Loading...</div>";
+            content += "</div>";
+            return content;
+        }
+
+        function addBug(level, id, label, p, version, subId, onclick) {
+            var content = "";
+
+            content += "<div class='bugList-level" + level + "' id='" + id + "'>";
+            content += "<div class='bugList-level" + level + "-label' id='" + id + "'>";
+            content += "<span class='b-" + p + "'>&nbsp;&nbsp;&nbsp;</span>";
+            content += "<a href='' onclick=\"" + onclick + ";return false;\">";
+            if (version == lastVersion) {
+                content += "<span style='color:red;font-weight:bold;'>NEW!</span> ";
+            }
+            content += "<strong>" + label + "</strong>";
+            if (version == 0) {
+                content += " <em>since release first historized release</em>";
+            } else {
+                content += " <em>since release " + versions[version][1] + "</em>";
+            }
+            content += "</a>";
+            content += "</div>";
+            content += "<div class='bugList-level" + level + "-inner' id='" + subId + "' style='display:none;'>Loading...</div>";
+            content += "</div>";
+            return content;
+        }
+
+        function countBugsVersion(version, priority) {
+            return countBugs(version, priority, "", -1, "", -1, "", -1, "", -1, "", -1);
+        }
+
+        function countBugsCat(version, priority, cat, idxCat) {
+            return countBugs(version, priority, cat, idxCat, "", -1, "", -1, "", -1, "", -1);
+        }
+
+        function countBugsPackage(version, priority, packageId, idxPackage) {
+            return countBugs(version, priority, "", -1, "", -1, "", -1, packageId, idxPackage, "", -1);
+        }
+
+        function countBugsCode(version, priority, cat, idxCat, code, idxCode) {
+            return countBugs(version, priority, cat, idxCat, code, idxCode, "", -1, "", -1, "", -1);
+        }
+
+        function countBugsPattern(version, priority, cat, idxCat, code, idxCode, packageId, idxPattern) {
+            return countBugs(version, priority, cat, idxCat, code, idxCode, packageId, idxPattern, "", -1, "", -1);
+        }
+
+        function countBugsClass(version, priority, id1, idxBugPackage, id2, idxBugClass) {
+            return countBugs(version, priority, "", -1, "", -1, "", -1, id1, idxBugPackage, id2, idxBugClass);
+        }
+
+        function countBugsClassPattern(version, priority, id2, idxBugClass, id3, idxBugPattern) {
+            return countBugs(version, priority, "", -1, "", -1, id3, idxBugPattern, "", -1, id2, idxBugClass);
+        }
+
+        function countBugs(version, priority, cat, idxCat, code, idxCode, pattern, idxPattern, packageId, idxPackage, classId, idxClass) {
+            var count = [0, 0, 0, 0, 0];
+            var last = 1000000;
+            for (var x = 0; x < bugs.length - 1; x++) {
+                var bug = bugs[x];
+
+                var bugCat = bug[idxCat];
+                var bugP = bug[4];
+                var bugCode = bug[idxCode];
+                var bugPattern = bug[idxPattern];
+
+                if ((version == -1 || version == bug[5])
+                    && (priority == 4 || priority >= bug[4])
+                    && (idxCat == -1 || bug[idxCat] == cat)
+                    && (idxCode == -1 || bug[idxCode] == code)
+                    && (idxPattern == -1 || bug[idxPattern] == pattern)
+                    && (idxPackage == -1 || bug[idxPackage] == packageId)
+                    && (idxClass == -1 || bug[idxClass] == classId)
+                ) {
+                    count[bug[4]]++;
+                }
+            }
+            count[0] = count[1] + count[2] + count[3] + count[4];
+            return count;
+        }
+
+        function countFixedBugsInVersion(version) {
+            var count = [0, 0, 0, 0, 0];
+            var last = 1000000;
+            for (var x = 0; x < fixedBugs.length - 1; x++) {
+                var bug = fixedBugs[x];
+
+                var bugP = bug[4];
+
+                if (version == -1 || version == (bug[6] + 1)) {
+                    count[bug[4]]++;
+                }
+            }
+            count[0] = count[1] + count[2] + count[3] + count[4];
+            return count;
+        }
+
+        function countFixedBugsIntroducedInVersion(version) {
+            var count = [0, 0, 0, 0, 0];
+            var last = 1000000;
+            for (var x = 0; x < fixedBugs.length - 1; x++) {
+                var bug = fixedBugs[x];
+
+                var bugP = bug[4];
+
+                if (version == -1 || version == (bug[5])) {
+                    count[bug[4]]++;
+                }
+            }
+            count[0] = count[1] + count[2] + count[3] + count[4];
+            return count;
+        }
+
+        function countFixedButActiveBugsVersion(version) {
+            var count = [0, 0, 0, 0, 0];
+            var last = 1000000;
+            for (var x = 0; x < fixedBugs.length - 1; x++) {
+                var bug = fixedBugs[x];
+
+                var bugP = bug[4];
+
+                if (version == -1 || (version >= bug[5] && version <= bug[6])) {
+                    count[bug[4]]++;
+                }
+            }
+            count[0] = count[1] + count[2] + count[3] + count[4];
+            return count;
+        }
+
+        function countTotalBugsVersion(version) {
+            var count = [0, 0, 0, 0, 0];
+            var last = 1000000;
+            for (var x = 0; x < bugs.length - 1; x++) {
+                var bug = bugs[x];
+
+                var bugP = bug[4];
+
+                if (version == -1 || version >= bug[5]) {
+                    count[bug[4]]++;
+                }
+            }
+            count[0] = count[1] + count[2] + count[3] + count[4];
+            return count;
+        }
+
+        function getPriorityLegend() {
+            var content = "";
+            content += "<h5><span class='b-1'>&nbsp;&nbsp;&nbsp;</span> P1 ";
+            content += "<span class='b-2'>&nbsp;&nbsp;&nbsp;</span> P2 ";
+            content += "<span class='b-3'>&nbsp;&nbsp;&nbsp;</span> P3 ";
+            content += "<span class='b-4'>&nbsp;&nbsp;&nbsp;</span> Exp ";
+            content += "</h5>";
+            return content;
+        }
+
+        function populatePackageNames() {
+            for (var i = 0; i < bugs.length; i++) {
+                var classId = bugs[i][6];
+                var idx = classId.lastIndexOf('.');
+                var packageId = "";
+
+                if (idx > 0) {
+                    packageId = classId.substring(0, idx);
+                }
+
+                bugs[i][7] = packageId;
+            }
+        }
+
+        function showbug(bugId, containerId, patternId) {
+            var bugplaceholder = document.getElementById(containerId);
+            var bug = document.getElementById(bugId);
+
+            if (bugplaceholder == null) {
+                alert(buguid + '-ph-' + list + ' - ' + buguid + ' - bugplaceholder==null');
+                return;
+            }
+            if (bug == null) {
+                alert(buguid + '-ph-' + list + ' - ' + buguid + ' - bug==null');
+                return;
+            }
+
+            var newBug = bug.innerHTML;
+            var pattern = document.getElementById('tip-' + patternId).innerHTML;
+            toggle(containerId);
+            bugplaceholder.innerHTML = newBug + pattern;
+        }
+        function toggle(foo) {
+            if (document.getElementById(foo).style.display == "none") {
+                show(foo);
+            } else {
+                if (document.getElementById(foo).style.display == "block") {
+                    hide(foo);
+                } else {
+                    show(foo);
+                }
+            }
+        }
+        function show(foo) {
+            document.getElementById(foo).style.display = "block";
+        }
+        function hide(foo) {
+            document.getElementById(foo).style.display = "none";
+        }
+
+        window.onload = function () {
+            init();
+        };
+    </script>
+    <script type="text/javascript">
+        // versions fields: release id, release label
+        var versions = new Array(
+            ["0", ""]
+        );
+
+        // categories fields: category id, category label
+        var categories = new Array(
+            ["BAD_PRACTICE", "Bad practice"],
+
+            ["MALICIOUS_CODE", "Malicious code vulnerability"],
+
+            ["STYLE", "Dodgy code"],
+
+            ["", ""]
+        );
+
+        // codes fields: code id, code label
+        var codes = new Array(
+            ["EI", "Method returning array may expose internal representation"],
+
+            ["EI2", "Storing reference to mutable object"],
+
+            ["Eq", "Problems with implementation of equals()"],
+
+            ["MS", "Mutable static field"],
+
+            ["REC", "RuntimeException capture"],
+
+            ["SnVI", "Serializable class with no Version ID"],
+
+            ["UrF", "Unread field"],
+
+            ["", ""]
+        );
+
+        // patterns fields: category id, code id, pattern id, pattern label
+        var patterns = new Array(
+            ["MALICIOUS_CODE", "EI", "EI_EXPOSE_REP", "May expose internal representation by returning reference to mutable object"],
+
+
+            ["MALICIOUS_CODE", "EI2", "EI_EXPOSE_REP2", "May expose internal representation by incorporating reference to mutable object"],
+
+
+            ["STYLE", "Eq", "EQ_DOESNT_OVERRIDE_EQUALS", "Class doesn't override equals in superclass"],
+
+
+            ["MALICIOUS_CODE", "MS", "MS_SHOULD_BE_FINAL", "Field isn't final but should be"],
+
+
+            ["STYLE", "REC", "REC_CATCH_EXCEPTION", "Exception is caught when Exception is not thrown"],
+
+
+            ["BAD_PRACTICE", "SnVI", "SE_NO_SERIALVERSIONID", "Class is Serializable, but doesn't define serialVersionUID"],
+
+
+            ["STYLE", "UrF", "URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD", "Unread public/protected field"],
+
+
+            ["", "", "", ""]
+        );
+
+        // class stats fields: class name, package name, isInterface, total bugs, bugs p1, bugs p2, bugs p3, bugs p4
+        var classStats = new Array(
+            ["co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean", "co.edu.poligran.serviciosalestudiante.beans", "false", "2", "", "2", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.configuration.CustomAuthenticationEntryPoint", "co.edu.poligran.serviciosalestudiante.configuration", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.configuration.SecurityConfiguration", "co.edu.poligran.serviciosalestudiante.configuration", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.configuration.SpringBeansConfiguration", "co.edu.poligran.serviciosalestudiante.configuration", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.controller.BaseController", "co.edu.poligran.serviciosalestudiante.controller", "false", "1", "", "1", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.controller.BloquePlantillaController", "co.edu.poligran.serviciosalestudiante.controller", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.controller.BloquesController", "co.edu.poligran.serviciosalestudiante.controller", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.controller.ReservaController", "co.edu.poligran.serviciosalestudiante.controller", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.controller.UsuarioController", "co.edu.poligran.serviciosalestudiante.controller", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.entities.BaseEntity", "co.edu.poligran.serviciosalestudiante.entities", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.entities.BloqueEntity", "co.edu.poligran.serviciosalestudiante.entities", "false", "7", "", "7", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity", "co.edu.poligran.serviciosalestudiante.entities", "false", "6", "", "5", "1", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.entities.EspacioEntity", "co.edu.poligran.serviciosalestudiante.entities", "false", "1", "", "1", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity", "co.edu.poligran.serviciosalestudiante.entities", "false", "3", "", "3", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.entities.ReservaEntity", "co.edu.poligran.serviciosalestudiante.entities", "false", "3", "", "3", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.entities.RoleEntity", "co.edu.poligran.serviciosalestudiante.entities", "false", "1", "", "1", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.entities.RoleTypeEnum", "co.edu.poligran.serviciosalestudiante.entities", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity", "co.edu.poligran.serviciosalestudiante.entities", "false", "2", "", "1", "1", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.entities.UsuarioEntity", "co.edu.poligran.serviciosalestudiante.entities", "false", "1", "", "1", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.exception.BaseException", "co.edu.poligran.serviciosalestudiante.exception", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.exception.InvalidPasswordResetTokenException", "co.edu.poligran.serviciosalestudiante.exception", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.exception.UsernameIsNotUniqueException", "co.edu.poligran.serviciosalestudiante.exception", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.exception.UserNotFoundException", "co.edu.poligran.serviciosalestudiante.exception", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.initializer.InformacionPorDefecto", "co.edu.poligran.serviciosalestudiante.initializer", "false", "1", "", "", "1", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.repository.BloquePlantillaRepository", "co.edu.poligran.serviciosalestudiante.repository", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.repository.BloqueRepository", "co.edu.poligran.serviciosalestudiante.repository", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.repository.EspacioRepository", "co.edu.poligran.serviciosalestudiante.repository", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.repository.PasswordResetTokenRepository", "co.edu.poligran.serviciosalestudiante.repository", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.repository.ReservaRepository", "co.edu.poligran.serviciosalestudiante.repository", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.repository.RoleRepository", "co.edu.poligran.serviciosalestudiante.repository", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.repository.TipoEspacioRepository", "co.edu.poligran.serviciosalestudiante.repository", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.repository.UserRepository", "co.edu.poligran.serviciosalestudiante.repository", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.BCryptPasswordDeserializer", "co.edu.poligran.serviciosalestudiante.service", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.BloquePlantillaService", "co.edu.poligran.serviciosalestudiante.service", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.BloqueService", "co.edu.poligran.serviciosalestudiante.service", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.dto.BaseDTO", "co.edu.poligran.serviciosalestudiante.service.dto", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO", "co.edu.poligran.serviciosalestudiante.service.dto", "false", "7", "", "7", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO", "co.edu.poligran.serviciosalestudiante.service.dto", "false", "5", "", "5", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO", "co.edu.poligran.serviciosalestudiante.service.dto", "false", "1", "", "1", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO", "co.edu.poligran.serviciosalestudiante.service.dto", "false", "2", "", "2", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO", "co.edu.poligran.serviciosalestudiante.service.dto", "false", "3", "", "3", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.dto.RoleDTO", "co.edu.poligran.serviciosalestudiante.service.dto", "false", "1", "", "1", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO", "co.edu.poligran.serviciosalestudiante.service.dto", "false", "7", "6", "1", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO", "co.edu.poligran.serviciosalestudiante.service.dto", "false", "1", "", "1", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.EspacioService", "co.edu.poligran.serviciosalestudiante.service", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.impl.BaseService", "co.edu.poligran.serviciosalestudiante.service.impl", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.impl.BloquePlantillaServiceImpl", "co.edu.poligran.serviciosalestudiante.service.impl", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.impl.BloqueServiceImpl", "co.edu.poligran.serviciosalestudiante.service.impl", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.impl.EspacioServiceImpl", "co.edu.poligran.serviciosalestudiante.service.impl", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.impl.NotificadorCorreosServiceImpl", "co.edu.poligran.serviciosalestudiante.service.impl", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.impl.ReservaServiceImpl", "co.edu.poligran.serviciosalestudiante.service.impl", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.impl.RoleServiceImpl", "co.edu.poligran.serviciosalestudiante.service.impl", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.impl.ServiciosFacadeImpl", "co.edu.poligran.serviciosalestudiante.service.impl", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.impl.TipoEspacioServiceImpl", "co.edu.poligran.serviciosalestudiante.service.impl", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.impl.UserDetailsServiceImpl", "co.edu.poligran.serviciosalestudiante.service.impl", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.impl.UsuarioServiceImpl", "co.edu.poligran.serviciosalestudiante.service.impl", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.NotificadorCorreosService", "co.edu.poligran.serviciosalestudiante.service", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.ReservaService", "co.edu.poligran.serviciosalestudiante.service", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.RoleService", "co.edu.poligran.serviciosalestudiante.service", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.ServiciosFacade", "co.edu.poligran.serviciosalestudiante.service", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.TipoEspacioService", "co.edu.poligran.serviciosalestudiante.service", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.UsuarioService", "co.edu.poligran.serviciosalestudiante.service", "true", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.ServiciosAlEstudianteApplication", "co.edu.poligran.serviciosalestudiante", "false", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.utils.DozerUtils", "co.edu.poligran.serviciosalestudiante.utils", "false", "0", "", "", "", ""],
+
+            ["", "", "", "", "", "", "", ""]
+        );
+
+        // package stats fields: package name, total bugs, bugs p1, bugs p2, bugs p3, bugs p4
+        var packageStats = new Array(
+            ["co.edu.poligran.serviciosalestudiante", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.beans", "2", "", "2", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.configuration", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.controller", "1", "", "1", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.entities", "24", "", "22", "2", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.exception", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.initializer", "1", "", "", "1", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.repository", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.dto", "27", "6", "21", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.service.impl", "0", "", "", "", ""],
+
+            ["co.edu.poligran.serviciosalestudiante.utils", "0", "", "", "", ""],
+
+            ["", "", "", "", "", ""]
+        );
+
+
+        // bugs fields: bug id, category id, code id, pattern id, priority, release id, class name, packagename (populated by javascript)
+        var bugs = new Array(
+            ["486efa476536796f1e84d5e011049f77-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean",
+                ""],
+
+
+            ["527b40f794384aaf223ee7b44b6bd937-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean",
+                ""],
+
+
+            ["c4013a1471e67ebb3dfedb3fa5f80e5c-0",
+                "STYLE",
+                "UrF",
+                "URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.controller.BaseController",
+                ""],
+
+
+            ["94b6b452f343cdc3ec398a50135f2ec0-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.BloqueEntity",
+                ""],
+
+
+            ["4dfe321273d768b79e81b0e04ea03cfe-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.BloqueEntity",
+                ""],
+
+
+            ["4254cc653ed9372adbd6aa9bfec2f096-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.BloqueEntity",
+                ""],
+
+
+            ["2acc8a43c9df42a1fda3cd3838cf8eab-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.BloqueEntity",
+                ""],
+
+
+            ["c3b8c32d96128b342ed20023f89131a1-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.BloqueEntity",
+                ""],
+
+
+            ["816d8246f8d35fde0481c84c8c4b044b-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.BloqueEntity",
+                ""],
+
+
+            ["4a4a98e9ee62e49be9902c59a96fe98f-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.BloqueEntity",
+                ""],
+
+
+            ["8bd82f20f96974e00cb8e2c7c70fa511-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity",
+                ""],
+
+
+            ["6006bd6493def9e9376bea09d1c6cfdd-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity",
+                ""],
+
+
+            ["a2b04e052b11ea9ec81747f4943e0353-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity",
+                ""],
+
+
+            ["645eacff737c6de996aede6c5c45c696-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity",
+                ""],
+
+
+            ["e36db6b54054eb716d62c30d0a280bd5-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity",
+                ""],
+
+
+            ["a26d97dfed6ea5128f1fcdfd5eb38884-0",
+                "BAD_PRACTICE",
+                "SnVI",
+                "SE_NO_SERIALVERSIONID",
+                3,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity",
+                ""],
+
+
+            ["72a4b3720132a9e7fdcdc90c255c1166-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.EspacioEntity",
+                ""],
+
+
+            ["e697ec31b772bbe2c1ac676d2381ce6e-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity",
+                ""],
+
+
+            ["ca9d432e7668ec9a7adaf27ccc4d9078-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity",
+                ""],
+
+
+            ["971caf2687d2e2cfcb7d40163e7f57b0-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity",
+                ""],
+
+
+            ["249203b183198279c17f92631c252f3b-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.ReservaEntity",
+                ""],
+
+
+            ["4dd95e69f0519f9ff0ec663d869ecd58-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.ReservaEntity",
+                ""],
+
+
+            ["625378ef32e1bebb1ced83dcd693c5be-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.ReservaEntity",
+                ""],
+
+
+            ["8528b01f561a0dea646a6a06b5f05c88-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.RoleEntity",
+                ""],
+
+
+            ["bf6329b47ded6f20ce1f1ca970b2c97f-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity",
+                ""],
+
+
+            ["badd8f40bf7803b8dfc70376b43ed253-0",
+                "BAD_PRACTICE",
+                "SnVI",
+                "SE_NO_SERIALVERSIONID",
+                3,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity",
+                ""],
+
+
+            ["a9e7f8839c4f5f0b50ec643d40e0405c-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.entities.UsuarioEntity",
+                ""],
+
+
+            ["3eaa6d27668f47268b7febcb0d2b10d7-0",
+                "STYLE",
+                "REC",
+                "REC_CATCH_EXCEPTION",
+                3,
+                0,
+                "co.edu.poligran.serviciosalestudiante.initializer.InformacionPorDefecto",
+                ""],
+
+
+            ["10dfbb77ecdf8ec84e083b96b1a6b8cb-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO",
+                ""],
+
+
+            ["b74745efd830fd051115fa6a5a52a091-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO",
+                ""],
+
+
+            ["9fa5d1e2aa7e9b8da3631d730266e83a-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO",
+                ""],
+
+
+            ["75bd399dfb885de0827bab6038455ad0-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO",
+                ""],
+
+
+            ["e1c6d9df878879d379aca597c5b5899e-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO",
+                ""],
+
+
+            ["d09601aa9ff26ad93f2239ef38e7f53b-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO",
+                ""],
+
+
+            ["94a6de75c07c4123308b52b2a70c99c0-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO",
+                ""],
+
+
+            ["3e541a53a9473ee2388644ad8b8314fa-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO",
+                ""],
+
+
+            ["e8584d1120956cadd9155599a3b8f94a-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO",
+                ""],
+
+
+            ["41def65f4d55f3a10a20a12d397eb726-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO",
+                ""],
+
+
+            ["6802b187362fecf0892a4b4485c27a34-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO",
+                ""],
+
+
+            ["1515c680684578b1c4036ac1e5df8a61-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO",
+                ""],
+
+
+            ["bb5fe720e77a899fc00ce8dda88e72ae-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO",
+                ""],
+
+
+            ["a61dd868d186717a3de26c527523a186-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO",
+                ""],
+
+
+            ["3305bc23ee71dc5d868b9d7f3f1d4f6e-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO",
+                ""],
+
+
+            ["81d09231b6bb12484404c683b0a2054-0",
+                "MALICIOUS_CODE",
+                "EI",
+                "EI_EXPOSE_REP",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO",
+                ""],
+
+
+            ["7fbb78fce6a4cbf68ad89f74bd37fbbe-0",
+                "MALICIOUS_CODE",
+                "EI2",
+                "EI_EXPOSE_REP2",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO",
+                ""],
+
+
+            ["a8e91633c18d0cf868f90238ee84dce9-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO",
+                ""],
+
+
+            ["fe5026e93a17c01d998b9d1edd903266-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.RoleDTO",
+                ""],
+
+
+            ["f26ba86d1e015608c16d453ac8848afb-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO",
+                ""],
+
+
+            ["e1d0ac54bf632839781d3dd7d6ef6125-0",
+                "MALICIOUS_CODE",
+                "MS",
+                "MS_SHOULD_BE_FINAL",
+                1,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO",
+                ""],
+
+
+            ["53db1303f37f11a08dab548c33aefdf-0",
+                "MALICIOUS_CODE",
+                "MS",
+                "MS_SHOULD_BE_FINAL",
+                1,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO",
+                ""],
+
+
+            ["b3d1e6323d48948f39dd72b945595279-0",
+                "MALICIOUS_CODE",
+                "MS",
+                "MS_SHOULD_BE_FINAL",
+                1,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO",
+                ""],
+
+
+            ["e9a657ce7a23ea743fd30a3f07f1776-0",
+                "MALICIOUS_CODE",
+                "MS",
+                "MS_SHOULD_BE_FINAL",
+                1,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO",
+                ""],
+
+
+            ["b35a7179309bfa5bb78cd0503ba03e0c-0",
+                "MALICIOUS_CODE",
+                "MS",
+                "MS_SHOULD_BE_FINAL",
+                1,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO",
+                ""],
+
+
+            ["b1a3606e338d7c53136728814f68a07b-0",
+                "MALICIOUS_CODE",
+                "MS",
+                "MS_SHOULD_BE_FINAL",
+                1,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO",
+                ""],
+
+
+            ["f13cc1f0534384858678a8c20b082225-0",
+                "STYLE",
+                "Eq",
+                "EQ_DOESNT_OVERRIDE_EQUALS",
+                2,
+                0,
+                "co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO",
+                ""],
+
+            ["", "", "", "", 0, 0, "", ""]
+        );
+
+        // bugs fields: bug id, category id, code id, pattern id, priority, first release id, fixed release id, class name
+        var fixedBugs = new Array(
+            ["", "", "", "", 0, 0, 0, ""]
+        );
+
+    </script>
+</head>
+<body>
+<h3>
+    <a href="http://findbugs.sourceforge.net">FindBugs</a> (3.0.1)
+    Analysis for
+    servicios-al-estudiante</h3>
+<div id="menuWrapper" style="">
+    <div id="navcontainer">
+        <ul id="navlist">
+            <li>
+                <a id="summary" class="current" href="#" onclick="selectMenu('summary'); return false;">Summary</a>
+            </li>
+            <li>
+                <a id="history" class="none" href="#" onclick="selectMenu('history'); return false;">History</a>
+            </li>
+            <li>
+                <a id="listByCategories" class="none" href="#" onclick="selectMenu('listByCategories'); return false;">Browse
+                    By Categories</a>
+            </li>
+            <li>
+                <a id="listByPackages" class="none" href="#" onclick="selectMenu('listByPackages'); return false;">Browse
+                    by Packages</a>
+            </li>
+            <li>
+                <a id="info" class="none" href="#" onclick="selectMenu('info'); return false;">Info</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="displayWrapper">
+    <div style="height:25px;">
+        <div id="messageContainer" style="float:right;">
+            Computing data...
+        </div>
+        <div id="filterWrapper" style="display:none;">
+            <form name="findbugsForm">
+                <div id="filterContainer">
+                    <select name="versions" onchange="filter()">
+                        <option value="loading">Loading filter...</option>
+                    </select>
+                    <select name="priorities" onchange="filter()">
+                        <option value="loading">Loading filter...</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div id="historyControlWrapper" style="display:none;">
+            <form name="findbugsHistoryControlForm">
+                <div id="historyControlContainer">
+                    <input type="checkbox" name="includeFixedIntroducedBugs" value="checked"
+                           alt="Include fixed introduced bugs." onclick="includeFixedIntroducedBugsInHistory()"/>
+                    Include counts of introduced bugs that were fixed in later releases.
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="summaryContainer" class="displayContainer">
+        <h3>Package Summary</h3>
+        <table>
+            <tr>
+                <th>Package</th>
+                <th>Code Size</th>
+                <th>Bugs</th>
+                <th>Bugs p1</th>
+                <th>Bugs p2</th>
+                <th>Bugs p3</th>
+                <th>Bugs Exp.</th>
+            </tr>
+            <tr>
+                <td class="summary-name">
+                    Overall
+                    (12 packages),
+                    (64 classes)
+                </td>
+                <td class="summary-size">1533</td>
+                <td class="summary-priority-all">55</td>
+                <td class="summary-priority-1">6</td>
+                <td class="summary-priority-2">46</td>
+                <td class="summary-priority-3">3</td>
+                <td class="summary-priority-4"/>
+            </tr>
+            <tr>
+                <td class="summary-name">co.edu.poligran.serviciosalestudiante.beans</td>
+                <td class="summary-size">9</td>
+                <td class="summary-priority-all">2</td>
+                <td class="summary-priority-1"/>
+                <td class="summary-priority-2">2</td>
+                <td class="summary-priority-3"/>
+                <td class="summary-priority-4"/>
+            </tr>
+            <tr>
+                <td class="summary-name">co.edu.poligran.serviciosalestudiante.controller</td>
+                <td class="summary-size">64</td>
+                <td class="summary-priority-all">1</td>
+                <td class="summary-priority-1"/>
+                <td class="summary-priority-2">1</td>
+                <td class="summary-priority-3"/>
+                <td class="summary-priority-4"/>
+            </tr>
+            <tr>
+                <td class="summary-name">co.edu.poligran.serviciosalestudiante.entities</td>
+                <td class="summary-size">242</td>
+                <td class="summary-priority-all">24</td>
+                <td class="summary-priority-1"/>
+                <td class="summary-priority-2">22</td>
+                <td class="summary-priority-3">2</td>
+                <td class="summary-priority-4"/>
+            </tr>
+            <tr>
+                <td class="summary-name">co.edu.poligran.serviciosalestudiante.initializer</td>
+                <td class="summary-size">229</td>
+                <td class="summary-priority-all">1</td>
+                <td class="summary-priority-1"/>
+                <td class="summary-priority-2"/>
+                <td class="summary-priority-3">1</td>
+                <td class="summary-priority-4"/>
+            </tr>
+            <tr>
+                <td class="summary-name">co.edu.poligran.serviciosalestudiante.service.dto</td>
+                <td class="summary-size">249</td>
+                <td class="summary-priority-all">27</td>
+                <td class="summary-priority-1">6</td>
+                <td class="summary-priority-2">21</td>
+                <td class="summary-priority-3"/>
+                <td class="summary-priority-4"/>
+            </tr>
+        </table>
+    </div>
+    <div id="infoContainer" class="displayContainer">
+        <div id="analyzed-files">
+            <h3>Analyzed Files:</h3>
+            <ul>
+                <li>C:\Users\acpat\Documents\projects\poli\ingenieria-software-ii\poli-booking\target\classes</li>
+            </ul>
+        </div>
+        <div id="used-libraries">
+            <h3>Used Libraries:</h3>
+            <ul>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\codehaus\mojo\findbugs-maven-plugin\3.0.4\findbugs-maven-plugin-3.0.4.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\com\google\code\findbugs\findbugs\3.0.1\findbugs-3.0.1.jar</li>
+                <li>C:\Users\acpat\.m2\repository\net\jcip\jcip-annotations\1.0\jcip-annotations-1.0.jar</li>
+                <li>C:\Users\acpat\.m2\repository\com\google\code\findbugs\jsr305\2.0.1\jsr305-2.0.1.jar</li>
+                <li>C:\Users\acpat\.m2\repository\com\google\code\findbugs\bcel-findbugs\6.0\bcel-findbugs-6.0.jar</li>
+                <li>C:\Users\acpat\.m2\repository\com\google\code\findbugs\jFormatString\2.0.1\jFormatString-2.0.1.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\dom4j\dom4j\1.6.1\dom4j-1.6.1.jar</li>
+                <li>C:\Users\acpat\.m2\repository\xml-apis\xml-apis\1.0.b2\xml-apis-1.0.b2.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\ow2\asm\asm-debug-all\5.0.2\asm-debug-all-5.0.2.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\ow2\asm\asm-commons\5.0.2\asm-commons-5.0.2.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\ow2\asm\asm-tree\5.0.2\asm-tree-5.0.2.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\ow2\asm\asm\5.0.2\asm-5.0.2.jar</li>
+                <li>C:\Users\acpat\.m2\repository\commons-lang\commons-lang\2.6\commons-lang-2.6.jar</li>
+                <li>C:\Users\acpat\.m2\repository\com\apple\AppleJavaExtensions\1.4\AppleJavaExtensions-1.4.jar</li>
+                <li>C:\Users\acpat\.m2\repository\jaxen\jaxen\1.1.6\jaxen-1.1.6.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\ant\ant\1.9.4\ant-1.9.4.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\ant\ant-launcher\1.9.4\ant-launcher-1.9.4.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\codehaus\groovy\groovy\2.4.7\groovy-2.4.7.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\codehaus\groovy\groovy-ant\2.4.7\groovy-ant-2.4.7.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\ant\ant-antlr\1.9.4\ant-antlr-1.9.4.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\codehaus\groovy\groovy-groovydoc\2.4.7\groovy-groovydoc-2.4.7.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\codehaus\groovy\groovy-templates\2.4.7\groovy-templates-2.4.7.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\ant\ant-junit\1.9.4\ant-junit-1.9.4.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\codehaus\groovy\groovy-xml\2.4.7\groovy-xml-2.4.7.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\maven\reporting\maven-reporting-impl\2.1\maven-reporting-impl-2.1.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\maven\maven-project\2.0.10\maven-project-2.0.10.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\maven\maven-settings\2.0.10\maven-settings-2.0.10.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\maven\maven-profile\2.0.10\maven-profile-2.0.10.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\maven\maven-plugin-registry\2.0.10\maven-plugin-registry-2.0.10.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\codehaus\plexus\plexus-interpolation\1.1\plexus-interpolation-1.1.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\commons-validator\commons-validator\1.2.0\commons-validator-1.2.0.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\commons-beanutils\commons-beanutils\1.7.0\commons-beanutils-1.7.0.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\commons-digester\commons-digester\1.6\commons-digester-1.6.jar</li>
+                <li>C:\Users\acpat\.m2\repository\commons-logging\commons-logging\1.0.4\commons-logging-1.0.4.jar</li>
+                <li>C:\Users\acpat\.m2\repository\oro\oro\2.0.8\oro-2.0.8.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\maven\reporting\maven-reporting-api\3.0\maven-reporting-api-3.0.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\maven\maven-plugin-api\2.0\maven-plugin-api-2.0.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\maven\maven-plugin-descriptor\2.2.1\maven-plugin-descriptor-2.2.1.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\maven\maven-artifact\2.2.1\maven-artifact-2.2.1.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\maven\doxia\doxia-core\1.4\doxia-core-1.4.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\maven\doxia\doxia-logging-api\1.4\doxia-logging-api-1.4.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\codehaus\plexus\plexus-component-annotations\1.5.5\plexus-component-annotations-1.5.5.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\xerces\xercesImpl\2.9.1\xercesImpl-2.9.1.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\httpcomponents\httpclient\4.0.2\httpclient-4.0.2.jar</li>
+                <li>C:\Users\acpat\.m2\repository\commons-codec\commons-codec\1.3\commons-codec-1.3.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\httpcomponents\httpcore\4.0.1\httpcore-4.0.1.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\maven\doxia\doxia-sink-api\1.4\doxia-sink-api-1.4.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\maven\doxia\doxia-decoration-model\1.4\doxia-decoration-model-1.4.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\maven\doxia\doxia-site-renderer\1.4\doxia-site-renderer-1.4.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\maven\doxia\doxia-module-xhtml\1.4\doxia-module-xhtml-1.4.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\maven\doxia\doxia-module-fml\1.4\doxia-module-fml-1.4.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\codehaus\plexus\plexus-i18n\1.0-beta-7\plexus-i18n-1.0-beta-7.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\codehaus\plexus\plexus-velocity\1.1.7\plexus-velocity-1.1.7.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\velocity\velocity\1.5\velocity-1.5.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\velocity\velocity-tools\2.0\velocity-tools-2.0.jar</li>
+                <li>C:\Users\acpat\.m2\repository\commons-chain\commons-chain\1.1\commons-chain-1.1.jar</li>
+                <li>C:\Users\acpat\.m2\repository\sslext\sslext\1.2-0\sslext-1.2-0.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\struts\struts-core\1.3.8\struts-core-1.3.8.jar</li>
+                <li>C:\Users\acpat\.m2\repository\antlr\antlr\2.7.2\antlr-2.7.2.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\struts\struts-taglib\1.3.8\struts-taglib-1.3.8.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\struts\struts-tiles\1.3.8\struts-tiles-1.3.8.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\commons-collections\commons-collections\3.2.1\commons-collections-3.2.1.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\maven\shared\maven-doxia-tools\1.2.1\maven-doxia-tools-1.2.1.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\commons-io\commons-io\1.4\commons-io-1.4.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\maven\maven-artifact-manager\2.0.6\maven-artifact-manager-2.0.6.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\maven\maven-repository-metadata\2.0.6\maven-repository-metadata-2.0.6.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\maven\maven-model\2.0.6\maven-model-2.0.6.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\codehaus\plexus\plexus-container-default\1.0-alpha-9\plexus-container-default-1.0-alpha-9.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\classworlds\classworlds\1.1-alpha-2\classworlds-1.1-alpha-2.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\codehaus\plexus\plexus-resources\1.0-alpha-7\plexus-resources-1.0-alpha-7.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\codehaus\plexus\plexus-utils\1.5.6\plexus-utils-1.5.6.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\sonatype\plexus\plexus-build-api\0.0.7\plexus-build-api-0.0.7.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\1.5.1.RELEASE\spring-boot-starter-data-jpa-1.5.1.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\boot\spring-boot-starter\1.5.1.RELEASE\spring-boot-starter-1.5.1.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\boot\spring-boot\1.5.1.RELEASE\spring-boot-1.5.1.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\1.5.1.RELEASE\spring-boot-autoconfigure-1.5.1.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\boot\spring-boot-starter-logging\1.5.1.RELEASE\spring-boot-starter-logging-1.5.1.RELEASE.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\ch\qos\logback\logback-classic\1.1.9\logback-classic-1.1.9.jar</li>
+                <li>C:\Users\acpat\.m2\repository\ch\qos\logback\logback-core\1.1.9\logback-core-1.1.9.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\slf4j\jul-to-slf4j\1.7.22\jul-to-slf4j-1.7.22.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\slf4j\log4j-over-slf4j\1.7.22\log4j-over-slf4j-1.7.22.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\boot\spring-boot-starter-aop\1.5.1.RELEASE\spring-boot-starter-aop-1.5.1.RELEASE.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\aspectj\aspectjweaver\1.8.9\aspectjweaver-1.8.9.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\boot\spring-boot-starter-jdbc\1.5.1.RELEASE\spring-boot-starter-jdbc-1.5.1.RELEASE.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\tomcat\tomcat-jdbc\8.5.11\tomcat-jdbc-8.5.11.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\tomcat\tomcat-juli\8.5.11\tomcat-juli-8.5.11.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\spring-jdbc\4.3.6.RELEASE\spring-jdbc-4.3.6.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\hibernate\hibernate-core\5.0.11.Final\hibernate-core-5.0.11.Final.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\jboss\logging\jboss-logging\3.3.0.Final\jboss-logging-3.3.0.Final.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\hibernate\javax\persistence\hibernate-jpa-2.1-api\1.0.0.Final\hibernate-jpa-2.1-api-1.0.0.Final.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\javassist\javassist\3.21.0-GA\javassist-3.21.0-GA.jar</li>
+                <li>C:\Users\acpat\.m2\repository\antlr\antlr\2.7.7\antlr-2.7.7.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\jboss\jandex\2.0.0.Final\jandex-2.0.0.Final.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\hibernate\common\hibernate-commons-annotations\5.0.1.Final\hibernate-commons-annotations-5.0.1.Final.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\hibernate\hibernate-entitymanager\5.0.11.Final\hibernate-entitymanager-5.0.11.Final.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\javax\transaction\javax.transaction-api\1.2\javax.transaction-api-1.2.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\data\spring-data-jpa\1.11.0.RELEASE\spring-data-jpa-1.11.0.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\data\spring-data-commons\1.13.0.RELEASE\spring-data-commons-1.13.0.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\spring-orm\4.3.6.RELEASE\spring-orm-4.3.6.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\spring-tx\4.3.6.RELEASE\spring-tx-4.3.6.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\spring-beans\4.3.6.RELEASE\spring-beans-4.3.6.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\spring-aspects\4.3.6.RELEASE\spring-aspects-4.3.6.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\boot\spring-boot-starter-data-rest\1.5.1.RELEASE\spring-boot-starter-data-rest-1.5.1.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.8.0\jackson-annotations-2.8.0.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.8.6\jackson-databind-2.8.6.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.8.6\jackson-core-2.8.6.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\data\spring-data-rest-webmvc\2.6.0.RELEASE\spring-data-rest-webmvc-2.6.0.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\data\spring-data-rest-core\2.6.0.RELEASE\spring-data-rest-core-2.6.0.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\hateoas\spring-hateoas\0.23.0.RELEASE\spring-hateoas-0.23.0.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\plugin\spring-plugin-core\1.2.0.RELEASE\spring-plugin-core-1.2.0.RELEASE.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\atteo\evo-inflector\1.2.1\evo-inflector-1.2.1.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\boot\spring-boot-starter-security\1.5.1.RELEASE\spring-boot-starter-security-1.5.1.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\spring-aop\4.3.6.RELEASE\spring-aop-4.3.6.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\security\spring-security-config\4.2.1.RELEASE\spring-security-config-4.2.1.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\security\spring-security-core\4.2.1.RELEASE\spring-security-core-4.2.1.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\security\spring-security-web\4.2.1.RELEASE\spring-security-web-4.2.1.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\spring-expression\4.3.6.RELEASE\spring-expression-4.3.6.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\boot\spring-boot-starter-web\1.5.1.RELEASE\spring-boot-starter-web-1.5.1.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\1.5.1.RELEASE\spring-boot-starter-tomcat-1.5.1.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\8.5.11\tomcat-embed-core-8.5.11.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\8.5.11\tomcat-embed-el-8.5.11.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\8.5.11\tomcat-embed-websocket-8.5.11.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\hibernate\hibernate-validator\5.3.4.Final\hibernate-validator-5.3.4.Final.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\javax\validation\validation-api\1.1.0.Final\validation-api-1.1.0.Final.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\com\fasterxml\classmate\1.3.3\classmate-1.3.3.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\spring-web\4.3.6.RELEASE\spring-web-4.3.6.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\spring-webmvc\4.3.6.RELEASE\spring-webmvc-4.3.6.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\boot\spring-boot-starter-mail\1.5.1.RELEASE\spring-boot-starter-mail-1.5.1.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\spring-context\4.3.6.RELEASE\spring-context-4.3.6.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\spring-context-support\4.3.6.RELEASE\spring-context-support-4.3.6.RELEASE.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\com\sun\mail\javax.mail\1.5.6\javax.mail-1.5.6.jar</li>
+                <li>C:\Users\acpat\.m2\repository\javax\activation\activation\1.1\activation-1.1.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\boot\spring-boot-starter-thymeleaf\1.5.1.RELEASE\spring-boot-starter-thymeleaf-1.5.1.RELEASE.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\thymeleaf\thymeleaf-spring4\2.1.5.RELEASE\thymeleaf-spring4-2.1.5.RELEASE.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\thymeleaf\thymeleaf\2.1.5.RELEASE\thymeleaf-2.1.5.RELEASE.jar</li>
+                <li>C:\Users\acpat\.m2\repository\ognl\ognl\3.0.8\ognl-3.0.8.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\unbescape\unbescape\1.1.0.RELEASE\unbescape-1.1.0.RELEASE.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\nz\net\ultraq\thymeleaf\thymeleaf-layout-dialect\1.4.0\thymeleaf-layout-dialect-1.4.0.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\postgresql\postgresql\9.4.1212.jre7\postgresql-9.4.1212.jre7.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\org\springframework\spring-core\4.3.6.RELEASE\spring-core-4.3.6.RELEASE.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\com\h2database\h2\1.4.193\h2-1.4.193.jar</li>
+                <li>C:\Users\acpat\.m2\repository\net\sf\dozer\dozer\5.5.1\dozer-5.5.1.jar</li>
+                <li>
+                    C:\Users\acpat\.m2\repository\commons-beanutils\commons-beanutils\1.9.3\commons-beanutils-1.9.3.jar
+                </li>
+                <li>
+                    C:\Users\acpat\.m2\repository\commons-collections\commons-collections\3.2.2\commons-collections-3.2.2.jar
+                </li>
+                <li>C:\Users\acpat\.m2\repository\org\apache\commons\commons-lang3\3.2.1\commons-lang3-3.2.1.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\slf4j\slf4j-api\1.7.22\slf4j-api-1.7.22.jar</li>
+                <li>C:\Users\acpat\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.22\jcl-over-slf4j-1.7.22.jar</li>
+                <li>C:\Users\acpat\.m2\repository\net\sf\dozer\dozer-spring\5.5.1\dozer-spring-5.5.1.jar</li>
+                <li>C:\Users\acpat\.m2\repository\joda-time\joda-time\2.9.7\joda-time-2.9.7.jar</li>
+            </ul>
+        </div>
+        <div id="analysis-error">
+            <h3>Analysis Errors:</h3>
+            <ul>
+                <li>None</li>
+            </ul>
+        </div>
+    </div>
+    <div id="historyContainer" class="displayContainer">Loading...</div>
+    <div id="listByCategoriesContainer" class="displayContainer">Loading...</div>
+    <div id="listByPackagesContainer" class="displayContainer">Loading...</div>
+</div>
+<div id="bug-collection" style="display:none;">
+    <div id="tip-URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD" class="tip">
+
+        <p> This field is never read.&nbsp;
+            The field is public or protected, so perhaps
+            it is intended to be used with classes not seen as part of the analysis. If not,
+            consider removing it from the class.</p>
+
+    </div>
+    <div id="tip-EI_EXPOSE_REP2" class="tip">
+
+        <p> This code stores a reference to an externally mutable object into the
+            internal representation of the object.&nbsp;
+            If instances
+            are accessed by untrusted code, and unchecked changes to
+            the mutable object would compromise security or other
+            important properties, you will need to do something different.
+            Storing a copy of the object is better approach in many situations.</p>
+
+    </div>
+    <div id="tip-EI_EXPOSE_REP" class="tip">
+
+        <p> Returning a reference to a mutable object value stored in one of the object's fields
+            exposes the internal representation of the object.&nbsp;
+            If instances
+            are accessed by untrusted code, and unchecked changes to
+            the mutable object would compromise security or other
+            important properties, you will need to do something different.
+            Returning a new copy of the object is better approach in many situations.</p>
+
+    </div>
+    <div id="tip-EQ_DOESNT_OVERRIDE_EQUALS" class="tip">
+
+        <p> This class extends a class that defines an equals method and adds fields, but doesn't
+            define an equals method itself. Thus, equality on instances of this class will
+            ignore the identity of the subclass and the added fields. Be sure this is what is intended,
+            and that you don't need to override the equals method. Even if you don't need to override
+            the equals method, consider overriding it anyway to document the fact
+            that the equals method for the subclass just return the result of
+            invoking super.equals(o).
+        </p>
+
+    </div>
+    <div id="tip-MS_SHOULD_BE_FINAL" class="tip">
+
+        <p>
+            This static field public but not final, and
+            could be changed by malicious code or
+            by accident from another package.
+            The field could be made final to avoid
+            this vulnerability.</p>
+
+    </div>
+    <div id="tip-REC_CATCH_EXCEPTION" class="tip">
+
+        <p>
+            This method uses a try-catch block that catches Exception objects, but Exception is not
+            thrown within the try block, and RuntimeException is not explicitly caught. It is a common bug pattern to
+            say try { ... } catch (Exception e) { something } as a shorthand for catching a number of types of exception
+            each of whose catch blocks is identical, but this construct also accidentally catches RuntimeException as
+            well,
+            masking potential bugs.
+        </p>
+        <p>A better approach is to either explicitly catch the specific exceptions that are thrown,
+            or to explicitly catch RuntimeException exception, rethrow it, and then catch all non-Runtime Exceptions, as
+            shown below:</p>
+        <pre>
+  try {
+    ...
+  } catch (RuntimeException e) {
+    throw e;
+  } catch (Exception e) {
+    ... deal with all non-runtime exceptions ...
+  }</pre>
+
+    </div>
+    <div id="tip-SE_NO_SERIALVERSIONID" class="tip">
+
+        <p> This class implements the <code>Serializable</code> interface, but does
+            not define a <code>serialVersionUID</code> field.&nbsp;
+            A change as simple as adding a reference to a .class object
+            will add synthetic fields to the class,
+            which will unfortunately change the implicit
+            serialVersionUID (e.g., adding a reference to <code>String.class</code>
+            will generate a static field <code>class$java$lang$String</code>).
+            Also, different source code to bytecode compilers may use different
+            naming conventions for synthetic variables generated for
+            references to class objects or inner classes.
+            To ensure interoperability of Serializable across versions,
+            consider adding an explicit serialVersionUID.</p>
+
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-486efa476536796f1e84d5e011049f77-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean.getDia()</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean.dia</div>
+        <div class="b-r">At DiaCalendarioBean.java:[line 9]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean.getDia() may expose internal
+            representation by returning DiaCalendarioBean.dia
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-527b40f794384aaf223ee7b44b6bd937-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean.setDia(Date)</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean.dia</div>
+        <div class="b-r">Local variable named dia</div>
+        <div class="b-r">At DiaCalendarioBean.java:[line 13]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean.setDia(Date) may expose internal
+            representation by storing an externally mutable object into DiaCalendarioBean.dia
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-c4013a1471e67ebb3dfedb3fa5f80e5c-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.controller.BaseController</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.controller.BaseController.logger</div>
+        <div class="b-r">At BaseController.java:[line 13]</div>
+        <div class="b-d">Unread public/protected field:
+            co.edu.poligran.serviciosalestudiante.controller.BaseController.logger
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-94b6b452f343cdc3ec398a50135f2ec0-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.BloqueEntity</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.getDia()</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.dia</div>
+        <div class="b-r">At BloqueEntity.java:[line 54]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.getDia() may expose internal
+            representation by returning BloqueEntity.dia
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-4dfe321273d768b79e81b0e04ea03cfe-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.BloqueEntity</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.getTiempoFin()</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.tiempoFin</div>
+        <div class="b-r">At BloqueEntity.java:[line 38]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.getTiempoFin() may expose internal
+            representation by returning BloqueEntity.tiempoFin
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-4254cc653ed9372adbd6aa9bfec2f096-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.BloqueEntity</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.getTiempoInicio()</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.tiempoInicio</div>
+        <div class="b-r">At BloqueEntity.java:[line 30]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.getTiempoInicio() may expose
+            internal representation by returning BloqueEntity.tiempoInicio
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-2acc8a43c9df42a1fda3cd3838cf8eab-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.BloqueEntity</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.setDia(Date)</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.dia</div>
+        <div class="b-r">Local variable named dia</div>
+        <div class="b-r">At BloqueEntity.java:[line 58]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.setDia(Date) may expose internal
+            representation by storing an externally mutable object into BloqueEntity.dia
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-c3b8c32d96128b342ed20023f89131a1-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.BloqueEntity</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.setTiempoFin(Date)</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.tiempoFin</div>
+        <div class="b-r">Local variable named tiempoFin</div>
+        <div class="b-r">At BloqueEntity.java:[line 42]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.setTiempoFin(Date) may expose
+            internal representation by storing an externally mutable object into BloqueEntity.tiempoFin
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-816d8246f8d35fde0481c84c8c4b044b-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.BloqueEntity</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.setTiempoInicio(Date)
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.tiempoInicio</div>
+        <div class="b-r">Local variable named tiempoInicio</div>
+        <div class="b-r">At BloqueEntity.java:[line 34]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.BloqueEntity.setTiempoInicio(Date) may expose
+            internal representation by storing an externally mutable object into BloqueEntity.tiempoInicio
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-4a4a98e9ee62e49be9902c59a96fe98f-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.BloqueEntity</div>
+        <div class="b-r">At BloqueEntity.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.entities.BaseEntity.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.BloqueEntity doesn't override
+            BaseEntity.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-8bd82f20f96974e00cb8e2c7c70fa511-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity.getHoraFin()
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity.horaFin</div>
+        <div class="b-r">At BloquePlantillaEntity.java:[line 47]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity.getHoraFin() may expose
+            internal representation by returning BloquePlantillaEntity.horaFin
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-6006bd6493def9e9376bea09d1c6cfdd-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity</div>
+        <div class="b-r">In method
+            co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity.getHoraInicio()
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity.horaInicio</div>
+        <div class="b-r">At BloquePlantillaEntity.java:[line 39]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity.getHoraInicio() may expose
+            internal representation by returning BloquePlantillaEntity.horaInicio
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-a2b04e052b11ea9ec81747f4943e0353-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity</div>
+        <div class="b-r">In method
+            co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity.setHoraFin(Date)
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity.horaFin</div>
+        <div class="b-r">Local variable named horaFin</div>
+        <div class="b-r">At BloquePlantillaEntity.java:[line 51]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity.setHoraFin(Date) may
+            expose internal representation by storing an externally mutable object into BloquePlantillaEntity.horaFin
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-645eacff737c6de996aede6c5c45c696-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity</div>
+        <div class="b-r">In method
+            co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity.setHoraInicio(Date)
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity.horaInicio</div>
+        <div class="b-r">Local variable named horaInicio</div>
+        <div class="b-r">At BloquePlantillaEntity.java:[line 43]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity.setHoraInicio(Date) may
+            expose internal representation by storing an externally mutable object into BloquePlantillaEntity.horaInicio
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-e36db6b54054eb716d62c30d0a280bd5-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity</div>
+        <div class="b-r">At BloquePlantillaEntity.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.entities.BaseEntity.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity doesn't override
+            BaseEntity.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-a26d97dfed6ea5128f1fcdfd5eb38884-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity</div>
+        <div class="b-r">At BloquePlantillaEntity.java:[lines 9-52]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.BloquePlantillaEntity is Serializable; consider
+            declaring a serialVersionUID
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-72a4b3720132a9e7fdcdc90c255c1166-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.EspacioEntity</div>
+        <div class="b-r">At EspacioEntity.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.entities.BaseEntity.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.EspacioEntity doesn't override
+            BaseEntity.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-e697ec31b772bbe2c1ac676d2381ce6e-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity</div>
+        <div class="b-r">In method
+            co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity.getExpirationDate()
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity.expirationDate
+        </div>
+        <div class="b-r">At PasswordResetTokenEntity.java:[line 39]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity.getExpirationDate() may
+            expose internal representation by returning PasswordResetTokenEntity.expirationDate
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-ca9d432e7668ec9a7adaf27ccc4d9078-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity</div>
+        <div class="b-r">In method
+            co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity.setExpirationDate(Date)
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity.expirationDate
+        </div>
+        <div class="b-r">Local variable named expirationDate</div>
+        <div class="b-r">At PasswordResetTokenEntity.java:[line 43]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity.setExpirationDate(Date)
+            may expose internal representation by storing an externally mutable object into
+            PasswordResetTokenEntity.expirationDate
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-971caf2687d2e2cfcb7d40163e7f57b0-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity</div>
+        <div class="b-r">At PasswordResetTokenEntity.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.entities.BaseEntity.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.PasswordResetTokenEntity doesn't override
+            BaseEntity.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-249203b183198279c17f92631c252f3b-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.ReservaEntity</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.entities.ReservaEntity.getFechaReserva()</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.ReservaEntity.fechaReserva</div>
+        <div class="b-r">At ReservaEntity.java:[line 26]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.ReservaEntity.getFechaReserva() may expose
+            internal representation by returning ReservaEntity.fechaReserva
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-4dd95e69f0519f9ff0ec663d869ecd58-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.ReservaEntity</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.entities.ReservaEntity.setFechaReserva(Date)
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.entities.ReservaEntity.fechaReserva</div>
+        <div class="b-r">Local variable named fechaReserva</div>
+        <div class="b-r">At ReservaEntity.java:[line 30]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.ReservaEntity.setFechaReserva(Date) may expose
+            internal representation by storing an externally mutable object into ReservaEntity.fechaReserva
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-625378ef32e1bebb1ced83dcd693c5be-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.ReservaEntity</div>
+        <div class="b-r">At ReservaEntity.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.entities.BaseEntity.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.ReservaEntity doesn't override
+            BaseEntity.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-8528b01f561a0dea646a6a06b5f05c88-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.RoleEntity</div>
+        <div class="b-r">At RoleEntity.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.entities.BaseEntity.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.RoleEntity doesn't override
+            BaseEntity.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-bf6329b47ded6f20ce1f1ca970b2c97f-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity</div>
+        <div class="b-r">At TipoEspacioEntity.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.entities.BaseEntity.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity doesn't override
+            BaseEntity.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-badd8f40bf7803b8dfc70376b43ed253-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity</div>
+        <div class="b-r">At TipoEspacioEntity.java:[lines 8-17]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity is Serializable; consider
+            declaring a serialVersionUID
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-a9e7f8839c4f5f0b50ec643d40e0405c-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.entities.UsuarioEntity</div>
+        <div class="b-r">At UsuarioEntity.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.entities.BaseEntity.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.entities.UsuarioEntity doesn't override
+            BaseEntity.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-3eaa6d27668f47268b7febcb0d2b10d7-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.initializer.InformacionPorDefecto</div>
+        <div class="b-r">In method
+            co.edu.poligran.serviciosalestudiante.initializer.InformacionPorDefecto.onApplicationEvent(ContextRefreshedEvent)
+        </div>
+        <div class="b-r">At InformacionPorDefecto.java:[line 123]</div>
+        <div class="b-d">Exception is caught when Exception is not thrown in
+            co.edu.poligran.serviciosalestudiante.initializer.InformacionPorDefecto.onApplicationEvent(ContextRefreshedEvent)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-10dfbb77ecdf8ec84e083b96b1a6b8cb-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.getDia()</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.dia</div>
+        <div class="b-r">At BloqueDTO.java:[line 41]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.getDia() may expose internal
+            representation by returning BloqueDTO.dia
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-b74745efd830fd051115fa6a5a52a091-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.getTiempoFin()</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.tiempoFin</div>
+        <div class="b-r">At BloqueDTO.java:[line 25]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.getTiempoFin() may expose internal
+            representation by returning BloqueDTO.tiempoFin
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-9fa5d1e2aa7e9b8da3631d730266e83a-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.getTiempoInicio()</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.tiempoInicio</div>
+        <div class="b-r">At BloqueDTO.java:[line 17]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.getTiempoInicio() may expose
+            internal representation by returning BloqueDTO.tiempoInicio
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-75bd399dfb885de0827bab6038455ad0-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.setDia(Date)</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.dia</div>
+        <div class="b-r">Local variable named dia</div>
+        <div class="b-r">At BloqueDTO.java:[line 45]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.setDia(Date) may expose internal
+            representation by storing an externally mutable object into BloqueDTO.dia
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-e1c6d9df878879d379aca597c5b5899e-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.setTiempoFin(Date)</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.tiempoFin</div>
+        <div class="b-r">Local variable named tiempoFin</div>
+        <div class="b-r">At BloqueDTO.java:[line 29]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.setTiempoFin(Date) may expose
+            internal representation by storing an externally mutable object into BloqueDTO.tiempoFin
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-d09601aa9ff26ad93f2239ef38e7f53b-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.setTiempoInicio(Date)
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.tiempoInicio</div>
+        <div class="b-r">Local variable named tiempoInicio</div>
+        <div class="b-r">At BloqueDTO.java:[line 21]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO.setTiempoInicio(Date) may expose
+            internal representation by storing an externally mutable object into BloqueDTO.tiempoInicio
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-94a6de75c07c4123308b52b2a70c99c0-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO</div>
+        <div class="b-r">At BloqueDTO.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.service.dto.BaseDTO.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO doesn't override
+            BaseDTO.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-3e541a53a9473ee2388644ad8b8314fa-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO.getHoraFin()
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO.horaFin</div>
+        <div class="b-r">At BloquePlantillaDTO.java:[line 59]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO.getHoraFin() may expose
+            internal representation by returning BloquePlantillaDTO.horaFin
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-e8584d1120956cadd9155599a3b8f94a-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO</div>
+        <div class="b-r">In method
+            co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO.getHoraInicio()
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO.horaInicio</div>
+        <div class="b-r">At BloquePlantillaDTO.java:[line 51]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO.getHoraInicio() may expose
+            internal representation by returning BloquePlantillaDTO.horaInicio
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-41def65f4d55f3a10a20a12d397eb726-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO</div>
+        <div class="b-r">In method
+            co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO.setHoraFin(Date)
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO.horaFin</div>
+        <div class="b-r">Local variable named horaFin</div>
+        <div class="b-r">At BloquePlantillaDTO.java:[line 63]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO.setHoraFin(Date) may
+            expose internal representation by storing an externally mutable object into BloquePlantillaDTO.horaFin
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-6802b187362fecf0892a4b4485c27a34-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO</div>
+        <div class="b-r">In method
+            co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO.setHoraInicio(Date)
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO.horaInicio</div>
+        <div class="b-r">Local variable named horaInicio</div>
+        <div class="b-r">At BloquePlantillaDTO.java:[line 55]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO.setHoraInicio(Date) may
+            expose internal representation by storing an externally mutable object into BloquePlantillaDTO.horaInicio
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-1515c680684578b1c4036ac1e5df8a61-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO</div>
+        <div class="b-r">At BloquePlantillaDTO.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.service.dto.BaseDTO.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.BloquePlantillaDTO doesn't override
+            BaseDTO.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-bb5fe720e77a899fc00ce8dda88e72ae-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO</div>
+        <div class="b-r">At EspacioDTO.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.service.dto.BaseDTO.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.EspacioDTO doesn't override
+            BaseDTO.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-a61dd868d186717a3de26c527523a186-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO</div>
+        <div class="b-r">In method
+            co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO.getExpirationDate()
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO.expirationDate
+        </div>
+        <div class="b-r">At PasswordResetTokenDTO.java:[line 35]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO.getExpirationDate() may
+            expose internal representation by returning PasswordResetTokenDTO.expirationDate
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-3305bc23ee71dc5d868b9d7f3f1d4f6e-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO</div>
+        <div class="b-r">In method
+            co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO.setExpirationDate(Date)
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO.expirationDate
+        </div>
+        <div class="b-r">Local variable named expirationDate</div>
+        <div class="b-r">At PasswordResetTokenDTO.java:[line 39]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.PasswordResetTokenDTO.setExpirationDate(Date)
+            may expose internal representation by storing an externally mutable object into
+            PasswordResetTokenDTO.expirationDate
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-81d09231b6bb12484404c683b0a2054-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO.getFechaReserva()</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO.fechaReserva</div>
+        <div class="b-r">At ReservaDTO.java:[line 13]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO.getFechaReserva() may expose
+            internal representation by returning ReservaDTO.fechaReserva
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-7fbb78fce6a4cbf68ad89f74bd37fbbe-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO</div>
+        <div class="b-r">In method co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO.setFechaReserva(Date)
+        </div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO.fechaReserva</div>
+        <div class="b-r">Local variable named fechaReserva</div>
+        <div class="b-r">At ReservaDTO.java:[line 17]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO.setFechaReserva(Date) may expose
+            internal representation by storing an externally mutable object into ReservaDTO.fechaReserva
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-a8e91633c18d0cf868f90238ee84dce9-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO</div>
+        <div class="b-r">At ReservaDTO.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.service.dto.BaseDTO.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.ReservaDTO doesn't override
+            BaseDTO.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-fe5026e93a17c01d998b9d1edd903266-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.RoleDTO</div>
+        <div class="b-r">At RoleDTO.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.service.dto.BaseDTO.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.RoleDTO doesn't override
+            BaseDTO.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-f26ba86d1e015608c16d453ac8848afb-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO</div>
+        <div class="b-r">At TipoEspacioDTO.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.service.dto.BaseDTO.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO doesn't override
+            BaseDTO.equals(Object)
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-e1d0ac54bf632839781d3dd7d6ef6125-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.CANCHA_FUTBOL</div>
+        <div class="b-r">At TipoEspacioDTO.java:[line 9]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.CANCHA_FUTBOL isn't final but
+            should be
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-53db1303f37f11a08dab548c33aefdf-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.CANCHA_MULTIPLE</div>
+        <div class="b-r">At TipoEspacioDTO.java:[line 8]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.CANCHA_MULTIPLE isn't final
+            but should be
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-b3d1e6323d48948f39dd72b945595279-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.CANCHA_TENIS</div>
+        <div class="b-r">At TipoEspacioDTO.java:[line 7]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.CANCHA_TENIS isn't final but
+            should be
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-e9a657ce7a23ea743fd30a3f07f1776-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.CUBICULO_ESTUDIO</div>
+        <div class="b-r">At TipoEspacioDTO.java:[line 4]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.CUBICULO_ESTUDIO isn't final
+            but should be
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-b35a7179309bfa5bb78cd0503ba03e0c-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.CUBICULO_VIDEO</div>
+        <div class="b-r">At TipoEspacioDTO.java:[line 5]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.CUBICULO_VIDEO isn't final but
+            should be
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-b1a3606e338d7c53136728814f68a07b-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO</div>
+        <div class="b-r">Field co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.GIMNASIO</div>
+        <div class="b-r">At TipoEspacioDTO.java:[line 6]</div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.GIMNASIO isn't final but
+            should be
+        </div>
+    </div>
+    <div style="display:none;" class="bug" id="b-uid-f13cc1f0534384858678a8c20b082225-0">
+        <div class="b-r">In class co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO</div>
+        <div class="b-r">At UsuarioDTO.java:[line 1]</div>
+        <div class="b-r">Did you intend to override
+            co.edu.poligran.serviciosalestudiante.service.dto.BaseDTO.equals(Object)
+        </div>
+        <div class="b-d">co.edu.poligran.serviciosalestudiante.service.dto.UsuarioDTO doesn't override
+            BaseDTO.equals(Object)
+        </div>
+    </div>
+</div>
+</body>
+</html>
