@@ -36,18 +36,18 @@ public class BloquePlantillaEntity extends BaseEntity {
     }
 
     public Date getHoraInicio() {
-        return horaInicio;
+        return (this.horaInicio != null ? (Date) this.horaInicio.clone() : null);
     }
 
     public void setHoraInicio(Date horaInicio) {
-        this.horaInicio = horaInicio;
+        this.horaInicio = (horaInicio != null ? (Date) horaInicio.clone() : null);
     }
 
     public Date getHoraFin() {
-        return horaFin;
+        return (this.horaFin != null ? (Date) this.horaFin.clone() : null);
     }
 
     public void setHoraFin(Date horaFin) {
-        this.horaFin = horaFin;
+        this.horaFin = (horaFin != null ? (Date) horaFin.clone() : null);
     }
 }

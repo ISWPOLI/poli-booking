@@ -27,19 +27,19 @@ public class BloqueEntity extends BaseEntity {
     private List<ReservaEntity> reservas;
 
     public Date getTiempoInicio() {
-        return tiempoInicio;
+        return (this.tiempoInicio != null ? (Date) this.tiempoInicio.clone() : null);
     }
 
     public void setTiempoInicio(Date tiempoInicio) {
-        this.tiempoInicio = tiempoInicio;
+        this.tiempoInicio = (tiempoInicio != null ? (Date) tiempoInicio.clone() : null);
     }
 
     public Date getTiempoFin() {
-        return tiempoFin;
+        return (this.tiempoFin != null ? (Date) tiempoFin.clone() : null);
     }
 
     public void setTiempoFin(Date tiempoFin) {
-        this.tiempoFin = tiempoFin;
+        this.tiempoFin = (tiempoFin != null ? (Date) tiempoFin.clone() : null);
     }
 
     public EspacioEntity getEspacio() {
@@ -51,11 +51,11 @@ public class BloqueEntity extends BaseEntity {
     }
 
     public Date getDia() {
-        return dia;
+        return (this.dia != null ? (Date) this.dia.clone() : null);
     }
 
     public void setDia(Date dia) {
-        this.dia = dia;
+        this.dia = (dia != null ? (Date) dia.clone() : null);
     }
 
     public List<ReservaEntity> getReservas() {
