@@ -7,6 +7,11 @@ public class TipoEspacioDTO extends BaseDTO {
     public static final String CANCHA_TENIS = "CANCHA_TENIS";
     public static final String CANCHA_MULTIPLE = "CANCHA_MULTIPLE";
     public static final String CANCHA_FUTBOL = "CANCHA_FUTBOL";
+    public static final String COMPUTADOR="COMPUTADOR";
+    public static final String LABORATORIO_FISICA="LABORATORIO_FISICA";
+    public static final String LABORATORIO_QUIMICA="LABORATORIO_QUIMICA";
+    public static final String LABORATORIO_ELECTRONICA="LABORATORIO_ELECTRONICA";
+    public static final String LABORATORIO_TELECO="LABORATORIO_TELECO";
 
     private String nombre;
 

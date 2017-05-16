@@ -26,7 +26,8 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
                 'prueba-grafica':'mostrarPruebaGrafica',
                 'generar-bloques': 'generarBloques',
                 'eliminar-bloques': 'eliminarBloques',
-                'historico-grafica':'mostrarHistoricoGrafica'
+                'historico-grafica':'mostrarHistoricoGrafica',
+                'laboratorios':'mostrarLaboratorio'
             },
 
             mostrarHome: function () {
@@ -139,6 +140,10 @@ define(['jquery', 'underscore', 'backbone', 'App', 'ReservaApp'],
             mostrarHistoricoGrafica: function(){
             	var reservasApp = App.arrancarSubAplicacion(ReservasApp);
                 this.procesarRuta(reservasApp.mostrarHistoricoGrafica, reservasApp);
+            },
+            mostrarLaboratorio: function(){
+            	var reservasApp = App.arrancarSubAplicacion(ReservasApp);
+            	this.procesarRuta(reservasApp.mostrarLaboratorio,reservasApp);
             },
 
             generarBloques: function () {

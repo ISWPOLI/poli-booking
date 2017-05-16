@@ -129,6 +129,11 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                	 var reservasController = this.arrancarControlador(ReservaController);
                     reservasController.mostrarHistoricoGrafica();
                },
+               
+               mostrarLaboratorios: function(){
+            	   var reservasController=this.arrancarControlador(ReservaController);
+            	   reservasController.mostrarLaboratorios();
+               },
 
                 generarBloques: function () {
                     var reservasController = this.arrancarControlador(ReservaController);

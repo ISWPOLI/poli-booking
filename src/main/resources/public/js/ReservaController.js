@@ -3,13 +3,13 @@ define(['underscore', 'backbone', 'moment', 'App', 'MainLayout', 'HeaderView', '
         'BibliotecaView', 'ComputadoresView', 'TenisView', 'UsuariosView', 'ConsultarUsuarioView', 'CrearUsuarioView',
         'ActualizarUsuarioView', 'EditarUsuarioView', 'EliminarUsuarioView', 'BloquesDisponiblesView', 'CanchasView',
         'GimnasioView', 'CanchaMultipleView', 'CanchaFutbolTenisView', 'CubiculoEstudioView', 'CubiculoVideoView',
-        'ConfirmarReservaView', 'CalendarioEspacioView', 'GenerarBloquesView', 'EliminarBloquesView', 'PruebaGraficaView','PruebaHistoricoView'],
+        'ConfirmarReservaView', 'CalendarioEspacioView', 'GenerarBloquesView', 'EliminarBloquesView', 'PruebaGraficaView','PruebaHistoricoView','LaboratoriosView'],
     function (_, Backbone, moment, App, MainLayout, HeaderView, FooterView, ConsultarReservasCollectionView, HomeView,
               LoginView, PasswordRecoveryView, PasswordChangeView, BibliotecaView, ComputadoresView, TenisView,
               UsuariosView, ConsultarUsuarioView, CrearUsuarioView, ActualizarUsuarioView, EditarUsuarioView,
               EliminarUsuarioView, BloquesDisponiblesView, CanchasView, GimnasioView, CanchaMultipleView,
               CanchaFutbolTenisView, CubiculoEstudioView, CubiculoVideoView, ConfirmarReservaView,
-              CalendarioEspacioView, GenerarBloquesView, EliminarBloquesView, PruebaGraficaView,PruebaHistoricoView) {
+              CalendarioEspacioView, GenerarBloquesView, EliminarBloquesView, PruebaGraficaView,PruebaHistoricoView,LaboratorioView) {
 
         var misReservasController = function (options) {
             var controlador = {
@@ -140,7 +140,11 @@ define(['underscore', 'backbone', 'moment', 'App', 'MainLayout', 'HeaderView', '
                 mostrarHistoricoGrafica: function(){
                 	this.mostrarEnContent(new PruebaHistoricoView());
                 },
-          
+                
+                mostrarLaboratorio: function(){
+                	this.mostrarEnContent(new LaboratoriosView());
+                },
+                
                 generarBloques: function () {
                     this.mostrarEnContent(new GenerarBloquesView());
                 },
