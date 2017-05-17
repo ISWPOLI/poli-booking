@@ -41,4 +41,14 @@ public class PasswordResetTokenEntity extends BaseEntity {
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = (expirationDate != null ? (Date) expirationDate.clone() : null);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

@@ -62,4 +62,14 @@ public class BloquePlantillaDTO extends BaseDTO {
     public void setHoraFin(Date horaFin) {
         this.horaFin = (horaFin != null ? (Date) horaFin.clone() : null);
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

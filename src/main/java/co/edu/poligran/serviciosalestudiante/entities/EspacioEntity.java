@@ -12,16 +12,16 @@ import java.util.List;
 @Table(name = "ESPACIOS")
 public class EspacioEntity extends BaseEntity {
 
-	private static final long serialVersionUID = -3685813705664830546L;
+    private static final long serialVersionUID = -3685813705664830546L;
 
     @ManyToOne
     private TipoEspacioEntity tipoEspacio;
     private String nombre;
     private int cupos;
 
-	@OneToMany(mappedBy = "espacio")
-	@JsonIgnore
-	private List<BloqueEntity> bloques;
+    @OneToMany(mappedBy = "espacio")
+    @JsonIgnore
+    private List<BloqueEntity> bloques;
 
     public int getCupos() {
         return cupos;
@@ -31,21 +31,21 @@ public class EspacioEntity extends BaseEntity {
         this.cupos = cupos;
     }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public List<BloqueEntity> getBloques() {
-		return bloques;
-	}
+    public List<BloqueEntity> getBloques() {
+        return bloques;
+    }
 
-	public void setBloques(List<BloqueEntity> bloques) {
-		this.bloques = bloques;
-	}
+    public void setBloques(List<BloqueEntity> bloques) {
+        this.bloques = bloques;
+    }
 
     public TipoEspacioEntity getTipoEspacio() {
         return tipoEspacio;
@@ -55,4 +55,13 @@ public class EspacioEntity extends BaseEntity {
         this.tipoEspacio = tipoEspacio;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

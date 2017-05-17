@@ -1,10 +1,6 @@
 package co.edu.poligran.serviciosalestudiante.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ROLES")
@@ -23,4 +19,14 @@ public class RoleEntity extends BaseEntity {
 	public void setType(RoleTypeEnum type) {
 		this.type = type;
 	}
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

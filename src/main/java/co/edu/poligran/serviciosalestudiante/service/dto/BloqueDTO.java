@@ -52,4 +52,14 @@ public class BloqueDTO extends BaseDTO {
     public void setReservas(List<ReservaDTO> reservas) {
         this.reservas = reservas;
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

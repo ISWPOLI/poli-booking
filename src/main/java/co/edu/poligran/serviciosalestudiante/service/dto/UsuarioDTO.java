@@ -1,11 +1,11 @@
 package co.edu.poligran.serviciosalestudiante.service.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioDTO extends BaseDTO {
 	private String username;
@@ -80,4 +80,13 @@ public class UsuarioDTO extends BaseDTO {
 		this.reservas = reservas;
 	}
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

@@ -65,4 +65,14 @@ public class BloqueEntity extends BaseEntity {
     public void setReservas(List<ReservaEntity> reservas) {
         this.reservas = reservas;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
