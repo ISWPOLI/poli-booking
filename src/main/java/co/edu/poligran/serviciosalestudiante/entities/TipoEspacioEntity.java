@@ -6,6 +6,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "TIPO_ESPACIO")
 public class TipoEspacioEntity extends BaseEntity {
+
+    private static final long serialVersionUID = 1L;
+
     private String nombre;
 
     public String getNombre() {

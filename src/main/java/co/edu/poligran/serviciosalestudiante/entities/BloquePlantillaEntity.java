@@ -7,6 +7,9 @@ import java.util.Date;
 @Entity
 @Table(name = "BLOQUES_PLANTILLA")
 public class BloquePlantillaEntity extends BaseEntity {
+
+    private static final long serialVersionUID = 1L;
+
     @Enumerated(EnumType.STRING)
     private DayOfWeek dia;
 

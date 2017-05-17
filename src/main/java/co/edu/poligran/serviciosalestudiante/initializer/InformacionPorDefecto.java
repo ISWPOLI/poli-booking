@@ -117,7 +117,7 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
                 crearCanchasPorDefecto();
                 crearGimnasioPorDefecto();
                 crearComputadorPorDefecto();
-                CrearLaboratorioPorDefecto();
+                crearLaboratorioPorDefecto();
 
                 crearBloquesPorDefecto();
             }
@@ -247,7 +247,7 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
         crearComputador("computador2", tipoComputador);
     }
 
-    private void CrearLaboratorioPorDefecto() {
+    private void crearLaboratorioPorDefecto() {
         logger.info("creando laboratorio por defecto");
         TipoEspacioDTO tipoFisica = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.LABORATORIO_FISICA);
         crearLaboratorio("Lab Fisica", tipoFisica);
