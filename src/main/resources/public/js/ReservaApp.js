@@ -130,7 +130,7 @@ define(['App', 'ReservaCollection', 'ReservaController'],
                     reservasController.mostrarHistoricoGrafica();
                },
                
-               mostrarLaboratorios: function(){
+               mostrarLaboratorio: function(){
             	   var reservasController=this.arrancarControlador(ReservaController);
             	   reservasController.mostrarLaboratorios();
                },
