@@ -116,6 +116,8 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
                 crearCubiculosPorDefecto();
                 crearCanchasPorDefecto();
                 crearGimnasioPorDefecto();
+                crearComputadorPorDefecto();
+                CrearLaboratorioPorDefecto();
 
                 crearBloquesPorDefecto();
             }
@@ -133,6 +135,11 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
         crearTipoEspacio(TipoEspacioDTO.CANCHA_TENIS);
         crearTipoEspacio(TipoEspacioDTO.CANCHA_MULTIPLE);
         crearTipoEspacio(TipoEspacioDTO.CANCHA_FUTBOL);
+        crearTipoEspacio(TipoEspacioDTO.COMPUTADOR);
+        crearTipoEspacio(TipoEspacioDTO.LABORATORIO_FISICA);
+        crearTipoEspacio(TipoEspacioDTO.LABORATORIO_QUIMICA);
+        crearTipoEspacio(TipoEspacioDTO.LABORATORIO_ELECTRONICA);
+        crearTipoEspacio(TipoEspacioDTO.LABORATORIO_TELECO);
     }
 
     private void crearTipoEspacio(String nombre) {
@@ -150,6 +157,11 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
         crearBloquesPlantillaEspacio(TipoEspacioDTO.CANCHA_TENIS);
         crearBloquesPlantillaEspacio(TipoEspacioDTO.CANCHA_MULTIPLE);
         crearBloquesPlantillaEspacio(TipoEspacioDTO.GIMNASIO);
+        crearBloquesPlantillaEspacio(TipoEspacioDTO.COMPUTADOR);
+        crearBloquesPlantillaEspacio(TipoEspacioDTO.LABORATORIO_FISICA);
+        crearBloquesPlantillaEspacio(TipoEspacioDTO.LABORATORIO_QUIMICA);
+        crearBloquesPlantillaEspacio(TipoEspacioDTO.LABORATORIO_ELECTRONICA);
+        crearBloquesPlantillaEspacio(TipoEspacioDTO.LABORATORIO_TELECO);
     }
 
     private void crearBloquesPlantillaEspacio(String tipoEspacio) {
@@ -225,6 +237,31 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
         TipoEspacioDTO tipoGimnasio = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.GIMNASIO);
         crearGimansio("cupoGimnasio", tipoGimnasio);
     }
+    
+    private void crearComputadorPorDefecto(){
+    	logger.info("creando computador por defecto");
+    	TipoEspacioDTO tipoComputador=tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.COMPUTADOR);
+    	crearComputador("computador1", tipoComputador);
+    	crearComputador("computador2", tipoComputador);
+    }
+    
+    private void CrearLaboratorioPorDefecto(){
+    	logger.info("creando laboratorio por defecto");
+    	TipoEspacioDTO tipoFisica=tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.LABORATORIO_FISICA);
+    	crearLaboratorio("Lab Fisica", tipoFisica);
+    	
+    	TipoEspacioDTO tipoQuimica=tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.LABORATORIO_QUIMICA);
+    	crearLaboratorio("Lab Quimica", tipoQuimica);
+    	
+    	
+    	TipoEspacioDTO tipoElectronica=tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.LABORATORIO_ELECTRONICA);
+    	crearLaboratorio("Lab Electronica", tipoElectronica);
+    	
+    	
+    	TipoEspacioDTO tipoTeleco=tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.LABORATORIO_TELECO);
+    	crearLaboratorio("Lab Teleco", tipoTeleco);
+    	
+    }
 
     private void crearCubiculo(String nombre, TipoEspacioDTO tipoEspacioDTO) {
         if (!espacioService.existeEspacio(nombre, tipoEspacioDTO)) {
@@ -254,6 +291,25 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
             espacioService.crearEspacio(gimnasio);
         }
     }
+    private void crearComputador(String nombre, TipoEspacioDTO tipoEspacioDTO){
+    	if(!espacioService.existeEspacio(nombre, tipoEspacioDTO)){
+    		EspacioDTO computador=new EspacioDTO();
+    		computador.setNombre(nombre);
+    		computador.setTipoEspacio(tipoEspacioDTO);
+    		computador.setCupos(20);
+    		espacioService.crearEspacio(computador);
+    	}
+    }
+    
+    private void crearLaboratorio(String nombre, TipoEspacioDTO tipoEspacio){
+    	if(!espacioService.existeEspacio(nombre, tipoEspacio)){
+    		EspacioDTO laboratorio=new EspacioDTO();
+    		laboratorio.setNombre(nombre);
+    		laboratorio.setTipoEspacio(tipoEspacio);
+    		laboratorio.setCupos(1);
+    		espacioService.crearEspacio(laboratorio);
+    	}
+    }
 
     private void crearBloquesPorDefecto() {
         crearBloquesEspacioPorDefecto(TipoEspacioDTO.CUBICULO_ESTUDIO);
@@ -262,7 +318,12 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
         crearBloquesEspacioPorDefecto(TipoEspacioDTO.CANCHA_TENIS);
         crearBloquesEspacioPorDefecto(TipoEspacioDTO.CANCHA_MULTIPLE);
         crearBloquesEspacioPorDefecto(TipoEspacioDTO.GIMNASIO);
-
+        crearBloquesEspacioPorDefecto(TipoEspacioDTO.COMPUTADOR);
+        crearBloquesEspacioPorDefecto(TipoEspacioDTO.LABORATORIO_FISICA);
+        crearBloquesEspacioPorDefecto(TipoEspacioDTO.LABORATORIO_QUIMICA);
+        crearBloquesEspacioPorDefecto(TipoEspacioDTO.LABORATORIO_ELECTRONICA);
+        crearBloquesEspacioPorDefecto(TipoEspacioDTO.LABORATORIO_TELECO);
+        
     }
 
     private void crearBloquesEspacioPorDefecto(String tipoEspacio) {
