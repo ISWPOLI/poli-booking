@@ -122,6 +122,8 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
                 crearBloquesPorDefecto();
             }
             logger.info("finalizó la inicialización de información por defecto");
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
             logger.error("error inicializando la información por defecto", e);
         }
@@ -237,30 +239,31 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
         TipoEspacioDTO tipoGimnasio = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.GIMNASIO);
         crearGimansio("cupoGimnasio", tipoGimnasio);
     }
-    
-    private void crearComputadorPorDefecto(){
-    	logger.info("creando computador por defecto");
-    	TipoEspacioDTO tipoComputador=tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.COMPUTADOR);
-    	crearComputador("computador1", tipoComputador);
-    	crearComputador("computador2", tipoComputador);
+
+    private void crearComputadorPorDefecto() {
+        logger.info("creando computador por defecto");
+        TipoEspacioDTO tipoComputador = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.COMPUTADOR);
+        crearComputador("computador1", tipoComputador);
+        crearComputador("computador2", tipoComputador);
     }
-    
-    private void CrearLaboratorioPorDefecto(){
-    	logger.info("creando laboratorio por defecto");
-    	TipoEspacioDTO tipoFisica=tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.LABORATORIO_FISICA);
-    	crearLaboratorio("Lab Fisica", tipoFisica);
-    	
-    	TipoEspacioDTO tipoQuimica=tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.LABORATORIO_QUIMICA);
-    	crearLaboratorio("Lab Quimica", tipoQuimica);
-    	
-    	
-    	TipoEspacioDTO tipoElectronica=tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.LABORATORIO_ELECTRONICA);
-    	crearLaboratorio("Lab Electronica", tipoElectronica);
-    	
-    	
-    	TipoEspacioDTO tipoTeleco=tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.LABORATORIO_TELECO);
-    	crearLaboratorio("Lab Teleco", tipoTeleco);
-    	
+
+    private void CrearLaboratorioPorDefecto() {
+        logger.info("creando laboratorio por defecto");
+        TipoEspacioDTO tipoFisica = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.LABORATORIO_FISICA);
+        crearLaboratorio("Lab Fisica", tipoFisica);
+
+        TipoEspacioDTO tipoQuimica = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.LABORATORIO_QUIMICA);
+        crearLaboratorio("Lab Quimica", tipoQuimica);
+
+
+        TipoEspacioDTO tipoElectronica = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO
+                .LABORATORIO_ELECTRONICA);
+        crearLaboratorio("Lab Electronica", tipoElectronica);
+
+
+        TipoEspacioDTO tipoTeleco = tipoEspacioService.buscarTipoEspacioPorNombre(TipoEspacioDTO.LABORATORIO_TELECO);
+        crearLaboratorio("Lab Teleco", tipoTeleco);
+
     }
 
     private void crearCubiculo(String nombre, TipoEspacioDTO tipoEspacioDTO) {
@@ -291,24 +294,25 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
             espacioService.crearEspacio(gimnasio);
         }
     }
-    private void crearComputador(String nombre, TipoEspacioDTO tipoEspacioDTO){
-    	if(!espacioService.existeEspacio(nombre, tipoEspacioDTO)){
-    		EspacioDTO computador=new EspacioDTO();
-    		computador.setNombre(nombre);
-    		computador.setTipoEspacio(tipoEspacioDTO);
-    		computador.setCupos(20);
-    		espacioService.crearEspacio(computador);
-    	}
+
+    private void crearComputador(String nombre, TipoEspacioDTO tipoEspacioDTO) {
+        if (!espacioService.existeEspacio(nombre, tipoEspacioDTO)) {
+            EspacioDTO computador = new EspacioDTO();
+            computador.setNombre(nombre);
+            computador.setTipoEspacio(tipoEspacioDTO);
+            computador.setCupos(20);
+            espacioService.crearEspacio(computador);
+        }
     }
-    
-    private void crearLaboratorio(String nombre, TipoEspacioDTO tipoEspacio){
-    	if(!espacioService.existeEspacio(nombre, tipoEspacio)){
-    		EspacioDTO laboratorio=new EspacioDTO();
-    		laboratorio.setNombre(nombre);
-    		laboratorio.setTipoEspacio(tipoEspacio);
-    		laboratorio.setCupos(1);
-    		espacioService.crearEspacio(laboratorio);
-    	}
+
+    private void crearLaboratorio(String nombre, TipoEspacioDTO tipoEspacio) {
+        if (!espacioService.existeEspacio(nombre, tipoEspacio)) {
+            EspacioDTO laboratorio = new EspacioDTO();
+            laboratorio.setNombre(nombre);
+            laboratorio.setTipoEspacio(tipoEspacio);
+            laboratorio.setCupos(1);
+            espacioService.crearEspacio(laboratorio);
+        }
     }
 
     private void crearBloquesPorDefecto() {
@@ -323,7 +327,7 @@ public class InformacionPorDefecto implements ApplicationListener<ContextRefresh
         crearBloquesEspacioPorDefecto(TipoEspacioDTO.LABORATORIO_QUIMICA);
         crearBloquesEspacioPorDefecto(TipoEspacioDTO.LABORATORIO_ELECTRONICA);
         crearBloquesEspacioPorDefecto(TipoEspacioDTO.LABORATORIO_TELECO);
-        
+
     }
 
     private void crearBloquesEspacioPorDefecto(String tipoEspacio) {
