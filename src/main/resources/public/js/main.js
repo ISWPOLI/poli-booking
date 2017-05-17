@@ -71,7 +71,8 @@ require
             BloquesDisponiblesView: './views/reservas/biblioteca/BloquesDisponiblesView',
             ConfirmarReservaView: './views/reservas/ConfirmarReservaView',
             EspaciosDisponiblesTemplate: '../templates/reservas/biblioteca/EspaciosDisponibles.html',
-
+            LaboratoriosView:'./views/reservas/laboratorios/LaboratoriosView',
+            
             //calendario
             CalendarioTemplate: '../templates/calendario/calendario.html',
             CalendarioEspacioView: './views/reservas/CalendarioEspacioView',
