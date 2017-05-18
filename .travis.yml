@@ -10,4 +10,5 @@ deploy:
   app: "poli-booking"
   env: "DEV-polibooking"
   bucket_name: "elasticbeanstalk-us-east-1-804492321058"
+  skip_cleanup: true
   zip_file: 'target/servicios-al-estudiante-0.0.1-SNAPSHOT.jar'
