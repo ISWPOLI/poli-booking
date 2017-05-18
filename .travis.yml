@@ -1,3 +1,12 @@
 language: java
 jdk:
  - oraclejdk8
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: AKIAIJNJDQOK7C6CASOQ
+  secret_access_key:
+    secure: "gB3Syp+K+y/lYl5mWn05HtC8Zy/jG5+OGbjrJQcewGelG5N44ikFDy4gUZXWS2BK7qhQ0iOxZqVH3cYFZhaicVFUdpcUnwxDVRAscjck/wiLZX9G3xc/roYjljttSdmxqhr/ZexWz2QMrU5ENx8UWXZ2wildOKWV2f4Hss7V6nJXGJYdcMOyGn0wRuiKOiNjaqdSU0oQibQxZW7HTl6dnGbzD3CXRkdMPlGhRmEdat2s2wNfrzJ1D8B5vL4XkIjFMK1rgnJzx+ZO1IOQ65OmKGO46re9285VFCZ7icUtv/FwBGemd4VXQP1iiZrvG9PFFDxpQ4FSiaH+eOePE9hHrjg7sF93WLPMJZig6iqHlSYYa1pFtWi6oQOzXRpsvYeWojOJC7q0F4wjxnFxtgVDPgXyuAGHKYfd4rUQi5yvP1x13iqkJuzE6kKAiSsDht8BoLPIc/Hf/xfbQEiq9/5NtjlgPVLo75EYOhRq2hBa9GW3wnw2IhZSesy6yAaT3BkoVitcenLsUy8WqC9FlMorgaPLy3qeTvGXiWAeynWESVd7e65Tfl2Beh1a5mL4bUpacEjNaP1Rul4wSbYlDDTqIc4F/xUEhCrL+DHSPb+EeAri08CMTnERbSKpyl3oCnvqc/w2yPE45H6r1A0F+KQ4MML4JAHUNpQd0ok7wi35srE="
+  region: "us-east-1"
+  app: "poli-booking"
+  env: "DEV-polibooking"
+  bucket_name: "elasticbeanstalk-us-east-1-804492321058"
