@@ -7,3 +7,9 @@ INSERT INTO public.espacios (id, cupos, nombre, tipo_espacio_id) VALUES (323, 1,
 INSERT INTO public.espacios (id, cupos, nombre, tipo_espacio_id) VALUES (324, 1, 'canchaTenis', 7);
 INSERT INTO public.espacios (id, cupos, nombre, tipo_espacio_id) VALUES (325, 1, 'canchaMultiple', 8);
 INSERT INTO public.espacios (id, cupos, nombre, tipo_espacio_id) VALUES (326, 15, 'cupoGimnasio', 6);
+INSERT INTO public.espacios (id, cupos, nombre, tipo_espacio_id) VALUES (6028, 20, 'computador1', 5768);
+INSERT INTO public.espacios (id, cupos, nombre, tipo_espacio_id) VALUES (6029, 20, 'computador2', 5768);
+INSERT INTO public.espacios (id, cupos, nombre, tipo_espacio_id) VALUES (6030, 1, 'Lab Fisica', 5769);
+INSERT INTO public.espacios (id, cupos, nombre, tipo_espacio_id) VALUES (6031, 1, 'Lab Quimica', 5770);
+INSERT INTO public.espacios (id, cupos, nombre, tipo_espacio_id) VALUES (6032, 1, 'Lab Electronica', 5771);
+INSERT INTO public.espacios (id, cupos, nombre, tipo_espacio_id) VALUES (6033, 1, 'Lab Teleco', 5772);
