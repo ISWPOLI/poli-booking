@@ -13,10 +13,12 @@ import java.util.List;
 @RestController
 public class BloquePlantillaController extends BaseController {
 
+    public static final String BLOQUES_CONSULTAR_BLOQUES_PLANTILLA = "/bloques/consultar-bloques-plantilla";
+
     @Autowired
     private ServiciosFacade serviciosFacade;
 
-    @RequestMapping(value = "/bloques/consultar-bloques-plantilla", method = RequestMethod.GET)
+    @RequestMapping(value = BLOQUES_CONSULTAR_BLOQUES_PLANTILLA, method = RequestMethod.GET)
     public List<BloquePlantillaDTO> consultarBloquesPlantilla(@RequestParam("tipo-espacio") String tipoEspacio) {
         return serviciosFacade.consultarBloquesPlantillaPorTipoEspacio(tipoEspacio);
     }

@@ -15,3 +15,6 @@ deploy:
 before_install:
   - npm install -g bower
   - bower install
+after_success:
+  - mvn clean test saga:coverage coveralls:report
+  - mvn jacoco:report coveralls:report
