@@ -184,6 +184,8 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
         return DozerUtils.mapCollection(bloquesCreados, BloqueDTO.class, mapper);
     }
 
+    //
+    
     @Override
     @CacheRemoveAll
     public List<BloqueDTO> generarBloquesMasivamente(TipoEspacioDTO tipoEspacio, Date fechaInicio, Date fechaFin) {

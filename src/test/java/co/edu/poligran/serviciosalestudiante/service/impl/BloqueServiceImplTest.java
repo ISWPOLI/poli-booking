@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean;
 import co.edu.poligran.serviciosalestudiante.configuration.SpringBeansConfiguration;
 import co.edu.poligran.serviciosalestudiante.entities.BloqueEntity;
 import co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity;
@@ -27,6 +28,8 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.reset;
 
 import java.util.*;
+
+import javax.cache.annotation.CacheResult;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { SpringBeansConfiguration.class, BloqueServiceImpl.class })
 
@@ -119,6 +122,39 @@ public class BloqueServiceImplTest {
 		
 		List <BloqueDTO> listaDTO= bloqueServiceImpl.consultarBloquesVigentesPorTipoEspacio(tipoEspacioDTO);
 		assertThat(listaDTO.size(),is(lista.size()));
+	}
+	
+	@Test
+	public void consultarDiasConBloquesDisponiblesTest(){
+		TipoEspacioDTO tipoEspacioDTO=new TipoEspacioDTO();
+		tipoEspacioDTO.setNombre(TipoEspacioDTO.CANCHA_FUTBOL);
+		when(tipoEspacioService.buscarTipoEspacioPorNombre(tipoEspacioDTO.getNombre())).thenReturn(tipoEspacioDTO);
+		
+		List<Date> lista=new ArrayList<>();
+		lista.add(new Date());
+		
+		when(bloqueRepository.consultarDiasConBloquesVigentesPorTipoEspacio(new TipoEspacioEntity())).thenReturn(lista);
+		
+		List<DiaCalendarioBean> listaCalendario=bloqueServiceImpl.consultarDiasConBloquesDisponibles(tipoEspacioDTO.getNombre());
+		assertThat(listaCalendario.size(),is(lista.size()));
+	}
+	
+//	@Override
+//  @CacheResult
+//  public BloqueDTO consultarBloque(Long idBloque) {
+//      return mapper.map(bloqueRepository.findOne(idBloque), BloqueDTO.class);
+//  }
+	
+	@Test
+	public void generarBloquesMasivamenteTest(){
+		TipoEspacioDTO tipoEspacioDTO=new TipoEspacioDTO();
+		tipoEspacioDTO.setNombre(TipoEspacioDTO.CANCHA_FUTBOL);
+		when(tipoEspacioService.buscarTipoEspacioPorNombre(tipoEspacioDTO.getNombre())).thenReturn(tipoEspacioDTO);
+		
+		List<EspacioDTO> lista=new ArrayList<>();
+		lista.add(new EspacioDTO());
+		when(espacioService.getEspaciosPorTipoEspacio(tipoEspacioDTO)).thenReturn(lista);		
+		
 	}
 	
 }
