@@ -1,11 +1,18 @@
 package co.edu.poligran.serviciosalestudiante.controller;
 
-import co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean;
-import co.edu.poligran.serviciosalestudiante.service.ServiciosFacade;
-import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
+import static co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.CUBICULO_ESTUDIO;
+import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.apache.commons.collections.MultiMap;
-import org.apache.commons.collections.map.MultiValueMap;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,24 +24,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TreeMap;
-
-import static co.edu.poligran.serviciosalestudiante.controller.BloquePlantillaController.BLOQUES_CONSULTAR_BLOQUES_PLANTILLA;
-import static co.edu.poligran.serviciosalestudiante.service.dto.TipoEspacioDTO.CUBICULO_ESTUDIO;
-import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean;
+import co.edu.poligran.serviciosalestudiante.service.ServiciosFacade;
+import co.edu.poligran.serviciosalestudiante.service.dto.BloqueDTO;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(BloquesController.class)
@@ -82,13 +76,27 @@ public class BloquesControllerTest {
     public void pruebaConsultarBloque()throws Exception{
     	BloqueDTO bloque=new BloqueDTO();
     	when(serviciosFacade.consultarBloque(40L)).thenReturn(bloque);
-    	this.mockMvc.perform(get("/bloques/consultar-bloque").param("idBloque","40")).andDo(print()).andExpect(status().isOk()).andExpect(content().json(""));
+    	this.mockMvc.perform(get("/bloques/consultar-bloque").param("idBloque","40")).andDo(print()).andExpect(status().isOk()).andExpect(content().json("{\"id\":null,\"tiempoInicio\":null,\"tiempoFin\":null," + "\"dia\":null,\"espacio\":null}"));
+    }
+
+    
+    @Test
+    @WithMockUser(username="admin",password="admin",roles="ADMIN")
+    public void pruebaGenerarBloquesMasivamente()throws Exception{
+    	List<BloqueDTO>BloquesMasivos=new LinkedList<BloqueDTO>();
+    	Date inicio=new Date();
+    	Date fin=new Date();
+    	when(serviciosFacade.generarBloquesMasivamente(CUBICULO_ESTUDIO, inicio,fin)).thenReturn(BloquesMasivos);
+    	this.mockMvc.perform(post("/bloques/generar-bloques-masivamente").param("tipo-espacio", CUBICULO_ESTUDIO).param("fecha-inicio", "2017-05-27").param("fecha-fin", "2017-05-28")).andDo(print()).andExpect(status().isOk()).andExpect(content().json("[]"));	
     }
     
+    @Test
+    @WithMockUser(username="admin",password="admin",roles="ADMIN")
+    public void pruebaEliminarBloquesMasivamente()throws Exception{
+    	Date inicio=new Date();
+    	Date fin=new Date();
+    	serviciosFacade.eliminarBloquesMasivamente(CUBICULO_ESTUDIO, inicio,fin);
+    	this.mockMvc.perform(post("/bloques/eliminar-bloques-masivamente").param("tipo-espacio", CUBICULO_ESTUDIO).param("fecha-inicio", "2017-05-27").param("fecha-fin", "2017-05-28")).andDo(print()).andExpect(status().isOk());	
+    }
     
-//    @RequestMapping(value = "/bloques/consultar-bloque", method = RequestMethod.GET)
-//    public BloqueDTO consultarBloque(@RequestParam("idBloque") Long idBloque) {
-//        return serviciosFacade.consultarBloque(idBloque);
-//    }
-
 }
