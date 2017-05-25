@@ -10,9 +10,19 @@ define(['jquery', 'underscore', 'backbone', 'App', 'text!templates/login/login.h
             },
 
             events: {
-                "click #loginButton": "login"
+                "click #loginButton": "login", 
+                "keypress #password": "login2"
             },
 
+            login2: function (event) {
+                var that = this;              
+                if(event.which==13){
+                	var username = that.$el.find('#username').val();
+                	var password = that.$el.find('#password').val();
+                	var authString = that.buildAuthString(username, password);
+                	that.sendAuthenticationRequest(authString);
+                }
+            },
             login: function (event) {
                 var that = this;
                 event.preventDefault();
