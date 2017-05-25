@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 public class BloqueDTO extends BaseDTO {
+    private static final long serialVersionUID = -2217115755648786183L;
+
     private Date tiempoInicio;
     private Date tiempoFin;
     private Date dia;

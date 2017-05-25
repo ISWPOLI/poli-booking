@@ -19,11 +19,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.cache.annotation.CacheDefaults;
+import javax.cache.annotation.CacheRemoveAll;
+import javax.cache.annotation.CacheResult;
 import java.time.DayOfWeek;
 import java.util.*;
 
 @Service
 @Transactional
+@CacheDefaults(cacheName = "bloques")
 public class BloqueServiceImpl extends BaseService implements BloqueService {
 
     public static final LocalTime BLOQUE1_INICIO = new LocalTime(7, 0);
@@ -69,6 +73,7 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
     private TipoEspacioService tipoEspacioService;
 
     @Override
+    @CacheRemoveAll
     public void generarBloques(EspacioDTO espacio, long numeroDeDias) {
         LocalDate hoy = new LocalDate(new Date());
 
@@ -103,6 +108,7 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
     }
 
     @Override
+    @CacheResult
     public List<BloqueDTO> consultarBloquesVigentesPorDiaYTipoEspacio(Date dia, String tipoEspacio) {
         TipoEspacioDTO tipoEspacioDTO = tipoEspacioService.buscarTipoEspacioPorNombre(tipoEspacio);
         TipoEspacioEntity tipoEspacioEntity = mapper.map(tipoEspacioDTO, TipoEspacioEntity.class);
@@ -113,11 +119,13 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
     }
 
     @Override
+    @CacheResult
     public List<BloqueDTO> consultarBloquesVigentesPorDiaYTipoEspacio(Date dia, TipoEspacioDTO tipoEspacio) {
         return consultarBloquesVigentesPorDiaYTipoEspacio(dia, tipoEspacio.getNombre());
     }
 
     @Override
+    @CacheResult
     public List<BloqueDTO> consultarBloquesVigentesPorTipoEspacio(String tipoEspacio) {
         TipoEspacioDTO tipoEspacioDTO = tipoEspacioService.buscarTipoEspacioPorNombre(tipoEspacio);
         TipoEspacioEntity tipoEspacioEntity = mapper.map(tipoEspacioDTO, TipoEspacioEntity.class);
@@ -126,11 +134,13 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
     }
 
     @Override
+    @CacheResult
     public List<BloqueDTO> consultarBloquesVigentesPorTipoEspacio(TipoEspacioDTO tipoEspacio) {
         return consultarBloquesVigentesPorTipoEspacio(tipoEspacio.getNombre());
     }
 
     @Override
+    @CacheResult
     public List<DiaCalendarioBean> consultarDiasConBloquesDisponibles(String tipoEspacio) {
         TipoEspacioDTO tipoEspacioDTO = tipoEspacioService.buscarTipoEspacioPorNombre(tipoEspacio);
         TipoEspacioEntity tipoEspacioEntity = mapper.map(tipoEspacioDTO, TipoEspacioEntity.class);
@@ -152,11 +162,13 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
     }
 
     @Override
+    @CacheResult
     public BloqueDTO consultarBloque(Long idBloque) {
         return mapper.map(bloqueRepository.findOne(idBloque), BloqueDTO.class);
     }
 
     @Override
+    @CacheRemoveAll
     public List<BloqueDTO> generarBloquesMasivamente(String tipoEspacio, Date fechaInicio, Date fechaFin) {
 
         TipoEspacioDTO tipoEspacioDTO = tipoEspacioService.buscarTipoEspacioPorNombre(tipoEspacio);
@@ -173,11 +185,13 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
     }
 
     @Override
+    @CacheRemoveAll
     public List<BloqueDTO> generarBloquesMasivamente(TipoEspacioDTO tipoEspacio, Date fechaInicio, Date fechaFin) {
         return generarBloquesMasivamente(tipoEspacio.getNombre(), fechaInicio, fechaFin);
     }
 
     @Override
+    @CacheRemoveAll
     public void eliminarBloquesMasivamente(String tipoEspacio, Date diaInicio, Date diaFin) {
         TipoEspacioDTO tipoEspacioDTO = tipoEspacioService.buscarTipoEspacioPorNombre(tipoEspacio);
         TipoEspacioEntity tipoEspacioEntity = mapper.map(tipoEspacioDTO, TipoEspacioEntity.class);
@@ -193,6 +207,7 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
     }
 
     @Override
+    @CacheRemoveAll
     public void eliminarBloquesMasivamente(TipoEspacioDTO tipoEspacioDTO, Date diaInicio, Date diaFin) {
         eliminarBloquesMasivamente(tipoEspacioDTO.getNombre(), diaInicio, diaFin);
     }

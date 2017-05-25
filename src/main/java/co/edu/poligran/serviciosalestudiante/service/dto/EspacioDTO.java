@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 public class EspacioDTO extends BaseDTO {
+    private static final long serialVersionUID = -1864123139179454618L;
     private TipoEspacioDTO tipoEspacio;
     private String nombre;
     private int cupos;

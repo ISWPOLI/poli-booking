@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDTO extends BaseDTO {
-	private String username;
+    private static final long serialVersionUID = 6113370443617210761L;
+    private String username;
 
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;

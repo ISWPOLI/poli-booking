@@ -12,6 +12,7 @@ public class TipoEspacioDTO extends BaseDTO {
     public static final String LABORATORIO_QUIMICA="LABORATORIO_QUIMICA";
     public static final String LABORATORIO_ELECTRONICA="LABORATORIO_ELECTRONICA";
     public static final String LABORATORIO_TELECO="LABORATORIO_TELECO";
+    private static final long serialVersionUID = 8298459152590818438L;
 
     private String nombre;
 

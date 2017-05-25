@@ -3,7 +3,8 @@ package co.edu.poligran.serviciosalestudiante.service.dto;
 import co.edu.poligran.serviciosalestudiante.entities.RoleTypeEnum;
 
 public class RoleDTO extends BaseDTO {
-	private RoleTypeEnum type;
+    private static final long serialVersionUID = 3603880991336955182L;
+    private RoleTypeEnum type;
 
 	public RoleTypeEnum getType() {
 		return type;

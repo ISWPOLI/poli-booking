@@ -7,6 +7,7 @@ import java.time.DayOfWeek;
 import java.util.Date;
 
 public class BloquePlantillaDTO extends BaseDTO {
+    private static final long serialVersionUID = -5815240480060535900L;
     private DayOfWeek dia;
 
     private TipoEspacioDTO tipoEspacio;

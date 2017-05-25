@@ -3,6 +3,7 @@ package co.edu.poligran.serviciosalestudiante.service.dto;
 import java.util.Date;
 
 public class ReservaDTO extends BaseDTO {
+    private static final long serialVersionUID = -9213589675850834258L;
     private Date fechaReserva;
 
     private UsuarioDTO usuario;
