@@ -26,6 +26,10 @@ public interface BloqueRepository extends JpaRepository<BloqueEntity, Long> {
             + "and b.tiempoInicio > current_timestamp() and b.reservas IS EMPTY order by b.tiempoInicio")
     List<BloqueEntity> consultarBloquesVigentesPorTipoEspacio(@Param("tipoEspacio") TipoEspacioEntity tipoEspacio);
 
+    @Query("select distinct b.dia from BloqueEntity b where b.espacio.tipoEspacio = :tipoEspacio "
+            + "and b.tiempoInicio > current_timestamp() and b.reservas IS EMPTY")
+    List<Date> consultarDiasConBloquesVigentesPorTipoEspacio(@Param("tipoEspacio") TipoEspacioEntity tipoEspacio);
+
     @Query("select b from BloqueEntity b where b.espacio.tipoEspacio = :tipoEspacio and b.dia >= :diaInicio " +
             "and b.dia <= :diaFin")
     List<BloqueEntity> findByTipoEspacioAndDateInterval(@Param("tipoEspacio") TipoEspacioEntity tipoEspacio,

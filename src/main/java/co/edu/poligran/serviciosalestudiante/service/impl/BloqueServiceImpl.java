@@ -132,20 +132,23 @@ public class BloqueServiceImpl extends BaseService implements BloqueService {
 
     @Override
     public List<DiaCalendarioBean> consultarDiasConBloquesDisponibles(String tipoEspacio) {
-        List<BloqueDTO> bloquesDTOs = consultarBloquesVigentesPorTipoEspacio(tipoEspacio);
-        return transformarBloquesADias(bloquesDTOs);
+        TipoEspacioDTO tipoEspacioDTO = tipoEspacioService.buscarTipoEspacioPorNombre(tipoEspacio);
+        TipoEspacioEntity tipoEspacioEntity = mapper.map(tipoEspacioDTO, TipoEspacioEntity.class);
+
+        List<Date> dias = bloqueRepository.consultarDiasConBloquesVigentesPorTipoEspacio(tipoEspacioEntity);
+
+        return transformarDiasACalendario(dias);
     }
 
-    private List<DiaCalendarioBean> transformarBloquesADias(List<BloqueDTO> bloquesDTOs) {
-        Map<Long, DiaCalendarioBean> dias = new HashMap();
-        for (BloqueDTO bloqueDTO : bloquesDTOs) {
-            if (!dias.containsKey(bloqueDTO.getDia().getTime())) {
-                DiaCalendarioBean dia = new DiaCalendarioBean();
-                dia.setDia(bloqueDTO.getDia());
-                dias.put(dia.getDia().getTime(), dia);
-            }
+    private List<DiaCalendarioBean> transformarDiasACalendario(List<Date> dias) {
+        List<DiaCalendarioBean> diasCalendario = new ArrayList<>();
+        for (Date dia : dias) {
+            DiaCalendarioBean diaCalendario = new DiaCalendarioBean();
+            diaCalendario.setDia(dia);
+            diasCalendario.add(diaCalendario);
         }
-        return new ArrayList<>(dias.values());
+
+        return diasCalendario;
     }
 
     @Override

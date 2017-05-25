@@ -29,7 +29,7 @@ public class BloquesController extends BaseController {
 
     @RequestMapping(value = "/bloques/bloques-vigentes-por-tipo-espacio", method = RequestMethod.GET)
     public List<DiaCalendarioBean> consultarDiasConBloquesDisponibles(@RequestParam("tipo-espacio") String
-                                                                              tipoEspacio) {
+                                                                                  tipoEspacio) {
         return serviciosFacade.consultarDiasConBloquesDisponibles(tipoEspacio);
     }
 
