@@ -15,8 +15,7 @@ define(['jquery', 'underscore', 'backbone', 'App', 'text!templates/login/login.h
             },
 
             login2: function (event) {
-                var that = this;
-                event.preventDefault();
+                var that = this;              
                 if(event.which==13){
                 	var username = that.$el.find('#username').val();
                 	var password = that.$el.find('#password').val();
