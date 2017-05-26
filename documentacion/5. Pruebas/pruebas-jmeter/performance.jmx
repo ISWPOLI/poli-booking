@@ -15,10 +15,10 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">30</stringProp>
+          <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
-        <stringProp name="ThreadGroup.ramp_time"></stringProp>
+        <stringProp name="ThreadGroup.num_threads">30</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">60</stringProp>
         <longProp name="ThreadGroup.start_time">1495653441000</longProp>
         <longProp name="ThreadGroup.end_time">1495653441000</longProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
@@ -30,8 +30,8 @@
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
-          <stringProp name="HTTPSampler.domain">localhost</stringProp>
-          <stringProp name="HTTPSampler.port">5000</stringProp>
+          <stringProp name="HTTPSampler.domain">custom-env-1.d5pc2n3pxp.us-east-1.elasticbeanstalk.com</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path"></stringProp>
@@ -3859,7 +3859,7 @@
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">C:\Users\acpat\Documents\projects\poli\ingenieria-software-ii\poli-booking\documentacion\5. Pruebas\pruebas-jmeter\resultados\resultados.csv</stringProp>
+        <stringProp name="filename">C:\Users\acpat\Documents\projects\poli\ingenieria-software-ii\poli-booking\documentacion\5. Pruebas\pruebas-jmeter\resultados\performance\resultados.csv</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
@@ -3895,7 +3895,7 @@
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">C:\Users\acpat\Documents\projects\poli\ingenieria-software-ii\poli-booking\documentacion\5. Pruebas\pruebas-jmeter\resultados\resultados.csv</stringProp>
+        <stringProp name="filename">C:\Users\acpat\Documents\projects\poli\ingenieria-software-ii\poli-booking\documentacion\5. Pruebas\pruebas-jmeter\resultados\performance\resultados.csv</stringProp>
       </ResultCollector>
       <hashTree/>
       <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results" enabled="true">
@@ -3931,7 +3931,7 @@
             <connectTime>true</connectTime>
           </value>
         </objProp>
-        <stringProp name="filename">C:\Users\acpat\Documents\projects\poli\ingenieria-software-ii\poli-booking\documentacion\5. Pruebas\pruebas-jmeter\resultados\resultados.csv</stringProp>
+        <stringProp name="filename">C:\Users\acpat\Documents\projects\poli\ingenieria-software-ii\poli-booking\documentacion\5. Pruebas\pruebas-jmeter\resultados\performance\resultados.csv</stringProp>
       </ResultCollector>
       <hashTree/>
       <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
