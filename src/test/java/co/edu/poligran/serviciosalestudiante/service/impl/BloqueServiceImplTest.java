@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import co.edu.poligran.serviciosalestudiante.beans.DiaCalendarioBean;
 import co.edu.poligran.serviciosalestudiante.configuration.SpringBeansConfiguration;
 import co.edu.poligran.serviciosalestudiante.entities.BloqueEntity;
 import co.edu.poligran.serviciosalestudiante.entities.TipoEspacioEntity;
@@ -120,5 +121,45 @@ public class BloqueServiceImplTest {
 		List <BloqueDTO> listaDTO= bloqueServiceImpl.consultarBloquesVigentesPorTipoEspacio(tipoEspacioDTO);
 		assertThat(listaDTO.size(),is(lista.size()));
 	}
+	
+	@Test
+    public void consultarDiasConBloquesDisponiblesTest() {
+        TipoEspacioDTO tipoEspacioDTO = new TipoEspacioDTO();
+        tipoEspacioDTO.setNombre(TipoEspacioDTO.CANCHA_FUTBOL);
+        when(tipoEspacioService.buscarTipoEspacioPorNombre(tipoEspacioDTO.getNombre())).thenReturn(tipoEspacioDTO);
+
+        List<Date> lista = new ArrayList<>();
+        lista.add(new Date());
+
+        when(bloqueRepository.consultarDiasConBloquesVigentesPorTipoEspacio(new TipoEspacioEntity())).thenReturn(lista);
+
+        List<DiaCalendarioBean> listaCalendario = bloqueServiceImpl.consultarDiasConBloquesDisponibles(tipoEspacioDTO
+                .getNombre());
+        assertThat(listaCalendario.size(), is(lista.size()));
+    }
+	
+	@Test
+    public void generarBloquesMasivamenteTest() {
+        TipoEspacioDTO tipoEspacioDTO = new TipoEspacioDTO();
+        tipoEspacioDTO.setNombre(TipoEspacioDTO.CANCHA_FUTBOL);
+        when(tipoEspacioService.buscarTipoEspacioPorNombre(tipoEspacioDTO.getNombre())).thenReturn(tipoEspacioDTO);
+
+        List<EspacioDTO> lista = new ArrayList<>();
+        lista.add(new EspacioDTO());
+        when(espacioService.getEspaciosPorTipoEspacio(tipoEspacioDTO)).thenReturn(lista);
+
+    }
+	
+	@Test
+	public void consultarBloqueTest(){
+		BloqueEntity bloqueEntity=new BloqueEntity();
+		bloqueEntity.setId(40L);
+		when(bloqueRepository.findOne(40L)).thenReturn(bloqueEntity);
+		BloqueDTO bloqueDTO=new BloqueDTO();
+		bloqueDTO.setId(40L);
+		BloqueDTO bdto=bloqueServiceImpl.consultarBloque(40L);
+		assertThat(bloqueDTO.getId(),is(bdto.getId()));
+	}
+	
 	
 }
